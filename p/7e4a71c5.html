@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C语言,单片机,STC89C52," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="内容概述此文章致力于了解单片机开发的基础内容，需要能够读懂单片机原理图，具备一定C语言知识储备，能够使用Keil uVision对程序进行编译生成.hex文件，以及能够将编译好.hex文件通过烧录软件烧录进单片机中进行运行 由于撰写该文章时知识储备尚不足以及不具备数电模电知识的入门用户难以理解一部分知识，因此本文章不进行单片机原理以及各部件原理功能的分析，如有需要可自行从网络上查询相关教学视频进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机开发例程-1">
+<meta property="og:url" content="http://cnwatermeter.github.io/p/7e4a71c5.html">
+<meta property="og:site_name" content="淼表のブログ">
+<meta property="og:description" content="内容概述此文章致力于了解单片机开发的基础内容，需要能够读懂单片机原理图，具备一定C语言知识储备，能够使用Keil uVision对程序进行编译生成.hex文件，以及能够将编译好.hex文件通过烧录软件烧录进单片机中进行运行 由于撰写该文章时知识储备尚不足以及不具备数电模电知识的入门用户难以理解一部分知识，因此本文章不进行单片机原理以及各部件原理功能的分析，如有需要可自行从网络上查询相关教学视频进行">
+<meta property="og:locale">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/7e4a71c5/LED.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/Core.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/STC89C52.png">
+<meta property="article:published_time" content="2021-01-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-22T12:38:14.000Z">
+<meta property="article:author" content="淼表">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="单片机">
+<meta property="article:tag" content="STC89C52">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cnwatermeter.github.io/p/7e4a71c5/LED.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: "",
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://CNwatermeter.github.io/p/7e4a71c5.html"/>
+
+
+
+
+
+  <title>51单片机开发例程-1 | 淼表のブログ</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淼表のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Live in the present.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://CNwatermeter.github.io/p/7e4a71c5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淼表のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">51单片机开发例程-1</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-01T00:00:00+08:00">
+                2021-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/p/7e4a71c5.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/p/7e4a71c5.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>此文章致力于了解单片机开发的基础内容，需要能够读懂单片机原理图，具备一定C语言知识储备，能够使用Keil uVision对程序进行编译生成<code>.hex</code>文件，以及能够将编译好<code>.hex</code>文件通过烧录软件烧录进单片机中进行运行</p>
+<p>由于撰写该文章时知识储备尚不足以及不具备数电模电知识的入门用户难以理解一部分知识，因此本文章不进行单片机原理以及各部件原理功能的分析，如有需要可自行从网络上查询相关教学视频进行学习</p>
+<a id="more"></a>
+
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
+<li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
+<li>3.一根micro USB to USB A数据线</li>
+</ul>
+<h1 id="点亮第一个LED"><a href="#点亮第一个LED" class="headerlink" title="点亮第一个LED"></a>点亮第一个LED</h1><h2 id="LED模块原理"><a href="#LED模块原理" class="headerlink" title="LED模块原理"></a>LED模块原理</h2><p>在点亮LED前，我们首先需要知道点亮LED的原理以及如何点亮LED</p>
+<img src="/p/7e4a71c5/LED.png" class title="LED灯">
+
+<p>从原理图中我们可以看到，单片机上的LED模块是由8个LED灯电阻串联后并联而成，并且通过LED灯的方向我们可以得知，VCC处为高电平，<code>P2*</code>处为低电平时LED灯才会被点亮，反之由于二极管的单向导通性则LED灯不会被点亮，控制VCC处的电平无法控制单个LED灯，所以要控制LED灯就要通过<code>P20-P27</code>这8个<code>I/O</code>口的电平为低电平才能控制并点亮LED灯</p>
+<h2 id="单片机核心原理"><a href="#单片机核心原理" class="headerlink" title="单片机核心原理"></a>单片机核心原理</h2><p>单片机核心控制外部电路的原理简单来说就是控制各个<code>I/O</code>口的高低电平来实现的，从单片机核心原理图中可以看到在核心引出的管脚中也有<code>P20-P27</code>这8个<code>I/O</code>口，那么我们只需要通过程序控制单片机<code>I/O</code>口输出的高低电平就可以直接控制LED灯</p>
+<p><img src="/p/Core.png" alt="单片机核心"></p>
+<h2 id="编写程序"><a href="#编写程序" class="headerlink" title="编写程序"></a>编写程序</h2><p>单片机使用的语言是C语言，编写程序需要一定C语言基础但是对C语言要求并不是特别高，基础薄弱也可以从最基础的例程中学习到C语言知识，并且由于单片机相比于在电脑上运行能够更好地锻炼实际应用能力，所以从单片机开始学习巩固C语言也是很好的选择</p>
+<p>众所周知，在之前的C语言学习中，在写代码之前都要调用头文件以及<code>main</code>函数构建起代码基本的框架</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line"><span class="comment">//代码内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同理，在单片机开发中同样需要用到这些内容，但是由于电脑CPU核心的工作原理与单片机核心工作原理不同，我们需要调用的头文件也不同，并且我们需要让程序一直运行，那么就需要在<code>main</code>函数内添加一个<code>while</code>循环来实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt; //STC89C52单片机头文件</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="comment">//代码内容</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>搭建好程序的框架之后就可以开始写程序了，从前面的原理分析可知，要让单片机上的LED灯发光，就要向P20-P27这8个<code>I/O</code>口中输出低电平，对应的LED灯就会被点亮</p>
+<p>那么如何在程序中表示这些<code>I/O</code>口呢，只需要在P2与之后的数字中加入符号<code>^</code>就可以直接以变量的形式调用表示的端口，我们首先来尝试点亮第一个（D1）和最后一个（D8）LED灯</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    P2^<span class="number">0</span> = <span class="number">0</span>; <span class="comment">//点亮D1</span></span><br><span class="line">    P2^<span class="number">7</span> = <span class="number">0</span>; <span class="comment">//点亮D8</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行上述代码，编译器会报错</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MAIN.C(错误代码的行数):errer C141: syntax error near <span class="string">&#x27;=&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码的含义为：在“=”附近的代码有语法错误，这是为什么呢？因为在<code>main</code>函数中，<code>^</code>是一个二进制逻辑运算符，代表异或运算，也就是参与运算的两个变量如果相同那么输出<code>0</code>，如果不同那么输出<code>1</code>，由于异或运算符已经进行了运算，所以在其之后不能加“=”号了，如果加了“=”号，那么这一行代码的错误就与<code>1+1=2</code>一样，把赋值运算符<code>=</code>与数学中的等于号<code>=</code>混淆了，编译器自然会报错</p>
+<p>那么在程序中我们如何修改<code>P2^0</code>与<code>P2^7</code>这两个<code>I/O</code>口的电平呢，此时，我们就需要定义单个<code>I/O</code>口<code>sbit</code>来重新定义这两个<code>I/O</code>口</p>
+<p>定义特殊寄存器的位变量<code>sbit</code>（在单片机开发中，说人话就是定义单个<code>I/O</code>口的指令），它的功能是定义单个<code>I/O</code>口，因此sbit的存储位数只有1位（如char：8位）即只有1和0两种情况，分别对应<code>I/O</code>口的高低电平</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//特殊寄存器的位变量定义格式 sbit 变量名 = 变量；</span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>；</span><br></pre></td></tr></table></figure>
+<p>知道了以上知识，就可以写出正确的代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>;</span><br><span class="line">sbit LED8 = P2^<span class="number">7</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  LED1 = <span class="number">0</span>;</span><br><span class="line">  LED8 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行后单片机LED灯模块只有D1和D8两个LED灯持续亮起，证明程序正确</p>
+<h1 id="控制LED灯闪烁"><a href="#控制LED灯闪烁" class="headerlink" title="控制LED灯闪烁"></a>控制LED灯闪烁</h1><h2 id="LED灯闪烁原理"><a href="#LED灯闪烁原理" class="headerlink" title="LED灯闪烁原理"></a>LED灯闪烁原理</h2><p>要使LED灯不断闪烁，我们就需要让控制LED灯亮起的<code>I/O</code>口在1和0之前来回切换，并且每次切换后都有一定的延时来保证人眼能够看到闪烁的效果，此时就需要用到一个函数：延时函数</p>
+<h2 id="晶振原理"><a href="#晶振原理" class="headerlink" title="晶振原理"></a>晶振原理</h2><p>延时函数要控制的参数必然是延时的时常，要使得单片机能够控制时长，我们就需要用到单片机上计时的重要组件：晶振</p>
+<blockquote>
+<p>晶体是指其中的原子、分子、或离子以规则、重复的模式朝各方向延伸的一种固体。</p>
+<p>晶体与几乎所有的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E5%BD%88%E6%80%A7">弹性</a>物质都具有自然共振频率，透过适当的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E4%BC%A0%E6%84%9F%E5%99%A8">传感器</a>可加以利用。例如<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%92%A2">钢铁</a>具有良好弹性、音速快，在石英晶体大量应用以前，钢铁被用作<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E6%A9%9F%E6%A2%B0%E6%BF%BE%E6%B3%A2%E5%99%A8">机械式滤波器</a>。共振频率取决于晶体的尺寸、形状、弹性、与物质内的音速。高频用的晶体通常是切成简单的形状，如方形片状。典型的低频用晶体则常切成<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9F%B3%E5%8F%89">音叉</a>形，例如手表所使用的。如不需要太高的精确度，则也可以使用<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/w/index.php?title=%E9%99%B6%E7%93%B7%E8%AB%A7%E6%8C%AF%E5%99%A8&action=edit&redlink=1">陶瓷谐振器</a>取代石英晶体谐振器。</p>
+<p>运用石英晶体上的电极对一颗被适当切割并安置的石英晶体施以<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A0%B4">电场</a>时，晶体会产生变形。这就是逆压电效应。当外加电场移除时，石英晶体会恢复原状并发出电场，因而在电极上产生电压。这样的特性造成石英晶体在电路中的行为，类似于某种<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%84%9F%E5%99%A8">电感器</a>、<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%AE%B9%E5%99%A8">电容器</a>、与<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E9%98%BB%E5%99%A8">电阻器</a>所组合成的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-RLC%E7%94%B5%E8%B7%AF">RLC电路</a>。组合中的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%84%9F">电感</a><a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%AE%B9">电容</a>谐振频率则反映了石英晶体的实体共振频率。</p>
+<p>石英晶体的优点是在温度变化时，影响震荡频率的弹性系数与尺寸变化轻微，因而在频率特性上表现稳定。共振的特性还取决于振动模式与石英的切割角度（相对于晶轴而言），目前常用的是AT切割，它的振荡是厚度剪切（thickness shear）振荡模式。此外，在需要高精密度与稳定性的严格场合，石英晶体会放置于<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/w/index.php?title=%E6%81%86%E6%BA%AB%E7%AE%B1&action=edit&redlink=1">恒温箱</a>与吸振容器内，以防止外部温度与震动的干扰。</p>
+<p>——引用自<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/wiki/%E6%99%B6%E6%8C%AF#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">Wikipedia</a></p>
+</blockquote>
+<p>简而言之就是晶振会以一个固定频率进行震荡，从而输出一个周期等于振荡周期的脉冲波，单片机通过这个固定频率的脉冲波来实现对时间的控制，单片机上使用的晶振频率为11.0592MHz，而一个机器周期（单片机运行一句代码的时长）是12个震荡周期，通过计算可以大致求得运行100,000（10万）条代码所需的时长为0.9216s，为了便于计算，可以四舍五入求得运行10w条代码所需的时间为0.9s</p>
+<h2 id="延时函数"><a href="#延时函数" class="headerlink" title="延时函数"></a>延时函数</h2><p>要控制延时的时长就要控制延时函数内所执行的代码的数量，通过输入要执行代码的条数在函数内进行减法运算是实现延时函数最好的方法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span> <span class="params">(<span class="keyword">int</span> time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time --)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们需要的延时超过了int的范围怎么办？此时可以使用<code>long</code>等能够存储位数较长的变量，由于延时函数所用到的数字都是正数，也可以使用<code>unsigned</code>来将所需范围扩大至原来的2倍，但是<code>unsigned int</code>这样的变量类型太长，如何简单地表示一个变量类型，可以使用声明定义<code>typedef</code>来重新声明变量类型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//格式 typedef 被重新声明的变量类型 重新声明的变量类型</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8 <span class="comment">//代表8位正变量</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16 <span class="comment">//代表16位正变量</span></span><br></pre></td></tr></table></figure>
+<h2 id="编写程序-1"><a href="#编写程序-1" class="headerlink" title="编写程序"></a>编写程序</h2><p>有了延时函数，实现LED灯的闪烁便十分简单</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//定义延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    LED1 = <span class="number">0</span>; <span class="comment">//控制LED灯亮起</span></span><br><span class="line">    delay(<span class="number">50000</span>); <span class="comment">//延时约450ms</span></span><br><span class="line">    LED1 = <span class="number">1</span>; <span class="comment">//控制LED灯熄灭</span></span><br><span class="line">    delay(<span class="number">50000</span>); <span class="comment">//延时约450ms</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123; <span class="comment">//定义延时函数</span></span><br><span class="line">  <span class="keyword">while</span>(time --)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上述程序中，我们使用的变量是位变量，因此也可以使用二进制逻辑运算</p>
+<ul>
+<li>与运算<code>&amp;</code>         有0得0</li>
+<li>或运算<code>|</code>         有1得1</li>
+<li>非运算<code>~</code>         取反</li>
+<li>异或运算<code>^</code>     不同为1，相同为0</li>
+</ul>
+<p>在之前通过讲解为什么不能在程序中直接使用<code>P2^0</code>已经了解到了异或运算，这里列举最基础也是最常用的4种二进制逻辑运算，结合本例程我们可以使用非运算来进行LED亮与不亮的切换</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//定义延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    LED1 = ~LED1; <span class="comment">//切换LED灯状态</span></span><br><span class="line">    delay(<span class="number">50000</span>); <span class="comment">//延时约450ms</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123; <span class="comment">//定义延时函数</span></span><br><span class="line">  <span class="keyword">while</span>(time --)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="LED流水灯"><a href="#LED流水灯" class="headerlink" title="LED流水灯"></a>LED流水灯</h1><h2 id="宏定义端口"><a href="#宏定义端口" class="headerlink" title="宏定义端口"></a>宏定义端口</h2><p>要使得8个LED灯依次亮起，就要用到全部8个P2端口的<code>I/O</code>口，使用<code>sbit</code>进行逐个定义可以实现功能，但是变量过多程序编写太过复杂，因此可以使用宏定义定义整个<code>P2</code>端口进行程序编写</p>
+<p>宏定义<code>#define</code>属于预处理指令，“宏定义”也就是全局定义，也就是说进行宏定义的变量不单单可以在<code>main</code>函数中调用，其他的函数中同样可以调用，而“预处理”顾名思义，也就是在<code>main</code>函数执行之前，预先执行的指令，我们可以通过<code>main</code>函数来对端口，表达式或者是数字进行宏定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//宏定义格式 #define 变量名 变量</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED P2 <span class="comment">//定义整个端口</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pi 3.1415926 <span class="comment">//定义数字变量</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> A x+y <span class="comment">//定义一个表达式</span></span></span><br></pre></td></tr></table></figure>
+<p>如何通过改变<code>P2</code>端口的值来改变其中的8个<code>I/O</code>口的值呢？<code>P2^0</code>相当于1位变量，那么<code>P2</code>端口就相当于8位变量，因为在编写程序之前LED灯是不亮的，故<code>P2</code>端口各<code>I/O</code>口初始时为高电平，用位来表示也就是8个<code>I/O</code>口的值均为1，<code>P2</code>就等于<code>0b 1111 1111</code>，<code>I/O</code>口在端口中的分布顺序为从右向左，也就是当D1灯亮起的时候<code>P2=0b 1111 11110</code>，然而在Keil uVision中不支持二进制的表示，我们可以通过8进制，10进制，16进制来表示，由于16进制每1位正好可以表示2进制中的4位，因此我们常用16进制来进行数据的输入，比如要使得D1亮起就要让<code>P2=0xFE</code>，要使得D8亮起就要让<code>P2=0x7F</code></p>
+<h2 id="编写程序-2"><a href="#编写程序-2" class="headerlink" title="编写程序"></a>编写程序</h2><p>要简单地实现流水灯的效果，就要按位进行运算，此处引入一个新的头文件<code>intrins.h</code>这个头文件中包含了二进制循环左移&amp;循环右移的运算</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_crol_(变量,位数) <span class="comment">//循环左移</span></span><br><span class="line">_cror_(变量,位数) <span class="comment">//循环右移</span></span><br></pre></td></tr></table></figure>
+<p>以循环左移为例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">运算前后：0b 1111 1110 ----&gt; 0b 1111 1101</span><br><span class="line">数值溢出后回到第一位：0b 0111 1111 ----&gt; 0b 1111 1110</span><br></pre></td></tr></table></figure>
+<p>因此使用二进制循环移动可以实现LED灯依次亮起并熄灭</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;intrins.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED P2</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//定义延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  LED = <span class="number">0xFE</span>; <span class="comment">//初始化LED灯模块使得D1灯亮起</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    delay(<span class="number">50000</span>); <span class="comment">//延时约450ms</span></span><br><span class="line">    LED = _crol_(LED,<span class="number">1</span>); <span class="comment">//LED灯从左向右依次亮起熄灭</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123; <span class="comment">//定义延时函数</span></span><br><span class="line">  <span class="keyword">while</span>(time --)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在之前的C语言学习中，我们还学习过二进制运算的左移&amp;右移运算<code>&lt;&lt;</code>&amp;<code>&gt;&gt;</code>这两个运算区别于循环运算</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LED = LED &lt;&lt; <span class="number">1</span>; <span class="comment">//左移</span></span><br><span class="line"><span class="number">0b</span> <span class="number">1111</span> <span class="number">1110</span> —&gt; <span class="number">0b</span> <span class="number">1111</span> <span class="number">1100</span></span><br><span class="line">LED = _crol_(LED,<span class="number">1</span>) <span class="comment">//循环左移</span></span><br><span class="line"><span class="number">0b</span> <span class="number">1111</span> <span class="number">1110</span> —&gt; <span class="number">0b</span> <span class="number">1111</span> <span class="number">1101</span></span><br></pre></td></tr></table></figure>
+<p>也就是说只需稍加修改刚刚的流水灯的代码就可以通过位移运算实现LED灯依次亮起但是不熄灭的效果</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;intrins.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED P2</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//定义延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(LED == <span class="number">0x00</span>)&#123;LED = <span class="number">0x01</span>;&#125; <span class="comment">//LED灯全部亮起使得D1灯熄灭</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(LED == <span class="number">0xFF</span>)&#123;LED = <span class="number">0xFE</span>;&#125; <span class="comment">//LED灯全部熄灭使得D1灯亮起</span></span><br><span class="line">    delay(<span class="number">50000</span>); <span class="comment">//延时约450ms</span></span><br><span class="line">    LED = LED &lt;&lt; <span class="number">1</span>; <span class="comment">//LED灯从左向右依次亮起</span></span><br><span class="line">    delay(<span class="number">50000</span>); <span class="comment">//延时约450ms</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123; <span class="comment">//定义延时函数</span></span><br><span class="line">  <span class="keyword">while</span>(time --)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在点亮D1-D8这8个LED灯的过程中，尤其是流水灯这种动态点亮LED灯的程序执行的过程中，我们可以发现动态数码管模块上的数字也会随着LED灯的点亮而进行“不规律”的闪烁，通过观察原理图可以看到，在其他很多模块比如<code>EEPROM模块</code>,<code>74HC138译码器</code>中都出现了<code>P2</code>端口中的<code>I/O</code>口，这是由于单片机上的<code>I/O</code>口的数量较少，不像桌面CPU那样动辄上千个管脚，因此需要节约<code>I/O</code>口，用尽可能少的<code>I/O</code>口实现尽可能多的功能，因此在某些情况下可能会出现这样的冲突现象，由于51单片机仅供学习使用，我们一般来说是学习单片机上各个模块的作用，要自行编写一个较大的工程则需要自行根据需要实现的功能来设计电路，所以对于学习用的单片机上这样的冲突情况我们可以暂且忽略，只需要实现需要实现的功能内容即可</p>
+<p><img src="/p/STC89C52.png" alt="单片机"></p>
+<p>单片机的学习的核心是实践，通过在单片机上运行所写的程序能够直观的看到程序运行的状况以及结果如何，进而通过对程序进行调整，并且也能通过将自己的想法在单片机上运行起来来增长自己的知识储备以及实践能力</p>
+<p>千里之行始于足下，通过点亮LED say <code>Hello World！</code></p>
+<hr>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>通过将自己的学习进度以及学习到的内容以编写教程来体现出来，能够更好地巩固自己的知识的同时也能发现自己在某些知识面上的不足，并且为自己之后回顾基础知识提供了宝贵的材料，也对将要或者正在学习单片机的朋友提供一定帮助，今天是2月1日，我将会在2月这4周内完成单片机的学习并撰写相关教程，由于知识储备不足以及相关技术材料没有带回家，在撰写本文时一定会有在知识层面不足以及理解偏差之处，若能指正感激不尽，PC端可以通过右下角打开我的联系方式，手机端由于该模块的缺失快捷链接放在此处，联系方式仅限于Email和Telegram，由于个人隐私信息问题暂时不提供QQ，WeChat等联系方式</p>
+<ul>
+<li><a href="mailto:watermeter114514@foxmail.com">E-Mail</a></li>
+<li><a target="_blank" rel="noopener" href="https://t.me/miaobiao">Telegram</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/CNwatermeter">Github</a></li>
+</ul>
+<hr>
+<p><i class="fa fa-repeat" aria-hidden="true"></i>   更新于2020/2/22</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    淼表
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://cnwatermeter.github.io/p/7e4a71c5.html" title="51单片机开发例程-1">http://cnwatermeter.github.io/p/7e4a71c5.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank"><i class="fa fa-cc" aria-hidden="true"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-bookmark"></i> C语言</a>
+          
+            <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag"><i class="fa fa-bookmark"></i> 单片机</a>
+          
+            <a href="/tags/STC89C52/" rel="tag"><i class="fa fa-bookmark"></i> STC89C52</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/af180990.html" rel="next" title="第一篇测试文章">
+                <i class="fa fa-chevron-left"></i> 第一篇测试文章
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/e743207f.html" rel="prev" title="51单片机开发例程-2">
+                51单片机开发例程-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CNwatermeter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/miaobiao" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/CNwatermeter" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:watermeter114514@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google.com/" title="Google" target="_blank">Google</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://wikipedia.org/" title="Wikipedia" target="_blank">Wikipedia</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://snapdrop.net/#" title="Snapdrop" target="_blank">Snapdrop</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://saucenao.com/" title="SauceNAO" target="_blank">SauceNAO</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://fontawesome.com/v4.7.0/icons/#web-application/" title="Icon" target="_blank">Icon</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">内容概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%82%B9%E4%BA%AE%E7%AC%AC%E4%B8%80%E4%B8%AALED"><span class="nav-number">3.</span> <span class="nav-text">点亮第一个LED</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LED%E6%A8%A1%E5%9D%97%E5%8E%9F%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">LED模块原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E7%89%87%E6%9C%BA%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">单片机核心原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.3.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6LED%E7%81%AF%E9%97%AA%E7%83%81"><span class="nav-number">4.</span> <span class="nav-text">控制LED灯闪烁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LED%E7%81%AF%E9%97%AA%E7%83%81%E5%8E%9F%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">LED灯闪烁原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%B6%E6%8C%AF%E5%8E%9F%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">晶振原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E6%97%B6%E5%87%BD%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">延时函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F-1"><span class="nav-number">4.4.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LED%E6%B5%81%E6%B0%B4%E7%81%AF"><span class="nav-number">5.</span> <span class="nav-text">LED流水灯</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89%E7%AB%AF%E5%8F%A3"><span class="nav-number">5.1.</span> <span class="nav-text">宏定义端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F-2"><span class="nav-number">5.2.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-code"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">淼表</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered By <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> </div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'xraqmf9N7GKwUpxgnX5rnodm-gzGzoHsz',
+        appKey: 'IGuVrALBxmnoUrV3uw93R8dQ',
+        placeholder: '发条评论吧～',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

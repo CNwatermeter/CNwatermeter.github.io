@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C语言,单片机,STC89C52,74HC138,74HC245," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="内容概述在这一章的内容中，将会学习到另一个运用非常广泛的元器件：数码管，数码管常用来表示16进制及以内的数字，因此可以显示我们要输入单片机的数字以及单片机输出的数字，在计算器，电子时钟以及一些可以调节简单参数的机械中都有数码管的广泛运用，因此熟练掌握数码管的使用是单片机学习过程中必不可少的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机开发例程-3">
+<meta property="og:url" content="http://cnwatermeter.github.io/p/904410e9.html">
+<meta property="og:site_name" content="淼表のブログ">
+<meta property="og:description" content="内容概述在这一章的内容中，将会学习到另一个运用非常广泛的元器件：数码管，数码管常用来表示16进制及以内的数字，因此可以显示我们要输入单片机的数字以及单片机输出的数字，在计算器，电子时钟以及一些可以调节简单参数的机械中都有数码管的广泛运用，因此熟练掌握数码管的使用是单片机学习过程中必不可少的">
+<meta property="og:locale">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/904410e9/SMG.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/904410e9/74HC138.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/904410e9/e61190ef76c6a7eff649c979fdfaaf51f3de6605.png">
+<meta property="article:published_time" content="2021-02-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-23T10:51:42.000Z">
+<meta property="article:author" content="淼表">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="单片机">
+<meta property="article:tag" content="STC89C52">
+<meta property="article:tag" content="74HC138">
+<meta property="article:tag" content="74HC245">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cnwatermeter.github.io/p/904410e9/SMG.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: "",
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://CNwatermeter.github.io/p/904410e9.html"/>
+
+
+
+
+
+  <title>51单片机开发例程-3 | 淼表のブログ</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淼表のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Live in the present.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://CNwatermeter.github.io/p/904410e9.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淼表のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">51单片机开发例程-3</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-03T00:00:00+08:00">
+                2021-02-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/p/904410e9.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/p/904410e9.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  28
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>在这一章的内容中，将会学习到另一个运用非常广泛的元器件：数码管，数码管常用来表示16进制及以内的数字，因此可以显示我们要输入单片机的数字以及单片机输出的数字，在计算器，电子时钟以及一些可以调节简单参数的机械中都有数码管的广泛运用，因此熟练掌握数码管的使用是单片机学习过程中必不可少的</p>
+<a id="more"></a>
+
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
+<li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
+<li>3.一根micro USB to USB A数据线</li>
+</ul>
+<h1 id="数码管显示数字"><a href="#数码管显示数字" class="headerlink" title="数码管显示数字"></a>数码管显示数字</h1><h2 id="数码管原理"><a href="#数码管原理" class="headerlink" title="数码管原理"></a>数码管原理</h2><p>在我们的单片机上有两个型号标注为<code>3461AS-1</code>的数码管，每个数码管都可以显示4位数字，单片机通过将这两个数码管靠近摆放且联结在一起来将数码管能够同时显示的位数相加达到8位</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/led%E6%95%B0%E7%A0%81%E7%AE%A1">led数码管</a>（LED Segment Displays）是由多个发光二极管封装在一起组成“8”字型的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%99%A8%E4%BB%B6">器件</a>，引线已在内部连接完成，只需引出它们的各个笔划，公共电极。led数码管常用段数一般为7段有的另加一个小数点，还有一种是类似于3位“+1”型。位数有半位，1，2，3，4，5，6，8，10位等等，led数码管根据LED的接法不同分为共阴和共阳两类，了解LED的这些特性，对编程是很重要的，因为不同类型的数码管，除了它们的硬件电路有差异外，编程方法也是不同的。图2是共阴和共阳极数码管的内部电路，它们的发光原理是一样的，只是它们的电源极性不同而已。颜色有红，绿，蓝，黄等几种。led数码管广泛用于仪表，时钟，车站，家电等场合。选用时要注意产品尺寸颜色，功耗，亮度，波长等。</p>
+<p>——引用自<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E7%A0%81%E7%AE%A1/9903965?fr=aladdin">百度百科</a></p>
+</blockquote>
+<p>在单片机中，数码管的接法为<strong>共阴型</strong>，也就是说，数码管LED的负极接在一起，靠控制LED的正极来点亮数码管，共阳数码管与上述相反，因此，我们只需要给连接到数码管的管脚以高电平即可点亮数码管，重点来了，如何控制第几个数码管亮起以及数码管内显示怎样的图形数字呢？</p>
+<img src="/p/904410e9/SMG.png" class title="数码管">
+
+<p>通过原理图我们可以看到，<code>P0</code>端口通过芯片<code>74HC245</code>连接到了数码管的一极，而<code>P0</code>端口的8位正好对应数码管1位内的8个LED灯，这8个LED灯分别由构成了数字“8”的7个LED灯以及右下角的1个表示小数点的LED灯组成，我们将这8个<code>I/O</code>口称之为数码管的<strong>段选</strong>，由段选控制单个数码管所要显示的数字符号</p>
+<blockquote>
+<p>观察原理图我们可以看出，在<code>74HC245</code>芯片中输入与输出一一对应，那为什么还要通过这个芯片来控制数码管呢？这是由于单片机核心起的作用是控制作用，其输出的电流电压很小，只能驱动单个LED这样电流电压较小的元件，不足以驱动一些功耗相对较大的电子元件，比如数码管，电机等</p>
+</blockquote>
+<p>那又怎样选择要使得哪个数码管被点亮呢？如果将每一条线都直接接入单片机的管脚上，我们可以通过控制对应 <code>I/O</code>口输出的高低电平来控制第几个数码管被点亮，这就是数码管的<strong>位选</strong>，虽然这种方法看起来可行，但是这种方法太占用<code>I/O</code>口了，我们的单片机一共才只有40个<code>I/O</code>口，像上面那种方法的话就要占用16个，为了尽可能的节约<code>I/O</code>口并且让我们学习到两种不同的信号输入输出的方法，单片机上还引入了一个芯片：<code>74HC138译码器</code></p>
+<img src="/p/904410e9/74HC138.png" class title="74HC138译码器">
+
+<p>138译码器通过ABC3个输入来达到Y0-Y7这8个输出的效果，我们可以简单理解为将2进制信号输出为10进制信号，3位2进制数字正好可以表示8个数字，按二进制数字算：其中高电平代表0，低电平代表1，查阅芯片手册我们可以得知译码器的信号判断规则，举个例子：输入A1B1C1时，化为二进制0b000，因此Y0输出0，其他输出1；输入A1B0C1时，化为二进制0b010，因此Y2输出0，其他输出1；输入A1B0C0时，化为二进制0b011，因此Y6输出0，其他输出1</p>
+<img src="/p/904410e9/e61190ef76c6a7eff649c979fdfaaf51f3de6605.png" class title="译码器功能表">
+
+<h2 id="编写程序"><a href="#编写程序" class="headerlink" title="编写程序"></a>编写程序</h2><p>知道了通过<strong>段选</strong>和<strong>位选</strong>来控制数码管显示什么显示哪一位，我们就可以开始编写程序了，按照正常思维逻辑，我们要先知道要选哪一位，再考虑显示什么，因此我们的程序从位选开</p>
+<p>但是在开始前我们需要注意一个问题，数码管其实就是LED灯按照一定形状排列组合而成，LED灯具有二极管的单向导通性，如何确定那一端为正那一端为负呢，在这一章的最开始我们提到过，这个单片机是使用的共阴的数码管模块，负极接在一起，通过数码管的原理图可以看到，每个数码管还分出了一条线，由于每个数码管从下方（位选）输入8条线，而只从上方（段选）输出1条线，又数码管是共阴的，我们可以得知图示上方（位选）的线为低电平，下方（段选）的线为高电平时数码管被点亮</p>
+<blockquote>
+<p><i class="fa fa-info-circle" aria-hidden="true"></i>    我们在第一节的内容中曾经讲过通过typedef重新定义变量类型，因为重新定义后的变量名更加简略且易读，因此从本章节开始使用这一内容，但是需要注意重新定义后变量的长度</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; <span class="comment">//代表8位正数</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16; <span class="comment">//代表16位正数</span></span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; <span class="comment">//定义译码管ABC三个输入</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  u8 LED; <span class="comment">//LED是要显示的数码管的位数</span></span><br><span class="line">  LED = <span class="number">3</span>; <span class="comment">//让从左到右第3个数码管亮起</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">       <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//要显示第1位也就是要让如图LED8输出为0低电平，以下以此类推</span></span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行后我们发现第3个数码管的8个LED灯均亮起，说明程序正确无误，那么我们就要进行下一个环节，段码的选择</p>
+<p>仔细观察图纸我们可以发现，段选对应的8个引脚在图上分别作了a,b,c,d,,e,f,g,dp的标注，同时在单个数码管的每个LED上也作了对应的标注，意思就是如果标注a的管脚输出了低电平就可以使得a被点亮，因此我们宏定义整个<code>P0</code>端口，通过16进制的方法对每个数字一一进行表示</p>
+<p>为了快速读取<code>I/O</code>口与LED代号的关系，我们可以读图将其写出来</p>
+<table>
+<thead>
+<tr>
+<th>P0^0</th>
+<th>P0^1</th>
+<th>P0^2</th>
+<th>P0^3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>P0^4</th>
+<th>P0^5</th>
+<th>P0^6</th>
+<th>P0^7</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>e</td>
+<td>f</td>
+<td>g</td>
+<td>dp</td>
+</tr>
+</tbody></table>
+<p>以1为例子，要让数码管显示的数字为1，那么也就是说代号为b和c的LED灯输出高电平，也就是<code>P0^1``P0^2</code>输出高电平，那么<code>P0</code>端口就为<code>0b00000110</code>，换算为编译器能够使用的16进制就为：<code>0x06</code></p>
+<p>以2为例子，要让数码管显示的数字为2，那么也就是说代号为a,b,g,e,d的LED灯输出高电平，也就是<code>P0^0``P0^1``P0^6``P0^4``P0^3</code>输出高电平，那么<code>P0</code>端口就为<code>0b01011011</code>，换算为编译器能够使用的16进制就为：<code>0x5b</code></p>
+<p>其他的数字这里也就不单独推算了，最终要使得显示16进制数字那么也就一共有16个，这么多难以记忆的16进制数字如何简单快捷的调用呢，我们可以将其储存在数组中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">u8 code SMG[]=&#123;</span><br><span class="line">  <span class="comment">/*我们编写的程序都是在单片机的RAM中运行的</span></span><br><span class="line"><span class="comment">  如果在数组变量类型后加code,那么可以让数组中存储的数据存储在ROM中*/</span></span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>将上述数组并入之前写好的程序中并对需要的端口进行宏定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; <span class="comment">//代表8位正数</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16; <span class="comment">//代表16位正数</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 <span class="comment">//宏定义数码管端口</span></span></span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; <span class="comment">//定义译码管ABC三个输入</span></span><br><span class="line">u8 code SMG[]=&#123; <span class="comment">//在ROM中存储数码管段码的数组</span></span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  u8 LED; <span class="comment">//LED是要显示的数码管的位数</span></span><br><span class="line">  LED = <span class="number">3</span>; <span class="comment">//让从左到右第3个数码管亮起</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//要显示第1位也就是要让如图LED8输出为0低电平，以下以此类推</span></span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    GPIO_DIG = SMG[<span class="number">5</span>]; <span class="comment">//数码管显示数字5</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行，第3个数码管上显示出了数字5，说明程序正确</p>
+<h1 id="动态数码管显示数字"><a href="#动态数码管显示数字" class="headerlink" title="动态数码管显示数字"></a>动态数码管显示数字</h1><h2 id="动态显示原理"><a href="#动态显示原理" class="headerlink" title="动态显示原理"></a>动态显示原理</h2><p>完成刚刚的程序后，那么问题又来了，在我们平常看到的数码管中，都可以多个数字同时显示，并且数码管设计这么多位也不可能只显示一位，如何让数码管一次性显示多个数字呢？这里就要用到动态扫描显示的原理</p>
+<p>所谓动态扫描显示即轮流向各位数码管送出字形码（段码）和相应的位码，利用发光管的余辉和人眼的视觉暂留作用，使人的感觉好像各位数码管同时都在显示，就好像我们平时使用的显示器每秒刷新60次，120次一样</p>
+<h2 id="编写程序-1"><a href="#编写程序-1" class="headerlink" title="编写程序"></a>编写程序</h2><p>实现动态刷新，就需要一个循环函数将数码管一次次地执行，因为数码管有8位，所以我们循环的最小单位是8，也就是说我们刷新一次屏幕，循环函数要让上面的程序执行8次，因此我们采用for循环，而每次扫描后，我们需要清除段码，否则段码可能会被带入下一次循环中，因为下面示例的程序是要让第几个数码管显示数字几，那么直接把段码选择放到位码前面不就好了吗，实际上在运行过程中还是会产生影响，你可以试着运行一下，显示出来的数字是乱的，并且每一位实际显示的数字是<em>应该显示的数字</em>和<em>应该显示的数字+1</em>的叠加，至于为什么，在撰写这篇文章的时候我也不太清楚原因，大概是与寄存器有关，因此此处不做解答，如果有了解这一方面的同学可以给我发邮件或者电报一起讨论</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; <span class="comment">//代表8位正数</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16; <span class="comment">//代表16位正数</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 <span class="comment">//宏定义数码管端口</span></span></span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; <span class="comment">//定义译码管ABC三个输入</span></span><br><span class="line">u8 code SMG[]=&#123; <span class="comment">//在ROM中存储数码管段码的数组</span></span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  u8 LED; <span class="comment">//LED是要显示的数码管的位数</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span>(LED = <span class="number">8</span>; LED &gt; <span class="number">0</span>; LED--)&#123; <span class="comment">//每次扫描循环执行8次，从右向左刷新，如果for循环内改为“LED = 1;LED &lt; 8;LED ++”为从左向右刷新，此处两种方法是等效的</span></span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//要显示第1位也就是要让如图LED8输出为0低电平，以下以此类推</span></span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    GPIO_DIG = SMG[LED]; <span class="comment">//第几个数码管显示数字几</span></span><br><span class="line">    GPIO_DIG = <span class="number">0x00</span>; <span class="comment">//消隐</span></span><br><span class="line">  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行上述程序后我们发现，虽然数码管显示了我们需要的数字，但是亮度较低，这是因为单位时间内显示的时间太少，之前我们讲到过单片机运行每条指令都需要时间，我们可以看到在段选之后立马就是消隐，因此在扫描一次运行了好几条代码的时间中，真正显示的时间只有一条代码显示的时间，假设一共运行了10条代码，那么显示时间就是1/10，为了让数码管单位时间内显示的时间增加，我们就需要用到我们的老朋友：延时函数，我们进行延时100条代码的时间，那么显示时间就变成了101/110，亮度就会增加，但是随之刷新率也会降低，因此我们不但要高亮度也要兼顾刷新率</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; <span class="comment">//代表8位正数</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16; <span class="comment">//代表16位正数</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 <span class="comment">//宏定义数码管端口</span></span></span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; <span class="comment">//定义译码管ABC三个输入</span></span><br><span class="line">u8 code SMG[]=&#123; <span class="comment">//在ROM中存储数码管段码的数组</span></span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  u8 LED; <span class="comment">//LED是要显示的数码管的位数</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span>(LED = <span class="number">8</span>; LED &gt; <span class="number">0</span>; LED--)&#123; <span class="comment">//每次扫描循环执行8次，从右向左刷新，如果for循环内改为“LED = 1;LED &lt; 8;LED ++”为从左向右刷新，此处两种方法是等效的</span></span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//要显示第1位也就是要让如图LED8输出为0低电平，以下以此类推</span></span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    GPIO_DIG = SMG[LED]; <span class="comment">//第几个数码管显示数字几</span></span><br><span class="line">    delay(<span class="number">100</span>); <span class="comment">//间隔一段时间扫描</span></span><br><span class="line">    GPIO_DIG = <span class="number">0x00</span>; <span class="comment">//消隐</span></span><br><span class="line">  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123; <span class="comment">//延时函数</span></span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样每隔一小段时间扫描一次，就能显著提升数码管亮度，但是为什么延时100呢，因为如果设置时间过短，亮度还是相对较低，如果设置较长，人眼就能看到明显闪烁，设置为200时依然能够依稀感知到闪烁，因此100在这个程序里是一个相对较好的延时时长，你可以尝试使用较高的延时时长或者在100延时下使用手机的慢动作模式以每秒240fps以上的录制帧率录制都可以看到数码管在从左向右依次刷新，这便是数码管的动态扫描显示</p>
+<h1 id="动态数码管的显示函数"><a href="#动态数码管的显示函数" class="headerlink" title="动态数码管的显示函数"></a>动态数码管的显示函数</h1><p>因为数码管显示是单片机开发过程中的一个重要部分，我们不妨将其写成函数方便日后使用，由于这个函数的执行就已经在数码管上实现了数据的输出，所以我们不需要在函数中返回数值，但是我们要输入一个数字来让数码管显示这个数字，又因为数字需要在数码管上一位一位的显示，因此我们还要将数字的每一位分开来，并且数字不单单是正数，还有负数，小数，以及超出数码管显示范围的数字，我们要对这些数字一一进行处理，但是为了简单易懂，我们从正数开始</p>
+<h2 id="动态数码管显示正整数"><a href="#动态数码管显示正整数" class="headerlink" title="动态数码管显示正整数"></a>动态数码管显示正整数</h2><p>按照我们生活中其他数码管设备的显示方式，不满8位的数字应该向右对齐，因此，应当把数码管扫描从左向右扫描改为从右向左扫描，接下来要在段码存储的数组<code>SMG</code>中加入空白项，使得当前数码管不显示任何内容，再将之前的代码mian函数中除了<code>while</code>循环的部分都移到了新函数<code>DigDisplay</code>中</p>
+<p>对于函数<code>DigDisplay</code>我们要对其输入一个数字，使其显示我们输入的数字，我们编写此函数的目的是输出8位及以内的正整数，因此存储的数字也需要达到8个数字的长度，但是单片机核心是8bit核心，跟我们之前学习电脑时使用的64bit，32bit核心不同，8bit的数据类型所占字节数也与之前不一样</p>
+<table>
+<thead>
+<tr>
+<th>int</th>
+<th>long</th>
+<th>float</th>
+<th>double</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2byte</td>
+<td>4byte</td>
+<td>4byte</td>
+<td>8byte</td>
+</tr>
+<tr>
+<td>-32768～32767</td>
+<td>-2.1E+9～2.1E+9</td>
+<td>-3.4E+38～3.4E+38</td>
+<td>-1.8E+308～1.8E+308</td>
+</tr>
+</tbody></table>
+<p>根据上述在8bit核心下数据类型所占字节的表格，我们可以得知要让数码管显示8位数字，需要选择4字节以上的数据类型，此处使用正整数，因此选用long</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; <span class="comment">//代表8位正数</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16; <span class="comment">//代表16位正数</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 <span class="comment">//宏定义数码管端口</span></span></span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; <span class="comment">//定义译码管ABC三个输入</span></span><br><span class="line">u8 code SMG[]=&#123; <span class="comment">//在ROM中存储数码管段码的数组</span></span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>; <span class="comment">//动态数码管显示函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123; <span class="comment">//主函数</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    DigDisplay(<span class="number">6</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123; <span class="comment">//延时函数</span></span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>&#123; <span class="comment">//动态数码管显示函数</span></span><br><span class="line">  <span class="keyword">char</span> LED; <span class="comment">//LED是要显示的数码管的位数</span></span><br><span class="line">  <span class="keyword">for</span>(LED = <span class="number">8</span>; LED &gt; <span class="number">0</span>; LED--)&#123; <span class="comment">//每次扫描循环执行8次，从右向左刷新，如果for循环内改为“LED = 1;LED &lt; 8;LED ++”为从左向右刷新，此处选用从右向左刷新</span></span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//要显示第1位也就是要让如图LED8输出为0低电平，以下以此类推</span></span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    GPIO_DIG = SMG[LED]; <span class="comment">//第几个数码管显示数字几</span></span><br><span class="line">    delay(<span class="number">100</span>); <span class="comment">//间隔一段时间扫描</span></span><br><span class="line">    GPIO_DIG = <span class="number">0x00</span>; <span class="comment">//消隐</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行上述程序，数码管所显示的还是之前的内容，如何向函数输入一个正整数使数码管显示我们输入的数字呢，我们首先要将输入的数字进行处理，将其每一位分开，在之前C语言学习中我们可以用取余和除法很容易实现这个内容，因为变量LED在进入循环之前用不到，我们可以利用LED来求得输入的数字长度来减少定义一个新变量，但是我们还需要考虑不足8位以及超出8位的问题，那么我们首先对数字的长度进行判断，如果数字太长就报警</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//引入蜂鸣器表示输入数字错误</span></span><br><span class="line"><span class="keyword">if</span>(num &gt; <span class="number">99999999</span>)&#123; <span class="comment">//数字超长则触发蜂鸣器警报，程序在蜂鸣器中循环</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    beep = ~beep;</span><br><span class="line">    delay(<span class="number">100</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; <span class="comment">//代表8位正数</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16; <span class="comment">//代表16位正数</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 <span class="comment">//宏定义数码管端口</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义制蜂鸣器</span></span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; <span class="comment">//定义译码管ABC三个输入</span></span><br><span class="line">u8 code SMG[]=&#123; <span class="comment">//在ROM中存储数码管段码的数组</span></span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>; <span class="comment">//动态数码管显示函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123; <span class="comment">//主函数</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    DigDisplay(<span class="number">114514</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123; <span class="comment">//延时函数</span></span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>&#123; <span class="comment">//动态数码管显示函数</span></span><br><span class="line">  <span class="keyword">long</span> LED = <span class="number">10</span>; <span class="comment">//LED是要显示的数码管的位数，同时作为除数求num长度</span></span><br><span class="line">  u8 numlong = <span class="number">1</span>; <span class="comment">//数字长度</span></span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">99999999</span>)&#123; <span class="comment">//数字超长则触发蜂鸣器警报</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;beep = ~beep;delay(<span class="number">100</span>);&#125;&#125;</span><br><span class="line">  <span class="keyword">while</span>(num / LED)&#123; <span class="comment">//求数字长度</span></span><br><span class="line">    LED *= <span class="number">10</span>;</span><br><span class="line">    numlong ++;&#125; </span><br><span class="line">  <span class="keyword">for</span>(LED = <span class="number">8</span>; LED &gt; <span class="number">8</span> - numlong; LED--)&#123; <span class="comment">//每次扫描循环执行8次</span></span><br><span class="line">    <span class="comment">//为了让高于输入数字位数的数码管不显示，因此我们要将数字长度带入循环，使得刷新完输入数字所在位数即停止，那么未扫描到的数码管就会不显示数字</span></span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//要显示第1位也就是要让如图LED8输出为0低电平，以下以此类推</span></span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    GPIO_DIG = SMG[num % <span class="number">10</span>]; <span class="comment">//第几个数码管显示数字几</span></span><br><span class="line">    num /= <span class="number">10</span>; <span class="comment">//数字减位</span></span><br><span class="line">    delay(<span class="number">100</span>); <span class="comment">//间隔一段时间扫描</span></span><br><span class="line">    GPIO_DIG = <span class="number">0x00</span>; <span class="comment">//消隐</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译执行上述代码，我们可以看到数码管上显示了我们输入的数字：114514，因此该程序实现了我们的需求，上述函数主要是添加了对输入数字的长度检测以及对输入数字的逐位分离，这些内容都非常简单，但是如何整合进函数中需要一定思考，仔细研究上述代码，待研究透彻后即可进入下一步，其实这一步是该函数最为复杂的一步，之后的负数以及小数都是对原函数稍加修改，大同小异</p>
+
+
+<h2 id="动态数码管显示负数"><a href="#动态数码管显示负数" class="headerlink" title="动态数码管显示负数"></a>动态数码管显示负数</h2><p>我们实现了正数的显示，那么负数只需要判断是否为负数然后显示的时候加一个负号即可，并且由于负号的存在，数码管显示的位数就只有7位了，这一点需要注意</p>
+<p>那么开始添加代码，首先先判断输入的数字是否为负数，如果是那么输出它的绝对值，并且将位数控制在7位</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; <span class="comment">//代表8位正数</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16; <span class="comment">//代表16位正数</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 <span class="comment">//宏定义数码管端口</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义制蜂鸣器</span></span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; <span class="comment">//定义译码管ABC三个输入</span></span><br><span class="line">u8 code SMG[]=&#123; <span class="comment">//在ROM中存储数码管段码的数组</span></span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>; <span class="comment">//动态数码管显示函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123; <span class="comment">//主函数</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    DigDisplay(<span class="number">-114514</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123; <span class="comment">//延时函数</span></span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>&#123; <span class="comment">//动态数码管显示函数</span></span><br><span class="line">  <span class="keyword">long</span> LED = <span class="number">10</span>; <span class="comment">//LED是要显示的数码管的位数，同时作为除数求num长度</span></span><br><span class="line">  u8 numlong = <span class="number">1</span>; <span class="comment">//数字长度</span></span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">99999999</span> || num &lt; <span class="number">-9999999</span>)&#123; <span class="comment">//数字超长则触发蜂鸣器警报</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;beep = ~beep;delay(<span class="number">100</span>);&#125;&#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(num &lt; <span class="number">0</span>)&#123;num *= <span class="number">-1</span>;&#125; <span class="comment">//如果数字小于0则取绝对值</span></span><br><span class="line">  <span class="keyword">while</span>(num / LED)&#123; <span class="comment">//求数字长度</span></span><br><span class="line">    LED *= <span class="number">10</span>;</span><br><span class="line">    numlong ++;&#125; </span><br><span class="line">  <span class="keyword">for</span>(LED = <span class="number">8</span>; LED &gt; <span class="number">8</span> - numlong; LED--)&#123; <span class="comment">//每次扫描循环执行8次</span></span><br><span class="line">    <span class="comment">//为了让高于输入数字位数的数码管不显示，因此我们要将数字长度带入循环，使得刷新完输入数字所在位数即停止，那么未扫描到的数码管就会不显示数字</span></span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//要显示第1位也就是要让如图LED8输出为0低电平，以下以此类推</span></span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    GPIO_DIG = SMG[num % <span class="number">10</span>]; <span class="comment">//第几个数码管显示数字几</span></span><br><span class="line">    num /= <span class="number">10</span>; <span class="comment">//数字减位</span></span><br><span class="line">    delay(<span class="number">100</span>); <span class="comment">//间隔一段时间扫描</span></span><br><span class="line">    GPIO_DIG = <span class="number">0x00</span>; <span class="comment">//消隐</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来，我们要将判断出的正负以变量的形式代入扫描，使负数扫描的次数比数字的长度多一次，并且在多的那一次中加入负号，负号的段码我们保存在之前的数组中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; <span class="comment">//代表8位正数</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16; <span class="comment">//代表16位正数</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 <span class="comment">//宏定义数码管端口</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义制蜂鸣器</span></span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; <span class="comment">//定义译码管ABC三个输入</span></span><br><span class="line">u8 code SMG[]=&#123; <span class="comment">//在ROM中存储数码管段码的数组</span></span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,<span class="number">0x40</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>; <span class="comment">//动态数码管显示函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123; <span class="comment">//主函数</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    DigDisplay(<span class="number">-114514</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123; <span class="comment">//延时函数</span></span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>&#123; <span class="comment">//动态数码管显示函数</span></span><br><span class="line">  <span class="keyword">long</span> LED = <span class="number">10</span>; <span class="comment">//LED是要显示的数码管的位数，同时作为除数求num长度</span></span><br><span class="line">  u8 numlong = <span class="number">1</span>; <span class="comment">//数字长度</span></span><br><span class="line">  u8 PosNeg = <span class="number">1</span>; <span class="comment">//该变量为0时代表数字为负数</span></span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">99999999</span> || num &lt; <span class="number">-9999999</span>)&#123;<span class="keyword">while</span>(<span class="number">1</span>)&#123;beep = ~beep;delay(<span class="number">100</span>);&#125;&#125;  <span class="comment">//数字超长则触发蜂鸣器警报</span></span><br><span class="line">  <span class="keyword">if</span>(num &lt; <span class="number">0</span>)&#123;num *= <span class="number">-1</span>;PosNeg = <span class="number">0</span>;numlong ++&#125; <span class="comment">//如果数字小于0则取绝对值，将数字为负数的信息传入扫描循环，并且多扫描一次以显示负号</span></span><br><span class="line">  <span class="keyword">while</span>(num / LED)&#123; <span class="comment">//求数字长度</span></span><br><span class="line">    LED *= <span class="number">10</span>;</span><br><span class="line">    numlong ++;&#125; </span><br><span class="line">  <span class="keyword">for</span>(LED = <span class="number">8</span>; LED &gt; <span class="number">8</span> - numlong; LED--)&#123; <span class="comment">//每次扫描循环执行8次</span></span><br><span class="line">    <span class="comment">//为了让高于输入数字位数的数码管不显示，因此我们要将数字长度带入循环，使得刷新完输入数字所在位数即停止，那么未扫描到的数码管就会不显示数字</span></span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//要显示第1位也就是要让如图LED8输出为0低电平，以下以此类推</span></span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(PosNeg == <span class="number">0</span> &amp;&amp; LED == <span class="number">2</span>)&#123;GPIO_DIG = SMG[<span class="number">16</span>];&#125; <span class="comment">//负数最后一位显示负号</span></span><br><span class="line">    <span class="keyword">else</span>&#123;GPIO_DIG = SMG[num % <span class="number">10</span>];&#125; <span class="comment">//第几个数码管显示数字几</span></span><br><span class="line">    num /= <span class="number">10</span>; <span class="comment">//数字减位</span></span><br><span class="line">    delay(<span class="number">100</span>); <span class="comment">//间隔一段时间扫描</span></span><br><span class="line">    GPIO_DIG = <span class="number">0x00</span>; <span class="comment">//消隐</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="动态数码管显示小数"><a href="#动态数码管显示小数" class="headerlink" title="动态数码管显示小数"></a>动态数码管显示小数</h2><p>待完善…….</p>
+<hr>
+<p><i class="fa fa-info-circle" aria-hidden="true"></i>   更新于2020/2/23</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    淼表
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://cnwatermeter.github.io/p/904410e9.html" title="51单片机开发例程-3">http://cnwatermeter.github.io/p/904410e9.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank"><i class="fa fa-cc" aria-hidden="true"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-bookmark"></i> C语言</a>
+          
+            <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag"><i class="fa fa-bookmark"></i> 单片机</a>
+          
+            <a href="/tags/STC89C52/" rel="tag"><i class="fa fa-bookmark"></i> STC89C52</a>
+          
+            <a href="/tags/74HC138/" rel="tag"><i class="fa fa-bookmark"></i> 74HC138</a>
+          
+            <a href="/tags/74HC245/" rel="tag"><i class="fa fa-bookmark"></i> 74HC245</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/e743207f.html" rel="next" title="51单片机开发例程-2">
+                <i class="fa fa-chevron-left"></i> 51单片机开发例程-2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/631a1438.html" rel="prev" title="危险品押运员生活体验">
+                危险品押运员生活体验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CNwatermeter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/miaobiao" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/CNwatermeter" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:watermeter114514@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google.com/" title="Google" target="_blank">Google</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://wikipedia.org/" title="Wikipedia" target="_blank">Wikipedia</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://snapdrop.net/#" title="Snapdrop" target="_blank">Snapdrop</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://saucenao.com/" title="SauceNAO" target="_blank">SauceNAO</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://fontawesome.com/v4.7.0/icons/#web-application/" title="Icon" target="_blank">Icon</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">内容概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%A0%81%E7%AE%A1%E6%98%BE%E7%A4%BA%E6%95%B0%E5%AD%97"><span class="nav-number">3.</span> <span class="nav-text">数码管显示数字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%A0%81%E7%AE%A1%E5%8E%9F%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">数码管原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.2.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%95%B0%E7%A0%81%E7%AE%A1%E6%98%BE%E7%A4%BA%E6%95%B0%E5%AD%97"><span class="nav-number">4.</span> <span class="nav-text">动态数码管显示数字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">动态显示原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F-1"><span class="nav-number">4.2.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%95%B0%E7%A0%81%E7%AE%A1%E7%9A%84%E6%98%BE%E7%A4%BA%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">动态数码管的显示函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%95%B0%E7%A0%81%E7%AE%A1%E6%98%BE%E7%A4%BA%E6%AD%A3%E6%95%B4%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">动态数码管显示正整数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%95%B0%E7%A0%81%E7%AE%A1%E6%98%BE%E7%A4%BA%E8%B4%9F%E6%95%B0"><span class="nav-number">5.2.</span> <span class="nav-text">动态数码管显示负数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%95%B0%E7%A0%81%E7%AE%A1%E6%98%BE%E7%A4%BA%E5%B0%8F%E6%95%B0"><span class="nav-number">5.3.</span> <span class="nav-text">动态数码管显示小数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-code"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">淼表</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered By <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> </div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'xraqmf9N7GKwUpxgnX5rnodm-gzGzoHsz',
+        appKey: 'IGuVrALBxmnoUrV3uw93R8dQ',
+        placeholder: '发条评论吧～',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

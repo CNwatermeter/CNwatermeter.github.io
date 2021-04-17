@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C语言,单片机,STC89C52," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="内容概述此章学习到单片机上的一个重要部件：蜂鸣器 蜂鸣器通过发出声音来达到提示以及播放音乐的功能，可以让使用者能够简单地判断单片机是否实现了自己想要的效果比如：开始工作，输出结果，程序故障等等，而蜂鸣器又分为有源蜂鸣器和无源蜂鸣器，在此单片机上使用的是无源蜂鸣器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机开发例程-2">
+<meta property="og:url" content="http://cnwatermeter.github.io/p/e743207f.html">
+<meta property="og:site_name" content="淼表のブログ">
+<meta property="og:description" content="内容概述此章学习到单片机上的一个重要部件：蜂鸣器 蜂鸣器通过发出声音来达到提示以及播放音乐的功能，可以让使用者能够简单地判断单片机是否实现了自己想要的效果比如：开始工作，输出结果，程序故障等等，而蜂鸣器又分为有源蜂鸣器和无源蜂鸣器，在此单片机上使用的是无源蜂鸣器">
+<meta property="og:locale">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/BEEP.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/ULN2003D.png">
+<meta property="article:published_time" content="2021-02-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-19T07:21:15.000Z">
+<meta property="article:author" content="淼表">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="单片机">
+<meta property="article:tag" content="STC89C52">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cnwatermeter.github.io/p/BEEP.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: "",
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://CNwatermeter.github.io/p/e743207f.html"/>
+
+
+
+
+
+  <title>51单片机开发例程-2 | 淼表のブログ</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淼表のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Live in the present.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://CNwatermeter.github.io/p/e743207f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淼表のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">51单片机开发例程-2</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-02T00:00:00+08:00">
+                2021-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/p/e743207f.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/p/e743207f.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>此章学习到单片机上的一个重要部件：蜂鸣器</p>
+<p>蜂鸣器通过发出声音来达到提示以及播放音乐的功能，可以让使用者能够简单地判断单片机是否实现了自己想要的效果比如：开始工作，输出结果，程序故障等等，而蜂鸣器又分为有源蜂鸣器和无源蜂鸣器，在此单片机上使用的是无源蜂鸣器</p>
+<a id="more"></a>
+
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
+<li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
+<li>3.一根micro USB to USB A数据线</li>
+</ul>
+<h1 id="驱动蜂鸣器发声"><a href="#驱动蜂鸣器发声" class="headerlink" title="驱动蜂鸣器发声"></a>驱动蜂鸣器发声</h1><h2 id="蜂鸣器原理"><a href="#蜂鸣器原理" class="headerlink" title="蜂鸣器原理"></a>蜂鸣器原理</h2><p>单片机上使用的蜂鸣器是无源蜂鸣器，这种蜂鸣器又被称为压电蜂鸣器，原因是这种蜂鸣器发声的原理是压电效应</p>
+<blockquote>
+<p>当对压电材料施以物理压强时，材料体内之<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E7%94%B5%E5%81%B6%E6%9E%81%E7%9F%A9">电偶极矩</a>会因压缩而变短，此时压电材料为抵抗这变化会在材料相对的表面上产生等量正负电荷，以保持原状。这种由于<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E5%BD%A2%E8%AE%8A">形变</a>而产生<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%A5%B5%E5%8C%96">电极化</a>的现象称为“正压电效应”。若欲持续产生电能，须使材料振动。</p>
+<p>正压电效应实质上是机械能转化为电能的过程。</p>
+<p>当在压电材料表面施加<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A0%B4">电场</a>（电压），因电场作用时电偶极矩会被拉长，压电材料为抵抗变化，会沿电场方向伸长。这种通过电场作用而产生机械形变的过程称为“逆压电效应”。</p>
+<p>逆压电效应实质上是电能转化为机械能的过程。</p>
+<p>——引用自<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/wiki/%E5%A3%93%E9%9B%BB%E6%95%88%E6%87%89">Wikipedia</a></p>
+</blockquote>
+<p>如何使得蜂鸣器发生且发出不同声音？我们可以通过改变蜂鸣器连接到单片机引脚输出交变电压波形的频率来调整控制蜂鸣器的音调，也可以改变输出交变电压占空比来控制蜂鸣器声音的大小</p>
+<blockquote>
+<p>Un buzzer (transducteur) piézoélectrique est typiquement composé d’un diaphragme piézoélectrique, d’une cavité avec un orifice et de connexions pour les bornes électriques. Il nécessite une tension alternative pour fonctionner, de quelques volts à quelques dizaines de volts (3 V à 30 V par exemple). C’est ce type de <a target="_blank" rel="noopener" href="https://fr.wikipedia.org/wiki/Transducteur">transducteur</a> que l’on retrouve au dos des montres ayant une fonction alarme.Il présente une fréquence de résonance optimale de quelques kilohertz, entre 1 kHz et 5 kHz en général, par exemple 2,8 kHz ou 3 kHz, mais il peut atteindre des fréquences plus hautes jusqu’à 80 kHz. Il faut donc un oscillateur chargé de produire un signal rectangulaire, ce dernier pouvant facilement être construit avec des portes logiques ou avec des transistors. Si on applique au transducteur piézoélectrique un signal donné sur une de ses bornes, et le même signal mais en opposition de phase sur son autre borne, il sera en mesure de délivrer une puissance quadruple, avec une tension d’alimentation identique (montage en pont, même principe que celui adopté pour certains amplificateurs audio de puissance).</p>
+<p>压电蜂鸣器通常由压电隔膜，带孔的空腔和电气端子的连接组成。它需要交替电压才能运行，从几伏特到几十伏特（例如3伏到30伏特）。这种<a target="_blank" rel="noopener" href="https://fr.wikipedia.org/wiki/Transducteur">传感器</a>可以在手表背面找到，具有报警功能。它的最佳共振频率为几千赫，一般在1千赫至5千赫之间，例如2.8千赫或3千赫2，但它可以达到高达80千赫3的更高频率。因此，有必要有一个振荡器来负责产生矩形信号，该信号可以很容易地使用逻辑门或晶体管构建。如果给定的信号被施加到其一个终端上的压电传感器上，并且信号相同，但与另一个终端相位相反，它将能够以相同的电源电压（桥接安装，与某些功率音频放大器采用的原理相同）提供四倍功率。</p>
+<p>——引用自<a target="_blank" rel="noopener" href="https://fr.wikipedia.org/wiki/Bipeur">Wikipedia</a></p>
+</blockquote>
+<p>了解了蜂鸣器的工作原理后，现在回到单片机原理图对实际情况进行分析</p>
+<p><img src="/p/BEEP.png" alt="蜂鸣器"></p>
+<p>从原理图中可以看到，蜂鸣器的一端接VCC，另一段接BZ，之前在LED灯模块我们也遇到过VCC这个管脚，并且通过二极管原理推断出了VCC处是高电平，那么VCC到底有什么含义呢</p>
+<ul>
+<li>VCC（Volt Current Condenser）电路的供电电压</li>
+<li>GND（Ground）电线接地端</li>
+</ul>
+<p>以上两个在电路中常用的简写一个代表高电平，一个代表低电平，这样我们就能通过原理图更加明确地读出各个元器件工作时对应<code>I/O</code>口应该输出高电平还是低电平了</p>
+<p>而BZ又是什么含义呢？</p>
+<p><img src="/p/ULN2003D.png" alt="ULN2003D"></p>
+<p>仔细观察原理图，我们还可以在<code>ULN2003D</code>这个芯片的管脚处看到BZ的身影：<code>P1^5</code>连接<code>IN5</code>，<code>IN5</code>连接<code>OUT5</code>，<code>OUT5</code>连接<code>BZ</code>，因此，我们可以通过控制<code>P1^5</code>输出的高低电平来控制BZ的高低电平进而控制蜂鸣器，那么为什么需要使用<code>ULN2003D</code>芯片对蜂鸣器进行驱动呢，这是因为该元件内含7个达林顿管，在电子电路里的主要特点是大电流容量和高电压输出，常作为驱动器使用，可以直接驱动蜂鸣器，继电器，步进马达等负载</p>
+<blockquote>
+<p>ULN2003是一种高压大电流的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E5%85%B1%E5%B0%84%E6%A5%B5">共发射极</a><a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%81%94%E6%9E%97%E9%A0%93%E9%9B%BB%E6%99%B6%E9%AB%94">达林顿晶体管</a>数组<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E7%A9%8D%E9%AB%94%E9%9B%BB%E8%B7%AF">集成电路</a>，内含7组达林顿对管，每组对管的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%B5%81">电流</a>容量是500mA，输出的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A3%93">电压</a>最高50V。该集成电路还集成了7只共阴极形式连接的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E7%BB%AD%E6%B5%81%E4%BA%8C%E6%9E%81%E7%AE%A1">续流二极管</a>，用于电感性负载的开关动作的电流续流。</p>
+<p>——引用自<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-ULN2003A?wprov=srpw1_0">Wikipedia</a></p>
+<p>达灵顿晶体管是<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E7%94%B5%E5%AD%90%E5%AD%A6">电子学</a>中由两个（甚至多个）<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E5%8F%8C%E6%9E%81%E6%80%A7%E6%99%B6%E4%BD%93%E7%AE%A1">双极性晶体管</a>（或者其他类似的集成电路或分立元件）组成的复合结构，通过这样的结构，经第一个双极性晶体管放大的电流可以进一步被放大。]这样的结构可以提供一个比其中任意一个双极性晶体管高得多的电流<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E5%A2%9E%E7%9B%8A">增益</a>。在使用集成电流芯片的情况里，达灵顿晶体管可以使得芯片比使用两个分立晶体管元件占用更少的空间，因为两个晶体管可以共用一个<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/w/index.php?title=%E9%9B%86%E7%94%B5%E6%9E%81&action=edit&redlink=1">集电极</a>。达灵顿晶体管通常被封装在单一的芯片里，从外面看就像一个双极性晶体管。有时，集成电路芯片中会包含8个这样的结构方便使用。</p>
+<p>——引用自<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%81%94%E6%9E%97%E9%A0%93%E9%9B%BB%E6%99%B6%E9%AB%94">Wikipedia</a></p>
+</blockquote>
+<h2 id="编写程序"><a href="#编写程序" class="headerlink" title="编写程序"></a>编写程序</h2><p>有了以上知识，我们很容易就可以得知只需在程序中让<code>P1^5</code>管脚输出的电平以一定频率在高低电平间切换就可以控制蜂鸣器发出声音的音调</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义控制蜂鸣器的I/O口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    beep = ~beep; <span class="comment">//控制高低电平来回切换</span></span><br><span class="line">    delay(<span class="number">100</span>); <span class="comment">//延时0.9ms，使得发出声音的频率约为0.55KHz</span></span><br><span class="line">    <span class="comment">//高低电平之间切换时间相同，占空比为50%</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行，单片机成功发出声音，但是需要注意，在使用之前建议将蜂鸣器上的保护贴纸撕掉，不然可能会一定程度上影响发声的频率</p>
+<p>如果要改变蜂鸣器发生的频率，只需要改变延时函数参数即可</p>
+<p>那么如果要改变占空比来改变蜂鸣器发声的大小又该如何修改程序，其实只需要将<code>while</code>循环中的代码复制一下后再改一下<code>beep</code>的赋值即可，这样就可以通过修改两个延时函数延时之和所占比例来调节占空比进而调节声音大小</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义控制蜂鸣器的I/O口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    beep = <span class="number">1</span>; <span class="comment">//控制高电平</span></span><br><span class="line">    delay(<span class="number">50</span>); <span class="comment">//延时0.45ms</span></span><br><span class="line">     beep = <span class="number">0</span>; <span class="comment">//控制低电平</span></span><br><span class="line">    delay(<span class="number">150</span>); <span class="comment">//延时1.35ms</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但实际上通过调节占空比来调节蜂鸣器响度的方法效果并不好，在房间内进行135s持续响度测试得出以下数据</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><a href="mailto:&#48;&#46;&#49;&#49;&#75;&#x48;&#122;&#64;&#48;&#46;&#x31;">&#48;&#46;&#49;&#49;&#75;&#x48;&#122;&#64;&#48;&#46;&#x31;</a>%</th>
+<th><a href="mailto:&#x30;&#46;&#49;&#49;&#x4b;&#72;&#122;&#64;&#x39;&#57;&#x2e;&#57;">&#x30;&#46;&#49;&#49;&#x4b;&#72;&#122;&#64;&#x39;&#57;&#x2e;&#57;</a>%</th>
+<th>无蜂鸣器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>平均响度</td>
+<td>26dB</td>
+<td>33dB</td>
+<td>11dB</td>
+</tr>
+</tbody></table>
+<p>当然，增大响度的方法还有增大电压，但是在前期学习中难以实现增大电压的方法，并且在学习过程中蜂鸣器的响度对学习以及程序的正常运行没有影响，因此只需要知道改变占空比与电压都可以改变蜂鸣器的占空比即可</p>
+<hr>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>通过本章的内容，我们又学习到了一种数据输出的方法，蜂鸣器的原理较为复杂，涉及到一部分电子知识，之前没有基础的同学也完全可以暂且忽略原理，只需要知道驱动蜂鸣器需要脉冲波，且在单片机上还需要通过一个大电流高电压的元器件来驱动即可，同时我们也发现要实现一项功能可能不止需要单个元件，还需要其他芯片配合使用，所以当遇到不熟悉的管脚不妨到其他元件上找找是否有这个管脚</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    淼表
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://cnwatermeter.github.io/p/e743207f.html" title="51单片机开发例程-2">http://cnwatermeter.github.io/p/e743207f.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank"><i class="fa fa-cc" aria-hidden="true"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-bookmark"></i> C语言</a>
+          
+            <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag"><i class="fa fa-bookmark"></i> 单片机</a>
+          
+            <a href="/tags/STC89C52/" rel="tag"><i class="fa fa-bookmark"></i> STC89C52</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/7e4a71c5.html" rel="next" title="51单片机开发例程-1">
+                <i class="fa fa-chevron-left"></i> 51单片机开发例程-1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/904410e9.html" rel="prev" title="51单片机开发例程-3">
+                51单片机开发例程-3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CNwatermeter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/miaobiao" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/CNwatermeter" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:watermeter114514@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google.com/" title="Google" target="_blank">Google</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://wikipedia.org/" title="Wikipedia" target="_blank">Wikipedia</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://snapdrop.net/#" title="Snapdrop" target="_blank">Snapdrop</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://saucenao.com/" title="SauceNAO" target="_blank">SauceNAO</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://fontawesome.com/v4.7.0/icons/#web-application/" title="Icon" target="_blank">Icon</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">内容概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E8%9C%82%E9%B8%A3%E5%99%A8%E5%8F%91%E5%A3%B0"><span class="nav-number">3.</span> <span class="nav-text">驱动蜂鸣器发声</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%9C%82%E9%B8%A3%E5%99%A8%E5%8E%9F%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">蜂鸣器原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.2.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">4.</span> <span class="nav-text">后记</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-code"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">淼表</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered By <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> </div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'xraqmf9N7GKwUpxgnX5rnodm-gzGzoHsz',
+        appKey: 'IGuVrALBxmnoUrV3uw93R8dQ',
+        placeholder: '发条评论吧～',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

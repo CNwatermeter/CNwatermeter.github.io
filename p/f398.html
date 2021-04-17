@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C语言,单片机,STC89C52," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="内容概述在之前三章的内容中，我们学习到了三种信息输出的方法：独立LED灯，蜂鸣器，数码管，这一章我们开始学习信息输入的方法，相信你早就看到了主板上K1-K4四个独立按键以及S1-S16十六个矩阵按键，这些都是通过按键输入信息来控制单片机执行特定程序的有效方法，当然，在学习之前，你需要先将红外接收原件取下，具体原因我将在本章内容中讨论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机开发例程-4">
+<meta property="og:url" content="http://cnwatermeter.github.io/p/f398.html">
+<meta property="og:site_name" content="淼表のブログ">
+<meta property="og:description" content="内容概述在之前三章的内容中，我们学习到了三种信息输出的方法：独立LED灯，蜂鸣器，数码管，这一章我们开始学习信息输入的方法，相信你早就看到了主板上K1-K4四个独立按键以及S1-S16十六个矩阵按键，这些都是通过按键输入信息来控制单片机执行特定程序的有效方法，当然，在学习之前，你需要先将红外接收原件取下，具体原因我将在本章内容中讨论">
+<meta property="og:locale">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/f398/qckg.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/f398/dlaj.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/f398/jzaj.png">
+<meta property="article:published_time" content="2021-02-23T10:53:28.000Z">
+<meta property="article:modified_time" content="2021-02-28T14:58:42.000Z">
+<meta property="article:author" content="淼表">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="单片机">
+<meta property="article:tag" content="STC89C52">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cnwatermeter.github.io/p/f398/qckg.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: "",
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://CNwatermeter.github.io/p/f398.html"/>
+
+
+
+
+
+  <title>51单片机开发例程-4 | 淼表のブログ</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淼表のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Live in the present.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://CNwatermeter.github.io/p/f398.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淼表のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">51单片机开发例程-4</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-23T18:53:28+08:00">
+                2021-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/p/f398.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/p/f398.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>在之前三章的内容中，我们学习到了三种信息输出的方法：独立LED灯，蜂鸣器，数码管，这一章我们开始学习信息输入的方法，相信你早就看到了主板上K1-K4四个独立按键以及S1-S16十六个矩阵按键，这些都是通过按键输入信息来控制单片机执行特定程序的有效方法，当然，在学习之前，你需要先将红外接收原件取下，具体原因我将在本章内容中讨论</p>
+<a id="more"></a>
+
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
+<li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
+<li>3.一根micro USB to USB A数据线</li>
+<li>4.取下IR1红外接收器模块</li>
+</ul>
+<h1 id="独立按键"><a href="#独立按键" class="headerlink" title="独立按键"></a>独立按键</h1><h2 id="独立按键原理"><a href="#独立按键原理" class="headerlink" title="独立按键原理"></a>独立按键原理</h2><p>单片机上使用的开关为轻触开关，是一种电子开关，轻轻按开关按钮就可以使开关接通，松开手后开关断开，开关如下图所示，有四个引脚，两两连接分为初始导通和初始不导通，其效果顾名思义</p>
+<img src="/p/f398/qckg.png" class title="轻触开关原理">
+
+<p>再看开发版原理图，原理非常简单，单片机<code>I/O</code>口与<code>GND</code>通过轻触开关连接，当按键按下时，对应的<code>I/O</code>口就为低电平，只需要单片机检测对应的<code>I/O</code>口是否为低电平就可得知按键是否被按下</p>
+<img src="/p/f398/dlaj.png" class title="独立按键模块">
+
+<h2 id="编写程序"><a href="#编写程序" class="headerlink" title="编写程序"></a>编写程序</h2><p>由于轻触开关内部为机械结构，按键按下时可能会存在抖动现象，也就是说当按下开关时，开关导通，由于内部某些原因，开关闭合然后又导通，导致按下一次开关后实际单片机核心检测到两次，或者说你没有按下按键，按键自行导通，因此我们需要消除抖动，那么如何消除抖动呢？此时我们就又需要用到延时函数，我们检测开关按下后，延时一段时间，再次检测开关是否闭合，如果第二次检测也闭合，那么就说明按键导通，因为抖动时间很短，所以延时足够长就可以消除抖动，因为人按下按键的时间相对于内部代码执行的时间非常长，因此也不必担心影响到正常按下按键</p>
+<blockquote>
+<p>观察开发板原理图我们可以看到，红外接收模块也接到了<code>P3^2</code>管脚上，因此如果不拔下红外接收器模块，实验现象就会受到干扰，因为在我们生活中红外线无处不在，即便是不按下按键，对应的程序也会运行，你不妨将下列程序修改一下，将输入的按键改为<code>P3^2</code>，你会观察到LED灯无规律闪烁，至于为什么把这些管脚接在一起，那是因为单片机管脚有限，开发板的作用就是容纳尽可能多的功能以供学习，因此管脚重复不可避免</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED P2</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8;</span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;</span><br><span class="line">sbit K2 = P3^<span class="number">0</span>;</span><br><span class="line">sbit K3 = P3^<span class="number">2</span>;</span><br><span class="line">sbit K4 = P3^<span class="number">3</span>; <span class="comment">//定义各个独立按键</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(K1 == <span class="number">0</span>)&#123;</span><br><span class="line">      delay(<span class="number">1000</span>) <span class="comment">//消除抖动</span></span><br><span class="line">        <span class="keyword">if</span>(K1 == <span class="number">0</span>)&#123;</span><br><span class="line">          LED = ~LED;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time --);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行上述程序，我们可以观察到，按下按键LED灯亮起，但是松手后，LED灯可能亮起也可能熄灭，这是因为按下后程序一直在执行，LED一直在亮与不亮之间变化，只不过速度很快人眼看不到，就好像动态数码管刷新人眼无法察觉一样，因此我们要在按键按下之后锁定当前状态，如果未松开则进入一个循环使其不改变LED的状态</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED P2</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8;</span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;</span><br><span class="line">sbit K2 = P3^<span class="number">0</span>;</span><br><span class="line">sbit K3 = P3^<span class="number">2</span>;</span><br><span class="line">sbit K4 = P3^<span class="number">3</span>; <span class="comment">//定义各个独立按键</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(K1 == <span class="number">0</span>)&#123;</span><br><span class="line">      delay(<span class="number">1000</span>) <span class="comment">//消除抖动</span></span><br><span class="line">        <span class="keyword">if</span>(K1 == <span class="number">0</span>)&#123;</span><br><span class="line">          LED = ~LED;</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="keyword">while</span>(!K1); <span class="comment">//检测按键是否松开，如果松开那么跳出循环，并且由于按键松开，之前的程序也不再执行，也就是说LED灯状态不再变化，如果没有松开则进入循环直到松开为止</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time --);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>独立按键的核心要点也就是消除抖动和检测按键是否松开这两点，其他使用方法都可以根据这两点来展开，有些较为简单的使用方法甚至用不到检测是否松开这一点，这部分内容大家可以自己多尝试不同的内容</p>
+<h1 id="矩阵按键"><a href="#矩阵按键" class="headerlink" title="矩阵按键"></a>矩阵按键</h1><h2 id="矩阵按键原理"><a href="#矩阵按键原理" class="headerlink" title="矩阵按键原理"></a>矩阵按键原理</h2><p>我们刚刚已经知道了单片机上所使用的轻触开关的原理以及使用方法了，这次我们直接来看原理图：16个按键连接8个管脚，再仔细看其连接方式，我们很容易就能得知：4+4=8，4*4=16，这8个管脚就像是XY轴一样通过两个XY管脚我们就可以确定任意一个开关的位置，因此，要从程序上确定是按下了哪个按键，我们就要分别对列和行进行扫描</p>
+<img src="/p/f398/jzaj.png" class title="矩阵按键模块">
+
+<h2 id="编写程序-1"><a href="#编写程序-1" class="headerlink" title="编写程序"></a>编写程序</h2><p>我们如何通过横向和纵向4+4两组管脚来确定是哪一个开关被按下了呢？我们对横向输入高电平，然后检测横向哪个管脚是低电平来确定纵向位置；对纵向输入高电平，然后检测纵向哪个管脚是低电平来确定横向位置，在确定横向纵向位置之前，我们依然要进行消抖的处理，在确定后，也要进行松手检测的处理</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_KEY P1</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>;</span><br><span class="line"><span class="function">u8 <span class="title">KeyDown</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    KeyDown();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time --);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">u8 <span class="title">KeyDown</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123; <span class="comment">//按键检测函数</span></span><br><span class="line">  u8 KeyValue;</span><br><span class="line">  u8 a = <span class="number">0</span>;</span><br><span class="line">  GPIO_KEY = <span class="number">0x0F</span>; <span class="comment">//对横向输入高电平，测试列</span></span><br><span class="line">  <span class="keyword">if</span>(GPIO_KEY != <span class="number">0x0F</span>)&#123; <span class="comment">//如果P1端口电平与刚刚输入的不同，说明有按键被按下</span></span><br><span class="line">    delay(<span class="number">1000</span>); <span class="comment">//按键消抖</span></span><br><span class="line">    <span class="keyword">if</span>(GPIO_KEY != <span class="number">0x0F</span>)&#123; <span class="comment">//再次检测</span></span><br><span class="line">      <span class="keyword">switch</span>(GPIO_KEY)&#123; <span class="comment">//检测，为其赋值每一列第一行代表的数字</span></span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0x07</span>):KeyValue = <span class="number">0</span>;<span class="keyword">break</span>; <span class="comment">//第1列</span></span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0x0b</span>):KeyValue = <span class="number">1</span>;<span class="keyword">break</span>; <span class="comment">//第2列</span></span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0x0d</span>):KeyValue = <span class="number">2</span>;<span class="keyword">break</span>; <span class="comment">//第3列</span></span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0x0e</span>):KeyValue = <span class="number">3</span>;<span class="keyword">break</span>; <span class="comment">//第4列</span></span><br><span class="line">      &#125;</span><br><span class="line">      GPIO_KEY = <span class="number">0xF0</span>; <span class="comment">//对纵向输入高电平，测试行</span></span><br><span class="line">      <span class="keyword">switch</span>(GPIO_KEY)&#123; <span class="comment">//检测，因为每一行之间差值为4，只需要加4*（行数-1）</span></span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0x70</span>):KeyValue += <span class="number">4</span> * <span class="number">0</span>;<span class="keyword">break</span>; <span class="comment">//第1行</span></span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0xb0</span>):KeyValue += <span class="number">4</span> * <span class="number">1</span>;<span class="keyword">break</span>; <span class="comment">//第2行</span></span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0xd0</span>):KeyValue += <span class="number">4</span> * <span class="number">2</span>;<span class="keyword">break</span>; <span class="comment">//第3行</span></span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0xe0</span>):KeyValue += <span class="number">4</span> * <span class="number">3</span>;<span class="keyword">break</span>; <span class="comment">//第4行</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span>((a &lt; <span class="number">50</span>) &amp;&amp; (GPIO_KEY != <span class="number">0xF0</span>))&#123; <span class="comment">//按键松手检测</span></span><br><span class="line">    delay(<span class="number">100</span>);</span><br><span class="line">    a ++; </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> KeyValue; <span class="comment">//返回按键值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为什么我们不直接使用<code>while(GPIO_KEY != 0xf0);</code>呢？因为矩阵按键是行列扫描来确定按键位置的，扫描完成后才知道按下哪个按键，并且按下的按键数值除存在一个变量中（之前的独立按键按键数值表示位对应<code>I/O</code>口的高低电平），如果按键没有被按下，程序扫描完一次后，进入while死循环，程序卡死，因此我们必须为松手检测设定一个时间范围，超出时间范围自动跳出循环，在时间范围内每隔一段时间就检测一下按键是否松开，因此即便是按键一直不松开或者说按键根本没有按下也不会影响程序的正常运行，并且实际上<code>whiile</code>中对<code>a</code>的范围限制并没有很严格，只需a是正整数并且不要太大就可以，如果a太大那么需要长时间按下程序才会相应</p>
+<p>运行上述代码我们注意到，单片机蜂鸣器发出列声音，声音的频率由按键检测的时长有关，回顾之前的内容，会发现蜂鸣器的管脚连接到了<code>P1^5</code>并且矩阵按键行列扫描使得<code>P1</code>端口高低电平发生变化，产生了一定的脉冲信号，因此矩阵按键不可避免的会影响到蜂鸣器</p>
+<p>为了让我们知道所按下的按键是哪个按键，我们将其从左到右从上到下按顺序赋予其16进制数字，正好16个按键可以表示16进制的16个数字0～F，此程序只需要将上一章节编写的函数添加到程序中即可</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 <span class="comment">//宏定义数码管端口</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_KEY P1</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8;</span><br><span class="line">u8 KeyValue; <span class="comment">//定义按键全局变量</span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义制蜂鸣器</span></span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; <span class="comment">//定义译码管ABC三个输入</span></span><br><span class="line">u8 code SMG[]=&#123; <span class="comment">//在ROM中存储数码管段码的数组</span></span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>; <span class="comment">//动态数码管显示函数</span></span><br><span class="line"><span class="function">u8 <span class="title">KeyDown</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    KeyDown();</span><br><span class="line">    DigDisplay(KeyValue);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time --);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">u8 <span class="title">KeyDown</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123; </span><br><span class="line">  u8 a = <span class="number">0</span>;</span><br><span class="line">  GPIO_KEY = <span class="number">0x0F</span>; </span><br><span class="line">  <span class="keyword">if</span>(GPIO_KEY != <span class="number">0x0F</span>)&#123; </span><br><span class="line">    delay(<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">if</span>(GPIO_KEY != <span class="number">0x0F</span>)&#123; </span><br><span class="line">      <span class="keyword">switch</span>(GPIO_KEY)&#123; </span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0x07</span>):KeyValue = <span class="number">0</span>;<span class="keyword">break</span>; </span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0x0b</span>):KeyValue = <span class="number">1</span>;<span class="keyword">break</span>; </span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0x0d</span>):KeyValue = <span class="number">2</span>;<span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0x0e</span>):KeyValue = <span class="number">3</span>;<span class="keyword">break</span>; </span><br><span class="line">      &#125;</span><br><span class="line">      GPIO_KEY = <span class="number">0xF0</span>; </span><br><span class="line">      <span class="keyword">switch</span>(GPIO_KEY)&#123; </span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0x70</span>):KeyValue += <span class="number">4</span> * <span class="number">0</span>;<span class="keyword">break</span>; </span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0xb0</span>):KeyValue += <span class="number">4</span> * <span class="number">1</span>;<span class="keyword">break</span>; </span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0xd0</span>):KeyValue += <span class="number">4</span> * <span class="number">2</span>;<span class="keyword">break</span>; </span><br><span class="line">          <span class="keyword">case</span>(<span class="number">0xe0</span>):KeyValue += <span class="number">4</span> * <span class="number">3</span>;<span class="keyword">break</span>; </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span>((a &lt; <span class="number">1</span>) &amp;&amp; (GPIO_KEY != <span class="number">0xF0</span>))&#123; </span><br><span class="line">    delay(<span class="number">100</span>);</span><br><span class="line">    a ++; </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> KeyValue; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>&#123; <span class="comment">//动态数码管显示函数</span></span><br><span class="line">  <span class="keyword">long</span> LED = <span class="number">10</span>; <span class="comment">//LED是要显示的数码管的位数，同时作为除数求num长度</span></span><br><span class="line">  u8 numlong = <span class="number">1</span>; <span class="comment">//数字长度</span></span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">99999999</span>)&#123; <span class="comment">//数字超长则触发蜂鸣器警报</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;beep = ~beep;delay(<span class="number">100</span>);&#125;&#125;</span><br><span class="line">  <span class="keyword">while</span>(num / LED)&#123; <span class="comment">//求数字长度</span></span><br><span class="line">    LED *= <span class="number">10</span>;</span><br><span class="line">    numlong ++;&#125; </span><br><span class="line">  <span class="keyword">for</span>(LED = <span class="number">8</span>; LED &gt; <span class="number">8</span> - numlong; LED--)&#123; <span class="comment">//每次扫描循环执行8次</span></span><br><span class="line">    <span class="comment">//为了让高于输入数字位数的数码管不显示，因此我们要将数字长度带入循环，使得刷新完输入数字所在位数即停止，那么未扫描到的数码管就会不显示数字</span></span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//要显示第1位也就是要让如图LED8输出为0低电平，以下以此类推</span></span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    GPIO_DIG = SMG[num % <span class="number">10</span>]; <span class="comment">//第几个数码管显示数字几</span></span><br><span class="line">    num /= <span class="number">10</span>; <span class="comment">//数字减位</span></span><br><span class="line">    delay(<span class="number">100</span>); <span class="comment">//间隔一段时间扫描</span></span><br><span class="line">    GPIO_DIG = <span class="number">0x00</span>; <span class="comment">//消隐</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上程序是直接添加函数进入到主函数，将<code>KeyValue</code>变量定义在函数外，这样就可以锁定其数值使其只在按键按下刷新时被更改，说人话就是按下按键2，数码管会一直显示2，如果不使变量<code>KeyValue</code>定义在函数外，那么数码管只会在按下按键时显示对应的数字，松开手后恢复原状，由于之前所写的显示函数功能远多于此程序需求，因此优化空间非常大，由于是学习示例，此处不再对其进行优化，能达到目的即可</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>本章节学习到了一个非常有效并且常用的数据输入的方法：开关按键，理论上在学习完以上4个章节的内容后，你就可以大致上开发出一个十分简易的计算器程序，自行编写计算器程序是你巩固之前内容的十分有效的方法，期间可能会有一些问题但是前面的知识基本可以解决，不过还是要提醒一下，目前所学知识并不多，所以编写出的计算器程序功能不会太强大，编写时一定要从最基础最简单的功能开始编写，就像上一章数码管输出数字从正整数这样最简单的数字开始一样，计算器的编写作为一个项目我会单独展开讨论不算入开发例程中</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    淼表
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://cnwatermeter.github.io/p/f398.html" title="51单片机开发例程-4">http://cnwatermeter.github.io/p/f398.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank"><i class="fa fa-cc" aria-hidden="true"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-bookmark"></i> C语言</a>
+          
+            <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag"><i class="fa fa-bookmark"></i> 单片机</a>
+          
+            <a href="/tags/STC89C52/" rel="tag"><i class="fa fa-bookmark"></i> STC89C52</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/631a1438.html" rel="next" title="危险品押运员生活体验">
+                <i class="fa fa-chevron-left"></i> 危险品押运员生活体验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/3359.html" rel="prev" title="51单片机开发例程-5">
+                51单片机开发例程-5 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CNwatermeter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/miaobiao" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/CNwatermeter" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:watermeter114514@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google.com/" title="Google" target="_blank">Google</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://wikipedia.org/" title="Wikipedia" target="_blank">Wikipedia</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://snapdrop.net/#" title="Snapdrop" target="_blank">Snapdrop</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://saucenao.com/" title="SauceNAO" target="_blank">SauceNAO</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://fontawesome.com/v4.7.0/icons/#web-application/" title="Icon" target="_blank">Icon</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">内容概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%8C%89%E9%94%AE"><span class="nav-number">3.</span> <span class="nav-text">独立按键</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%8C%89%E9%94%AE%E5%8E%9F%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">独立按键原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.2.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E6%8C%89%E9%94%AE"><span class="nav-number">4.</span> <span class="nav-text">矩阵按键</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E6%8C%89%E9%94%AE%E5%8E%9F%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">矩阵按键原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F-1"><span class="nav-number">4.2.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-code"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">淼表</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered By <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> </div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'xraqmf9N7GKwUpxgnX5rnodm-gzGzoHsz',
+        appKey: 'IGuVrALBxmnoUrV3uw93R8dQ',
+        placeholder: '发条评论吧～',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
