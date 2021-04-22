@@ -1,85 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>51单片机开发例程-2</title>
-    <url>/p/e743207f.html</url>
-    <content><![CDATA[<h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>此章学习到单片机上的一个重要部件：蜂鸣器</p>
-<p>蜂鸣器通过发出声音来达到提示以及播放音乐的功能，可以让使用者能够简单地判断单片机是否实现了自己想要的效果比如：开始工作，输出结果，程序故障等等，而蜂鸣器又分为有源蜂鸣器和无源蜂鸣器，在此单片机上使用的是无源蜂鸣器</p>
-<a id="more"></a>
-
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
-<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
-<li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
-<li>3.一根micro USB to USB A数据线</li>
-</ul>
-<h1 id="驱动蜂鸣器发声"><a href="#驱动蜂鸣器发声" class="headerlink" title="驱动蜂鸣器发声"></a>驱动蜂鸣器发声</h1><h2 id="蜂鸣器原理"><a href="#蜂鸣器原理" class="headerlink" title="蜂鸣器原理"></a>蜂鸣器原理</h2><p>单片机上使用的蜂鸣器是无源蜂鸣器，这种蜂鸣器又被称为压电蜂鸣器，原因是这种蜂鸣器发声的原理是压电效应</p>
-<blockquote>
-<p>当对压电材料施以物理压强时，材料体内之<a href="https://bk.tw.lvfukeji.com/baike-%E7%94%B5%E5%81%B6%E6%9E%81%E7%9F%A9">电偶极矩</a>会因压缩而变短，此时压电材料为抵抗这变化会在材料相对的表面上产生等量正负电荷，以保持原状。这种由于<a href="https://bk.tw.lvfukeji.com/baike-%E5%BD%A2%E8%AE%8A">形变</a>而产生<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%A5%B5%E5%8C%96">电极化</a>的现象称为“正压电效应”。若欲持续产生电能，须使材料振动。</p>
-<p>正压电效应实质上是机械能转化为电能的过程。</p>
-<p>当在压电材料表面施加<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A0%B4">电场</a>（电压），因电场作用时电偶极矩会被拉长，压电材料为抵抗变化，会沿电场方向伸长。这种通过电场作用而产生机械形变的过程称为“逆压电效应”。</p>
-<p>逆压电效应实质上是电能转化为机械能的过程。</p>
-<p>——引用自<a href="https://bk.tw.lvfukeji.com/wiki/%E5%A3%93%E9%9B%BB%E6%95%88%E6%87%89">Wikipedia</a></p>
-</blockquote>
-<p>如何使得蜂鸣器发生且发出不同声音？我们可以通过改变蜂鸣器连接到单片机引脚输出交变电压波形的频率来调整控制蜂鸣器的音调，也可以改变输出交变电压占空比来控制蜂鸣器声音的大小</p>
-<blockquote>
-<p>Un buzzer (transducteur) piézoélectrique est typiquement composé d’un diaphragme piézoélectrique, d’une cavité avec un orifice et de connexions pour les bornes électriques. Il nécessite une tension alternative pour fonctionner, de quelques volts à quelques dizaines de volts (3 V à 30 V par exemple). C’est ce type de <a href="https://fr.wikipedia.org/wiki/Transducteur">transducteur</a> que l’on retrouve au dos des montres ayant une fonction alarme.Il présente une fréquence de résonance optimale de quelques kilohertz, entre 1 kHz et 5 kHz en général, par exemple 2,8 kHz ou 3 kHz, mais il peut atteindre des fréquences plus hautes jusqu’à 80 kHz. Il faut donc un oscillateur chargé de produire un signal rectangulaire, ce dernier pouvant facilement être construit avec des portes logiques ou avec des transistors. Si on applique au transducteur piézoélectrique un signal donné sur une de ses bornes, et le même signal mais en opposition de phase sur son autre borne, il sera en mesure de délivrer une puissance quadruple, avec une tension d’alimentation identique (montage en pont, même principe que celui adopté pour certains amplificateurs audio de puissance).</p>
-<p>压电蜂鸣器通常由压电隔膜，带孔的空腔和电气端子的连接组成。它需要交替电压才能运行，从几伏特到几十伏特（例如3伏到30伏特）。这种<a href="https://fr.wikipedia.org/wiki/Transducteur">传感器</a>可以在手表背面找到，具有报警功能。它的最佳共振频率为几千赫，一般在1千赫至5千赫之间，例如2.8千赫或3千赫2，但它可以达到高达80千赫3的更高频率。因此，有必要有一个振荡器来负责产生矩形信号，该信号可以很容易地使用逻辑门或晶体管构建。如果给定的信号被施加到其一个终端上的压电传感器上，并且信号相同，但与另一个终端相位相反，它将能够以相同的电源电压（桥接安装，与某些功率音频放大器采用的原理相同）提供四倍功率。</p>
-<p>——引用自<a href="https://fr.wikipedia.org/wiki/Bipeur">Wikipedia</a></p>
-</blockquote>
-<p>了解了蜂鸣器的工作原理后，现在回到单片机原理图对实际情况进行分析</p>
-<p><img src="/p/BEEP.png" alt="蜂鸣器"></p>
-<p>从原理图中可以看到，蜂鸣器的一端接VCC，另一段接BZ，之前在LED灯模块我们也遇到过VCC这个管脚，并且通过二极管原理推断出了VCC处是高电平，那么VCC到底有什么含义呢</p>
-<ul>
-<li>VCC（Volt Current Condenser）电路的供电电压</li>
-<li>GND（Ground）电线接地端</li>
-</ul>
-<p>以上两个在电路中常用的简写一个代表高电平，一个代表低电平，这样我们就能通过原理图更加明确地读出各个元器件工作时对应<code>I/O</code>口应该输出高电平还是低电平了</p>
-<p>而BZ又是什么含义呢？</p>
-<p><img src="/p/ULN2003D.png" alt="ULN2003D"></p>
-<p>仔细观察原理图，我们还可以在<code>ULN2003D</code>这个芯片的管脚处看到BZ的身影：<code>P1^5</code>连接<code>IN5</code>，<code>IN5</code>连接<code>OUT5</code>，<code>OUT5</code>连接<code>BZ</code>，因此，我们可以通过控制<code>P1^5</code>输出的高低电平来控制BZ的高低电平进而控制蜂鸣器，那么为什么需要使用<code>ULN2003D</code>芯片对蜂鸣器进行驱动呢，这是因为该元件内含7个达林顿管，在电子电路里的主要特点是大电流容量和高电压输出，常作为驱动器使用，可以直接驱动蜂鸣器，继电器，步进马达等负载</p>
-<blockquote>
-<p>ULN2003是一种高压大电流的<a href="https://bk.tw.lvfukeji.com/baike-%E5%85%B1%E5%B0%84%E6%A5%B5">共发射极</a><a href="https://bk.tw.lvfukeji.com/baike-%E9%81%94%E6%9E%97%E9%A0%93%E9%9B%BB%E6%99%B6%E9%AB%94">达林顿晶体管</a>数组<a href="https://bk.tw.lvfukeji.com/baike-%E7%A9%8D%E9%AB%94%E9%9B%BB%E8%B7%AF">集成电路</a>，内含7组达林顿对管，每组对管的<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%B5%81">电流</a>容量是500mA，输出的<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A3%93">电压</a>最高50V。该集成电路还集成了7只共阴极形式连接的<a href="https://bk.tw.lvfukeji.com/baike-%E7%BB%AD%E6%B5%81%E4%BA%8C%E6%9E%81%E7%AE%A1">续流二极管</a>，用于电感性负载的开关动作的电流续流。</p>
-<p>——引用自<a href="https://bk.tw.lvfukeji.com/baike-ULN2003A?wprov=srpw1_0">Wikipedia</a></p>
-<p>达灵顿晶体管是<a href="https://bk.tw.lvfukeji.com/baike-%E7%94%B5%E5%AD%90%E5%AD%A6">电子学</a>中由两个（甚至多个）<a href="https://bk.tw.lvfukeji.com/baike-%E5%8F%8C%E6%9E%81%E6%80%A7%E6%99%B6%E4%BD%93%E7%AE%A1">双极性晶体管</a>（或者其他类似的集成电路或分立元件）组成的复合结构，通过这样的结构，经第一个双极性晶体管放大的电流可以进一步被放大。]这样的结构可以提供一个比其中任意一个双极性晶体管高得多的电流<a href="https://bk.tw.lvfukeji.com/baike-%E5%A2%9E%E7%9B%8A">增益</a>。在使用集成电流芯片的情况里，达灵顿晶体管可以使得芯片比使用两个分立晶体管元件占用更少的空间，因为两个晶体管可以共用一个<a href="https://bk.tw.lvfukeji.com/w/index.php?title=%E9%9B%86%E7%94%B5%E6%9E%81&action=edit&redlink=1">集电极</a>。达灵顿晶体管通常被封装在单一的芯片里，从外面看就像一个双极性晶体管。有时，集成电路芯片中会包含8个这样的结构方便使用。</p>
-<p>——引用自<a href="https://bk.tw.lvfukeji.com/baike-%E9%81%94%E6%9E%97%E9%A0%93%E9%9B%BB%E6%99%B6%E9%AB%94">Wikipedia</a></p>
-</blockquote>
-<h2 id="编写程序"><a href="#编写程序" class="headerlink" title="编写程序"></a>编写程序</h2><p>有了以上知识，我们很容易就可以得知只需在程序中让<code>P1^5</code>管脚输出的电平以一定频率在高低电平间切换就可以控制蜂鸣器发出声音的音调</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义控制蜂鸣器的I/O口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    beep = ~beep; <span class="comment">//控制高低电平来回切换</span></span><br><span class="line">    delay(<span class="number">100</span>); <span class="comment">//延时0.9ms，使得发出声音的频率约为0.55KHz</span></span><br><span class="line">    <span class="comment">//高低电平之间切换时间相同，占空比为50%</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>编译运行，单片机成功发出声音，但是需要注意，在使用之前建议将蜂鸣器上的保护贴纸撕掉，不然可能会一定程度上影响发声的频率</p>
-<p>如果要改变蜂鸣器发生的频率，只需要改变延时函数参数即可</p>
-<p>那么如果要改变占空比来改变蜂鸣器发声的大小又该如何修改程序，其实只需要将<code>while</code>循环中的代码复制一下后再改一下<code>beep</code>的赋值即可，这样就可以通过修改两个延时函数延时之和所占比例来调节占空比进而调节声音大小</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义控制蜂鸣器的I/O口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    beep = <span class="number">1</span>; <span class="comment">//控制高电平</span></span><br><span class="line">    delay(<span class="number">50</span>); <span class="comment">//延时0.45ms</span></span><br><span class="line">     beep = <span class="number">0</span>; <span class="comment">//控制低电平</span></span><br><span class="line">    delay(<span class="number">150</span>); <span class="comment">//延时1.35ms</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但实际上通过调节占空比来调节蜂鸣器响度的方法效果并不好，在房间内进行135s持续响度测试得出以下数据</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th><a href="mailto:&#x30;&#46;&#x31;&#49;&#75;&#72;&#x7a;&#64;&#x30;&#x2e;&#x31;">&#x30;&#46;&#x31;&#49;&#75;&#72;&#x7a;&#64;&#x30;&#x2e;&#x31;</a>%</th>
-<th><a href="mailto:&#x30;&#x2e;&#x31;&#49;&#x4b;&#x48;&#122;&#x40;&#57;&#57;&#46;&#57;">&#x30;&#x2e;&#x31;&#49;&#x4b;&#x48;&#122;&#x40;&#57;&#57;&#46;&#57;</a>%</th>
-<th>无蜂鸣器</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>平均响度</td>
-<td>26dB</td>
-<td>33dB</td>
-<td>11dB</td>
-</tr>
-</tbody></table>
-<p>当然，增大响度的方法还有增大电压，但是在前期学习中难以实现增大电压的方法，并且在学习过程中蜂鸣器的响度对学习以及程序的正常运行没有影响，因此只需要知道改变占空比与电压都可以改变蜂鸣器的占空比即可</p>
-<hr>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>通过本章的内容，我们又学习到了一种数据输出的方法，蜂鸣器的原理较为复杂，涉及到一部分电子知识，之前没有基础的同学也完全可以暂且忽略原理，只需要知道驱动蜂鸣器需要脉冲波，且在单片机上还需要通过一个大电流高电压的元器件来驱动即可，同时我们也发现要实现一项功能可能不止需要单个元件，还需要其他芯片配合使用，所以当遇到不熟悉的管脚不妨到其他元件上找找是否有这个管脚</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>C语言</tag>
-        <tag>单片机</tag>
-        <tag>STC89C52</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>51单片机开发例程-1</title>
     <url>/p/7e4a71c5.html</url>
     <content><![CDATA[<h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>此文章致力于了解单片机开发的基础内容，需要能够读懂单片机原理图，具备一定C语言知识储备，能够使用Keil uVision对程序进行编译生成<code>.hex</code>文件，以及能够将编译好<code>.hex</code>文件通过烧录软件烧录进单片机中进行运行</p>
@@ -166,6 +87,85 @@
 </ul>
 <hr>
 <p><i class="fa fa-repeat" aria-hidden="true"></i>   更新于2020/2/22</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>单片机</tag>
+        <tag>STC89C52</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>51单片机开发例程-2</title>
+    <url>/p/e743207f.html</url>
+    <content><![CDATA[<h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>此章学习到单片机上的一个重要部件：蜂鸣器</p>
+<p>蜂鸣器通过发出声音来达到提示以及播放音乐的功能，可以让使用者能够简单地判断单片机是否实现了自己想要的效果比如：开始工作，输出结果，程序故障等等，而蜂鸣器又分为有源蜂鸣器和无源蜂鸣器，在此单片机上使用的是无源蜂鸣器</p>
+<a id="more"></a>
+
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
+<li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
+<li>3.一根micro USB to USB A数据线</li>
+</ul>
+<h1 id="驱动蜂鸣器发声"><a href="#驱动蜂鸣器发声" class="headerlink" title="驱动蜂鸣器发声"></a>驱动蜂鸣器发声</h1><h2 id="蜂鸣器原理"><a href="#蜂鸣器原理" class="headerlink" title="蜂鸣器原理"></a>蜂鸣器原理</h2><p>单片机上使用的蜂鸣器是无源蜂鸣器，这种蜂鸣器又被称为压电蜂鸣器，原因是这种蜂鸣器发声的原理是压电效应</p>
+<blockquote>
+<p>当对压电材料施以物理压强时，材料体内之<a href="https://bk.tw.lvfukeji.com/baike-%E7%94%B5%E5%81%B6%E6%9E%81%E7%9F%A9">电偶极矩</a>会因压缩而变短，此时压电材料为抵抗这变化会在材料相对的表面上产生等量正负电荷，以保持原状。这种由于<a href="https://bk.tw.lvfukeji.com/baike-%E5%BD%A2%E8%AE%8A">形变</a>而产生<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%A5%B5%E5%8C%96">电极化</a>的现象称为“正压电效应”。若欲持续产生电能，须使材料振动。</p>
+<p>正压电效应实质上是机械能转化为电能的过程。</p>
+<p>当在压电材料表面施加<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A0%B4">电场</a>（电压），因电场作用时电偶极矩会被拉长，压电材料为抵抗变化，会沿电场方向伸长。这种通过电场作用而产生机械形变的过程称为“逆压电效应”。</p>
+<p>逆压电效应实质上是电能转化为机械能的过程。</p>
+<p>——引用自<a href="https://bk.tw.lvfukeji.com/wiki/%E5%A3%93%E9%9B%BB%E6%95%88%E6%87%89">Wikipedia</a></p>
+</blockquote>
+<p>如何使得蜂鸣器发生且发出不同声音？我们可以通过改变蜂鸣器连接到单片机引脚输出交变电压波形的频率来调整控制蜂鸣器的音调，也可以改变输出交变电压占空比来控制蜂鸣器声音的大小</p>
+<blockquote>
+<p>Un buzzer (transducteur) piézoélectrique est typiquement composé d’un diaphragme piézoélectrique, d’une cavité avec un orifice et de connexions pour les bornes électriques. Il nécessite une tension alternative pour fonctionner, de quelques volts à quelques dizaines de volts (3 V à 30 V par exemple). C’est ce type de <a href="https://fr.wikipedia.org/wiki/Transducteur">transducteur</a> que l’on retrouve au dos des montres ayant une fonction alarme.Il présente une fréquence de résonance optimale de quelques kilohertz, entre 1 kHz et 5 kHz en général, par exemple 2,8 kHz ou 3 kHz, mais il peut atteindre des fréquences plus hautes jusqu’à 80 kHz. Il faut donc un oscillateur chargé de produire un signal rectangulaire, ce dernier pouvant facilement être construit avec des portes logiques ou avec des transistors. Si on applique au transducteur piézoélectrique un signal donné sur une de ses bornes, et le même signal mais en opposition de phase sur son autre borne, il sera en mesure de délivrer une puissance quadruple, avec une tension d’alimentation identique (montage en pont, même principe que celui adopté pour certains amplificateurs audio de puissance).</p>
+<p>压电蜂鸣器通常由压电隔膜，带孔的空腔和电气端子的连接组成。它需要交替电压才能运行，从几伏特到几十伏特（例如3伏到30伏特）。这种<a href="https://fr.wikipedia.org/wiki/Transducteur">传感器</a>可以在手表背面找到，具有报警功能。它的最佳共振频率为几千赫，一般在1千赫至5千赫之间，例如2.8千赫或3千赫2，但它可以达到高达80千赫3的更高频率。因此，有必要有一个振荡器来负责产生矩形信号，该信号可以很容易地使用逻辑门或晶体管构建。如果给定的信号被施加到其一个终端上的压电传感器上，并且信号相同，但与另一个终端相位相反，它将能够以相同的电源电压（桥接安装，与某些功率音频放大器采用的原理相同）提供四倍功率。</p>
+<p>——引用自<a href="https://fr.wikipedia.org/wiki/Bipeur">Wikipedia</a></p>
+</blockquote>
+<p>了解了蜂鸣器的工作原理后，现在回到单片机原理图对实际情况进行分析</p>
+<p><img src="/p/BEEP.png" alt="蜂鸣器"></p>
+<p>从原理图中可以看到，蜂鸣器的一端接VCC，另一段接BZ，之前在LED灯模块我们也遇到过VCC这个管脚，并且通过二极管原理推断出了VCC处是高电平，那么VCC到底有什么含义呢</p>
+<ul>
+<li>VCC（Volt Current Condenser）电路的供电电压</li>
+<li>GND（Ground）电线接地端</li>
+</ul>
+<p>以上两个在电路中常用的简写一个代表高电平，一个代表低电平，这样我们就能通过原理图更加明确地读出各个元器件工作时对应<code>I/O</code>口应该输出高电平还是低电平了</p>
+<p>而BZ又是什么含义呢？</p>
+<p><img src="/p/ULN2003D.png" alt="ULN2003D"></p>
+<p>仔细观察原理图，我们还可以在<code>ULN2003D</code>这个芯片的管脚处看到BZ的身影：<code>P1^5</code>连接<code>IN5</code>，<code>IN5</code>连接<code>OUT5</code>，<code>OUT5</code>连接<code>BZ</code>，因此，我们可以通过控制<code>P1^5</code>输出的高低电平来控制BZ的高低电平进而控制蜂鸣器，那么为什么需要使用<code>ULN2003D</code>芯片对蜂鸣器进行驱动呢，这是因为该元件内含7个达林顿管，在电子电路里的主要特点是大电流容量和高电压输出，常作为驱动器使用，可以直接驱动蜂鸣器，继电器，步进马达等负载</p>
+<blockquote>
+<p>ULN2003是一种高压大电流的<a href="https://bk.tw.lvfukeji.com/baike-%E5%85%B1%E5%B0%84%E6%A5%B5">共发射极</a><a href="https://bk.tw.lvfukeji.com/baike-%E9%81%94%E6%9E%97%E9%A0%93%E9%9B%BB%E6%99%B6%E9%AB%94">达林顿晶体管</a>数组<a href="https://bk.tw.lvfukeji.com/baike-%E7%A9%8D%E9%AB%94%E9%9B%BB%E8%B7%AF">集成电路</a>，内含7组达林顿对管，每组对管的<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%B5%81">电流</a>容量是500mA，输出的<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A3%93">电压</a>最高50V。该集成电路还集成了7只共阴极形式连接的<a href="https://bk.tw.lvfukeji.com/baike-%E7%BB%AD%E6%B5%81%E4%BA%8C%E6%9E%81%E7%AE%A1">续流二极管</a>，用于电感性负载的开关动作的电流续流。</p>
+<p>——引用自<a href="https://bk.tw.lvfukeji.com/baike-ULN2003A?wprov=srpw1_0">Wikipedia</a></p>
+<p>达灵顿晶体管是<a href="https://bk.tw.lvfukeji.com/baike-%E7%94%B5%E5%AD%90%E5%AD%A6">电子学</a>中由两个（甚至多个）<a href="https://bk.tw.lvfukeji.com/baike-%E5%8F%8C%E6%9E%81%E6%80%A7%E6%99%B6%E4%BD%93%E7%AE%A1">双极性晶体管</a>（或者其他类似的集成电路或分立元件）组成的复合结构，通过这样的结构，经第一个双极性晶体管放大的电流可以进一步被放大。]这样的结构可以提供一个比其中任意一个双极性晶体管高得多的电流<a href="https://bk.tw.lvfukeji.com/baike-%E5%A2%9E%E7%9B%8A">增益</a>。在使用集成电流芯片的情况里，达灵顿晶体管可以使得芯片比使用两个分立晶体管元件占用更少的空间，因为两个晶体管可以共用一个<a href="https://bk.tw.lvfukeji.com/w/index.php?title=%E9%9B%86%E7%94%B5%E6%9E%81&action=edit&redlink=1">集电极</a>。达灵顿晶体管通常被封装在单一的芯片里，从外面看就像一个双极性晶体管。有时，集成电路芯片中会包含8个这样的结构方便使用。</p>
+<p>——引用自<a href="https://bk.tw.lvfukeji.com/baike-%E9%81%94%E6%9E%97%E9%A0%93%E9%9B%BB%E6%99%B6%E9%AB%94">Wikipedia</a></p>
+</blockquote>
+<h2 id="编写程序"><a href="#编写程序" class="headerlink" title="编写程序"></a>编写程序</h2><p>有了以上知识，我们很容易就可以得知只需在程序中让<code>P1^5</code>管脚输出的电平以一定频率在高低电平间切换就可以控制蜂鸣器发出声音的音调</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义控制蜂鸣器的I/O口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    beep = ~beep; <span class="comment">//控制高低电平来回切换</span></span><br><span class="line">    delay(<span class="number">100</span>); <span class="comment">//延时0.9ms，使得发出声音的频率约为0.55KHz</span></span><br><span class="line">    <span class="comment">//高低电平之间切换时间相同，占空比为50%</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行，单片机成功发出声音，但是需要注意，在使用之前建议将蜂鸣器上的保护贴纸撕掉，不然可能会一定程度上影响发声的频率</p>
+<p>如果要改变蜂鸣器发生的频率，只需要改变延时函数参数即可</p>
+<p>那么如果要改变占空比来改变蜂鸣器发声的大小又该如何修改程序，其实只需要将<code>while</code>循环中的代码复制一下后再改一下<code>beep</code>的赋值即可，这样就可以通过修改两个延时函数延时之和所占比例来调节占空比进而调节声音大小</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义控制蜂鸣器的I/O口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    beep = <span class="number">1</span>; <span class="comment">//控制高电平</span></span><br><span class="line">    delay(<span class="number">50</span>); <span class="comment">//延时0.45ms</span></span><br><span class="line">     beep = <span class="number">0</span>; <span class="comment">//控制低电平</span></span><br><span class="line">    delay(<span class="number">150</span>); <span class="comment">//延时1.35ms</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但实际上通过调节占空比来调节蜂鸣器响度的方法效果并不好，在房间内进行135s持续响度测试得出以下数据</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><a href="mailto:&#x30;&#46;&#49;&#49;&#x4b;&#x48;&#x7a;&#64;&#x30;&#x2e;&#x31;">&#x30;&#46;&#49;&#49;&#x4b;&#x48;&#x7a;&#64;&#x30;&#x2e;&#x31;</a>%</th>
+<th><a href="mailto:&#x30;&#46;&#x31;&#x31;&#x4b;&#72;&#122;&#x40;&#x39;&#x39;&#46;&#x39;">&#x30;&#46;&#x31;&#x31;&#x4b;&#72;&#122;&#x40;&#x39;&#x39;&#46;&#x39;</a>%</th>
+<th>无蜂鸣器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>平均响度</td>
+<td>26dB</td>
+<td>33dB</td>
+<td>11dB</td>
+</tr>
+</tbody></table>
+<p>当然，增大响度的方法还有增大电压，但是在前期学习中难以实现增大电压的方法，并且在学习过程中蜂鸣器的响度对学习以及程序的正常运行没有影响，因此只需要知道改变占空比与电压都可以改变蜂鸣器的占空比即可</p>
+<hr>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>通过本章的内容，我们又学习到了一种数据输出的方法，蜂鸣器的原理较为复杂，涉及到一部分电子知识，之前没有基础的同学也完全可以暂且忽略原理，只需要知道驱动蜂鸣器需要脉冲波，且在单片机上还需要通过一个大电流高电压的元器件来驱动即可，同时我们也发现要实现一项功能可能不止需要单个元件，还需要其他芯片配合使用，所以当遇到不熟悉的管脚不妨到其他元件上找找是否有这个管脚</p>
 ]]></content>
       <categories>
         <category>技术</category>
@@ -305,6 +305,40 @@
       </tags>
   </entry>
   <entry>
+    <title>浅谈“生产力”——新款ipad Pro发布有感.md</title>
+    <url>/p/a996.html</url>
+    <content><![CDATA[<p>就在北京时间2021年4月21日凌晨，苹果发布了一系列搭载Apple Silicon M1芯片的新款产品，出人意料的是，这颗“桌面级Soc”被放在了新款iPad Pro中，不少人直呼牛逼但是更多的却是质疑与几年来人们一直反复争论的<strong>生产力</strong>问题。</p>
+<!-----more ----->
+
+<p><strong>生产力</strong>，其实我非常非常讨厌这个词汇，并且我也非常讨厌拿这个词汇来攻击其他人的人（实际上坦白来讲对于使用这个词汇的我都不太喜欢），因为<strong>很多人对于这个词汇并没有一个明确的，正确的定义</strong>，比如：自媒体博主对于一些产品的评测会着重讲解剪视频的性能体验，比如程序员会着重看中使用的平台能使用哪些IDE或者说插件之类的（原谅我对此并没有了解太多），比如文字工作者只是想要一个方便码字的工具。毕竟每个人都不会对所有领域了解，每个人都有自己的需求，然后有些人就会拿自己领域的东西来攻击别的领域的东西：比如iPad没法写程序，这，我有什么好说的呢？我该去说手机没法写程序吗？或者是我该说手机没法记笔记吗？不能，因为手机不是用来写程序的，手机不是用来记笔记的。所以<strong>所谓的生产力，应该根据使用者实际情况来看</strong>。</p>
+<p>这几年来，对于生产力的争议屡见不鲜并且不仅仅是对于iPad的争论，而今年新款iPad Pro更是达到了一个新的高峰，许许多多的人坚定自己的设备是最有生产力的，并以此来质疑iPad的无用（我或许该称之为iPad无用论？）“iPad做的到吗？”，更有甚者以此来攻击iPad用户，但是他们却不知道他们口中的<strong>对比是不对等的</strong>，就如上一段末尾我所讲的那样。</p>
+<p>对于iPad无用论我听到的最多的一句话自然就是：“<strong>买前生产力，买后爱奇艺</strong>”，这句话当然非常形象，我个人有一段时间也有类似的感受，但是问题出在哪里呢？问题出在用户：“买前生产力”，用户买之前自然是想好了要用设备来干什么，但是由于自己不克制不进取而沦为了“买后爱奇艺”的娱乐工具，很多人所谓的x86生产力工具不也有“买前生产力，买后打游戏”的真实经历吗，所以说，<strong>永远不要指望更换设备就能养成良好的习惯</strong>。</p>
+<p>其实一直以来<strong>设备都只是提供了一个平台</strong>，这个平台需要开发者和用户共同维护，为什么现在Windows电脑能够运行更多程序，能够做更多事情，那是因为Windows的历史远比iOS来的悠久，用户远比iOS用户来的多，用户多了（市场大了），开发者自然就会对这一平台更上心。同理，同样是平板电脑，为什么一众安卓平板电脑打不过iPad？自然是iPad用户更多，苹果的号召力更强，能请求<del>（强迫）</del>厂商适配，并且完善的App Store会让开发者真正拿到钱，所以开发者会对iPad开发专门的app或者说对其进行适配优化。</p>
+<p>实际上，如今我们手中的设备在当今已经不仅仅是工具，也还是“一个人形象的象征”，比如相当一部分使用旗舰产品的人会有一种莫名的“优越感”，因为不管怎样，旗舰产品总的来说确实是优于次旗舰产品的，使用“智商检测机”的人可能就会被周围的人另眼相看，因为人总是喜欢对比的，不管是有意还是无意，绝大多数人都会注意到自己优于别人的方面而“骄傲”，劣于别人的方面而“嫉妒”，不过<strong>一旦涉及到了品牌，那争议就大了去了</strong>：海军，米猴，工读生，果蛆，这些负面称呼就是很好的证明，比如某些华为用户可能会觉得华为比小米好，小米就是垃圾，于是使用了一些不当的过激词汇来攻击小米或者小米用户，那么相当一部分小米用户自己觉得自己受到了冒犯，自然就会反击，于是大战一触即发，演变成两个品牌部分用户的对立，而一些看热闹的人就会在一边讲风凉话：“厂商是你们爹吗？”厂商当然不是用户的爹，但是当你手中的设备被人贬低的一无是处，那你还能心平气和的跟那个人对话吗？不要自以为是觉得无所谓，对于绝大多数人来讲被人贬低自己设备一文不值的时候即便是强忍着心平气和的交流血压实际上也是在升高的，“不以物喜不以物悲”的人毕竟是少数，如果你恰好是那少部分人并且你乐意的话可以来跟我交流一下真实感受。</p>
+<p>言归正传，iPad只是提供了一个平台，怎样使用是用户自己的事情，iPad用户不该去以己之长攻人之短，而Windows用户也不该拿自己的使用场景来贬低iPad做不到这做不到那，毕竟，<strong>大概你其实也并不是目标用户</strong>。</p>
+<p>对于这次iPad Pro的更新换代，只能说一般，iPad Pro2018可谓是iPad更新最大的一代了，一代经典，虽然当时很多软件都没有适配新的屏幕比例，两年半过去了，如今的iPad App已经全线为新屏幕比例适配优化过了，上次Pro的更新只是加了个GPU核心，加了个摄像头，激光雷达，然后基础存储增大了而已，这次基本上也都是小升级，但是比起上次更新这次对于芯片和屏幕的更新可谓巨大，搭载了M1芯片的iPad Pro把性能提升到一个新的高度，搭载了mini LED显示屏把12.9寸iPad Pro屏幕素质提升到了一个新的高度，<strong>然而对于我们这些老用户来讲呢？虽然参数上很好看但是貌似并没有更新的必要和动力</strong>，因为A12X和A12Z已经很强了，对于绝大多数用户来说性能已经是溢出了<del>（除了原神玩家）</del>，有些人说加入M1性能溢出没啥用，但是苹果把最好的芯片给最好的iPad有错吗？没有错！对于这方面厂商和用户都没有错，只能说苹果近几年来对于产品的功能与设计越来越保守了，性能的提升是必要的，所以别再跟我扯什么性能溢出了！性能高难道不好？谁不希望自己的设备能够多用几年呢？</p>
+<p>作为一个三星半家桶换到苹果全家桶的用户来说，苹果设备并没有给我带来太多惊艳与惊喜，不过我却<strong>并不想换其他品牌设备也并不想更新我手中的设备</strong>，在我看来我当前手中的设备是最经济也是最适合我的：</p>
+<blockquote>
+<p>iPhone 11 Pro Max：新的激光雷达，更好的摄像系统，更好的性能与5G对我来说都没有必要，我不打游戏不需要性能，然后摄像系统的话要付出的金钱太多了并且现在手里设备画展完全够用所以完全没必要，5G是未来但是不是现在</p>
+<p>iPad Pro 3 11inch + Apple pencil 2 ：超高性价比，跟新款比起来主要也就是芯片和摄像系统差别，正经人谁用iPad摄像啊，然后那个激光雷达的话我觉得可以有，但是也只是锦上添花，目前主要用来记笔记，影音，随航，最近开始学习用Shapr 3D建模</p>
+<p>MacBook Pro M1：唯一一个最新产品，试试水，之前的MacBook Pro2017确实比较老了风扇狂转，更新新款有更好的性能更好的续航，这个我基本上就是拿来做一些Mac特长的事情，轻办公敲代码什么，续航长就是好啊</p>
+<p>Apple Watch Series4：新款升级除了常量都对我来说没必要，S4就和iPad Pro3类似</p>
+<p>AirPods2 + AirPods Pro：搭配苹果生态自动切换很舒服，虽然音质不行但是通勤还是很舒服的，已经是最新产品没法更新</p>
+</blockquote>
+<p>这些产品与我的生活息息相关，涵盖了我几乎所有的活动，它们给了我良好的影音体验，改变了我学习的方式，记录了我生活的习惯并使我以此进行作息调整，让我舒适的听音乐。电子产品大大丰富了我的生活，它们都在不同程度上帮助了我的学习与工作，也让我享受游戏与电影。当我想要学习单片机时，我会打开我的Windows电脑；当我想要记笔记时，我拿出我的iPad和吸附在上面的pencil；当我想要去图书馆学习时，我不会忘记带我的MacBook；当别人向我发来消息时，我的Watch会第一时间提醒我；当我想要在嘈杂的校园环境中静听一曲时，AirPods能带给我属于我自己的世界，但是要说它们有怎样的生产力时，我无话可说，因为当我在学习与工作，影音与娱乐的时候，我只是在想：<strong>利用好手中的工具就好了，何必去纠结它不能做什么？</strong></p>
+<p>最后，这些仅仅是我个人的所见所闻所思所想，并且我在文中大量使用了非绝对的词语，所以不代表所有人都是如此，请不要对号入座。我肯定会有错误，并且肯定会有人不赞同我的观点，所以如有错误或你不赞同我的观点希望您能留下宝贵的意见，因为撰写此文章时候Blog的评论系统尚不完善所以评论请移步Twitter。</p>
+<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i>   其中观点完全主观，请辩证地看待文中观点</strong></p>
+]]></content>
+      <categories>
+        <category>评测</category>
+      </categories>
+      <tags>
+        <tag>iPad</tag>
+        <tag>生产力</tag>
+        <tag>奇思妙想</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>第一篇测试文章</title>
     <url>/p/af180990.html</url>
     <content><![CDATA[<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><p>内容？</p>
@@ -352,6 +386,89 @@
       </categories>
       <tags>
         <tag>测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>危险品押运员生活体验</title>
+    <url>/p/631a1438.html</url>
+    <content><![CDATA[<p>最近在家“里闲来无事”（我妈觉得我很闲），正好临近过年，年前就让我跟我爸出去拉货挣钱去，正好也算是让我体验体验生活，并且是往江苏跑，也不用担心中高风险区什么影响返校，毕竟学校就在江苏，我索性就跟着去了，一开始我想的是拿着笔电，在车上学习来着，后来嘛，就没学成……<del>不过钱还是赚了的，赚钱就好XD</del></p>
+<a id="more"></a>
+
+<blockquote>
+<p><i class="fa fa-info-circle" aria-hidden="true"></i>   本篇初写于第一次行程后，所记录的为第一次行程，由于初一后还出车前往太仓，故将两篇汇总，引用栏内为第二次行程内容</p>
+</blockquote>
+<blockquote>
+<p><i class="fa fa-info-circle" aria-hidden="true"></i>             由于替班工作地方不同，第一次与第二次行程时所使用的汽车不同，第一次为北奔重卡一未知型号手动挡汽车，第二次为中国一汽解放J6P自动挡汽车，本文涉及图片均为后者</p>
+</blockquote>
+<p>之前疫情期间在家闲来无事，正好自己刚考完驾照，于是有段时间我就每天自驾去隔壁区驾校学危险品押运员证，考证后半年多没用过，年前这一阵终于有机会出挣钱了！持证上岗！</p>
+<img src="/p/631a1438/IMG_5582.jpeg" class title="危险品押运员证">
+
+<h1 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h1><p>工作第一天，上午我像往常一样在床上趴到差不多10点，然后刷刷B站，差不多到中午吃完饭就匆匆忙忙地准备走，我本来没以为会走这么急，没想到啊没想到，然后我妈那边，她问我拿不拿方便面，我说嗯，然后就没然后了，她的意思是提醒我让我自己拿，我的意思是我以为我妈会给我拿，然后就没拿，我也不好多说啥，反之也不是多么必要的东西，无所谓了，我爸那边，又是忘拿工作鞋，又是忘拿饼啥的，因为发现的时候已经离家很远了也懒得回去拿了</p>
+<p>这次出来我拿了一些吃的，充电器，手机，iPad，笔电，单片机啥的，当时的雄心壮志是打算正好用这几天时间好好学习复习一下单片机，正好也能挣钱，一举两得，实际上车晃的要死，在车上别说用笔电了，我用手机看番都不舒服</p>
+<p>我妈开车把我们送到了郊区停车场里，开上车，出发去滨州博兴的一个工厂拉货，第一次坐上公路上的“王者”，视野就是不一样，视野要高很多，并且由于车头跟驾驶室玻璃是平齐的，在对前方距离的判断可以比小车更精确一些，并且反光镜有两对，主驾驶和副驾驶各用一对，主驾驶用的差不多是副驾驶反光镜的两三倍大，车内很宽敞，驾驶室主驾驶副驾驶不是连在一起的，中间有一部分是高起来可以放一些杂物的，比如做饭的锅，桶装水，充电器，证件啥的，驾驶座后面是双层床，下面那一层比驾驶室与副驾驶中间那一部分还高一点点，同样上面也是队满了衣服被子还有一些杂物啥的，双层床的第二层一端由铰链固连在车壁上，另一端则是由两个安全带绳连在车顶上，还算牢固，平时开车的时候就把安全带一端插在车顶上，形成一个三角形区域减少开车时占据的车内的空间，设计的还算合理，然后在我副驾驶座位下还放着一个暖壶，用来盛开水，并且车内车外也有很多柜子可以放东西，总之就是比之前坐过的任何一种车都宽敞一些，刚上车还算舒服</p>
+<img src="/p/631a1438/IMG_5285.jpeg" class title="主驾驶处反光镜">
+
+<img src="/p/631a1438/IMG_5284.jpeg" class title="副驾驶处反光镜">
+
+<blockquote>
+<p>对比第一次行程，第二辆车就比第一次的好多了，车比北奔重卡那辆更宽敞，并且车头大概高半米，即便是我站在副驾驶的座位上头也距离车顶还有一小段距离，因此大概估计车内空间应该在2.3m—2.5m之间，第一辆车估计在1.9m左右，可以说第二辆车在高度上相当舒服了，并且，第二辆车的悬挂系统比第一辆好得多，在旅途过程中没有第一辆那么颠，不过由于第一次出车非常颠簸所以第二次我就没拿笔电，没想到第二辆车的悬挂系统完全允许我使用笔电，还有就是双层床不像是第一辆车那样用安全带吊着，而是使用了液压杆的设计，这个设计就非常棒了，收起放下二层床毫不费力并且驾驶室貌似还比第一辆车长一点，因为第一辆车放下双层床后会压迫到驾驶座，因此第一辆车在行车过程中无法使用上层床，而第二辆车就不会，大概也是因为第二辆车二层床小一点的缘故？我没有测量尺寸所以没办法对比，但是使用体验是绝对比第一辆车好</p>
+</blockquote>
+<img src="/p/631a1438/IMG_5282.jpeg" class title="折叠床">
+
+<blockquote>
+<p>再就是从司机角度来看：自动挡，毫无疑问，这意味着轻松，半挂车分为12个档位，并且半挂车平时也就是跑60km/h左右的样子，档位分的比较细，如果遇上红绿灯或者说堵车就非常难受，而自动挡就完全解决了这个烦恼，刚拿到车的时候我爸还不会开自动挡，因为他和我都没有开过自动挡的汽车，家里汽车是手动挡的，但是考虑到自动挡的档位分布图，大概就能判断出：R是倒车，N是驻车，D是行车，+-分别是加减档，而A/M根据常用缩写可以判断出是Automatic/Manual（自动/手动），也就是切换为A自动挡时，变速杆放在D行车档上就行，切换为M手动挡时，变速杆也是放在D行车上，但是可以通过+-来加减档，在实际操作后，果然就是这样，<del>那么这样我也会开自动挡半挂啦XD</del></p>
+</blockquote>
+<img src="/p/631a1438/IMG_5583.jpg" class title="变速杆">
+
+<p>在车上睡了一个午觉后，到达工厂，但是拉货需要排号，那个工厂看起来也不小，并且来的车很多，下午到的，结果我们排到晚上才进去装货，装货的时候貌似工厂有规定，不允许带手机入内，貌似也不允许带水？反正不能带手机这个我理解，但是不能带水就很迷惑，车内小杯子还在，但是装水的大桶以及暖壶我爸都拿下来了让我在外面等着，然后我看外面其他正在等候的押运员也都是拿着大瓶小壶的，我也就懒得问了，跟我也没啥关系</p>
+<p>进去装货的时候是司机进去装货，押运员在外面等候，工厂门口有押运员等候的小房间，里面看着有空调，但是貌似没开？因为感觉跟外面温度差不多，不过起码挡风，我就在里面畏畏缩缩等了一个多小时吧，鬼知道装货怎么这么慢，等装完以后也八点多了，干脆开车回家了，回到家吃晚饭拿上之前忘记拿的东西就尽快睡觉了，因为第二天早上要5点起床不早睡可起不来</p>
+<h1 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h1><p>虽然我平常早上起床起不来，但是有必要的事情要做的时候我还是很准时的，起床以后还是跟第一天中午一样我妈把我们送过去，然后我们开车正式出发</p>
+<p>此次行程是去往无锡锡山，本来是要去景德镇的，但是嘛，由于一些原因不去了改成去无锡了，不过也行8，少去1天正好也赶在年前前一天回来，看了一下导航，全程大约七八百公里，按照大货车限速60再加上走下道红绿灯，要跑十几个小时，估摸着晚上大约能到扬州，到时候就在扬州睡觉，早上起来上高速</p>
+<p>平日里坐惯了小轿车，半挂车明显比小轿车颠簸的多，看来小轿车悬挂比半挂车好得多，我原本以为半挂车重量比较大，同样颠簸的路段会更稳，没想到跟我想的正好相反，一路上真的巨颠簸，有些老国道省道都破烂不堪了，地面上坑坑洼洼的，跑几步颠一下，我干脆就先补觉吧，中途的时候经过一个包子店我爸下去买了点包子吃，这就是我们出来第一顿早餐了，平日里我是不吃早餐的，但是我还是吃了点，不吃也不大行，吃完我就继续睡</p>
+<p>一觉睡起来已经是中午了，我们到了一个镇上，我爸说这个地方的烧鸡挺好，然后他就下去买了个烧鸡，我们在车上馏（蒸）了点饼就着吃，草草的解决了中午饭，继续启程，下午我也是昏昏沉沉，想拿笔电，又有点晕不想动，不拿笔电吧，又有点精神就看看手机，就这样在纠结中度过了一个下午，最终还是没能拿出笔电学习（</p>
+<p>到了晚上在一个村旁的路边停下做饭，我爸拿了些芹菜炒了炒吃，味道肯定是不如家里的，但是不知道为啥在车上啥也不干我还有点饿，估计是一路颠簸，然后就跟那些瘦身机器是绑在身上震动差不多原理吧，一会功夫芹菜就被恰完了，洗洗锅继续上路</p>
+<p>晚上按照计划，差不多9点半到达扬州，在路边停车的时候还因为太黑，没看到草丛里不知道哪来的一根铁杆子，把车后保险杠给淦弯了一点，不过还好就是丑了一点，尾灯没有什么影响。我在路边上个厕所然后漱漱口就准备上床睡觉，因为下铺放的杂物有点多，我懒得收拾，并且我爸在下铺可能会方便些，我就睡上铺了，从家走的时候我妈觉得车上的被子不干净，还给我拿了个睡袋让我睡在睡袋里，外面再盖上被子，会干净一点，我也就照做了，但是吧，说实话，睡睡袋真的不咋舒服，像我这种睡觉不怎么老实平常特别喜欢翻身并且还有抱抱枕习惯的人来说，睡袋里面那一点点空间完全就是把我束缚住了，怎么动都不方便，并且如果里面捂的比较闷热的话还没有办法像平常被子一样掀起来就能把热气放出去，所以睡睡袋挺难受的，这破玩意也就是拿着比较方便，真要睡觉还是盖被子好</p>
+<p>白天睡了大半天的觉，晚上车停稳以后，我爸早早的就睡着了，我在被窝里看番顺便吃lex的瓜到11点多才睡觉，真正意义上的第一天就这么过去了，说实话，挺无聊的，基本上在车上能做的事情也就是玩手机，看看文字类信息（但是容易晕），看看短视频（因为比较颠簸，看视频体验比较差，长视频比如番剧不能很好地看到弹幕以及视频中的细节，如果我是专职押运员我肯定会去买个云台看视频）还有睡觉，睡觉还睡的我脖子疼，因为没有拿U形枕，并且副驾驶的座位被阉割的很严重：没有前后调节，没有高低调节，靠背角度调节有限，所以坐着也不咋舒服，根本没有办法很好的集中精力干其她的事情，所以说这项工作的前景很差，想要做专职押运员的话基本上以后也就这样了</p>
+<blockquote>
+<p>第二次行程本来说着去南通来着，但是鬼知道怎么回事是去太仓，而第二次行程由于是在过年期间，高速不允许上危化品车，所以要过江就必须走轮渡，走轮渡时上下坡起伏比较大，第一次上轮渡的时候用的是自动挡，速度快了汽车自动加档，导致中途憋火了，并且汽车还有一股浓浓的柴油没烧完的味道，当时可给我吓死了，因为停的地方正好在船与地面形成的V形坡的中间，我不知道这样会不会把挂车与牵引车中间的连接处搞断，车上拉的货是四氯乙烯，再加上那个柴油没烧充分的味道，巨TM恐怖好吧，不过还好，最后我爸还是平安把车开上去了，也算是有惊无险吧</p>
+</blockquote>
+<img src="/p/631a1438/IMG_5335.jpeg" class title="轮渡">
+
+<blockquote>
+<p>登上轮渡以后，我穿上外套去甲板上看风景，前边是高速公路通过长江的沪苏通长江公铁大桥，后边是南通延边的货运码头，左右两边有行驶过的货船与航道浮标，上边有点点星光，迎着江风，戴着耳机放一首最喜欢的歌曲，感叹人类工业文明的伟大</p>
+</blockquote>
+<img src="/p/631a1438/IMG_5343.jpeg" class title="长江（夜）">
+
+<h1 id="Day-3"><a href="#Day-3" class="headerlink" title="Day 3"></a>Day 3</h1><p>因为昨天晚上撞到那个柱子的事情，我爸一晚上思来想去早上睡不着差不多4点多就醒了，哎，我也是服了，屁大点事纠结那么久，然后5点钟他就准时开车走了，我5点醒来以后本来想起床来着但是我还是跟在家一样：关了闹钟继续睡</p>
+<p>一觉醒来已经是8点了，车停在了服务站，我就说之前怎么那么舒服，原来是上了高速后路面比较平整就不颠簸了，这一觉睡起来还真是爽，醒来以后我穿上衣服去给我爸装油，不知道为啥，我爸让我把油从车里卸出来，然后拿一个桶装起来再从上面倒回去，这个操作我是没看懂，咱也不知道为啥，咱也懒得问，反之倒了三桶油以后就完事了，上车继续出发</p>
+<p>很快，上午大约9点我们就到了那个厂子，貌似是一个生产润滑油的厂？厂子比起之前装货的厂来说真是太小了，这个厂子是私营的，管理相对来说松一点，按理来说卸货是需要押运员全程盯着的，但是因为私营小厂嘛，我也就不用全程盯着，在车上看看手机，差不多半个小时就完事了，卸货前后都是要称重的，称完以后那边的负责人说少40kg，我第一反应就是少了就少呗，又不多，误差范围内嘛，但是按照人家的规定要扣钱，最后是扣了150块钱，真的坑啊，因为毕竟装车的时候用的称跟卸货的时候不一样，再加上这么远的运输，车内驾驶室啥的东西也有少许变动，这40kg相比于30多吨的货来说差不多也就是0.1%多，这还能算？不过扣钱毕竟不是扣我们的钱，跟我们关系也不大，所以也不必太理会，最后运费一共给了10050，本来应该是10200，因为扣去了150所以就这样啦，这样算的话也就是说差不多800kg的行程运30t多点的油运费是10200，这样我也就大致知道了这方面的运费</p>
+<blockquote>
+<p>第二次行程卸货之后是比之前多20kg的样子，在卸货之前我看到了车上的记事本，上面记载了之前日常工作的每一次的装货记录，基本上都是会多20-40kg，看来这就是跟地磅由很大关系，第一次去的时候真的坑，明明不是我们的原因，还是要扣，不过没扣我们的钱还好</p>
+<p>第二次出行去的厂子还算蛮大的，在太仓工业园里面，工业园我是第一次去，里面全部都是工厂，工厂与工厂之间用道路分隔，整个区域布局非常整齐整洁，毕竟是专门为了搞工业开设的园区，我估摸着那些产业园科技园都是类似的布局</p>
+</blockquote>
+<p>返程还是需要走一段高速，因为毕竟要跨过长江，不走不行，高速路费也是蛮贵的，淮安大桥走过去要200块钱，大车跑1km大约要2块多，然后如果走隧道啥的都是按米算钱的，为了省钱能不走高速就不走高速，扬州到无锡这一段来回高速都要1k多，真的贵，但是体验也是真的好，高速最低速度60，没有红绿灯，路面平整，下道最高速60，还有红绿灯，其实最高速度无所谓，主要是红绿灯太费时间了，半挂车起步很慢，碰见一个红绿灯损失的不止是等红绿灯的时间，还有汽车启动加速的时间</p>
+<blockquote>
+<p>过江依然还是走轮渡，不过这次去通常轮渡，之前没过江的时候问过通常轮渡这边，说北往南不走，南往北可以走，我也不清楚这有什么区别，不过既然说了北往南不能走就只能绕道走通沙轮渡，这次回去自然就不绕道了，因为通常汽渡是离我们最近的，貌似也是长江离海最近的一个轮渡？</p>
+</blockquote>
+<img src="/p/631a1438/IMG_5389.jpeg" class title="长江北岸码头">
+
+<h1 id="Day-4"><a href="#Day-4" class="headerlink" title="Day 4"></a>Day 4</h1><p>返程的话也就那样？没有什么好讲的，顺着原路回去就行了，回去以后先去找了个地方修车，后面那一点虽然完全不影响使用但是毕竟车不是自己的，修还是要修的，持证上岗拿到人生第一桶金：880元</p>
+<blockquote>
+<p>第二次回去拿工钱的时候出了点小插曲，一直联系不上老板，刚回去的时候老板说等那个人一起结，因为我们出去的时候是两辆车，我们先回来了让我们等他们，不过还是难以理解，我们又不认识，而且我们先完工了为啥让我们等他们？之前其实我们和那一辆车进度车差不多，但是卸货的时候他们早跑我们前面去了结果化验报告暂时找不到了就让我们先卸货了，我们卸完货那个司机才在自己口袋里找到了化验报告，我们自然不会等他们，就早走了，最后早一步回来</p>
+<p>等到那辆车回来以后，老板直接联系不上了，当时我们以为要拖欠工资，那个司机就报警了，然后我们这就暂时把车上的行驶证车钥匙拿走了，第二天老板才告诉我们昨天喝醉了，让我们回去拿钱，我就懒得去了，让我爸自己去的，我爸回来告诉我另外那个司机不咋滴，态度不大好，因为这次出去涉及到目的地变更以及轮渡的问题，多跑了路程，并且这车是改装双油箱，我爸不会用，路上漏了好多油，回去的时候还加了200多块钱的油，但是那个司机，他开车习惯不好，踩油门踩的重，他加了800多块钱的油，我都惊了，800多块钱差不多一天白干，那个人心里很不平衡呗，不过因此我也知道开车踩油门不要太重，不然这个耗油真的太恐怖咯</p>
+<p>这次行程因为是过年期间，工资自然高，这4天我就拿到了2000，这个假期用了一周时间挣了2880，还行叭，暑假有空再出去溜几圈挣点钱嘿嘿</p>
+</blockquote>
+<img src="/p/631a1438/IMG_5405.jpeg" class title="中国一汽解放J6P">
+
+<hr>
+<p><i class="fa fa-info-circle" aria-hidden="true"></i>   更新于2020/2/22</p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+        <tag>工作体验</tag>
       </tags>
   </entry>
   <entry>
@@ -489,89 +606,6 @@
         <tag>STC89C52</tag>
         <tag>74HC138</tag>
         <tag>74HC245</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>危险品押运员生活体验</title>
-    <url>/p/631a1438.html</url>
-    <content><![CDATA[<p>最近在家“里闲来无事”（我妈觉得我很闲），正好临近过年，年前就让我跟我爸出去拉货挣钱去，正好也算是让我体验体验生活，并且是往江苏跑，也不用担心中高风险区什么影响返校，毕竟学校就在江苏，我索性就跟着去了，一开始我想的是拿着笔电，在车上学习来着，后来嘛，就没学成……<del>不过钱还是赚了的，赚钱就好XD</del></p>
-<a id="more"></a>
-
-<blockquote>
-<p><i class="fa fa-info-circle" aria-hidden="true"></i>   本篇初写于第一次行程后，所记录的为第一次行程，由于初一后还出车前往太仓，故将两篇汇总，引用栏内为第二次行程内容</p>
-</blockquote>
-<blockquote>
-<p><i class="fa fa-info-circle" aria-hidden="true"></i>             由于替班工作地方不同，第一次与第二次行程时所使用的汽车不同，第一次为北奔重卡一未知型号手动挡汽车，第二次为中国一汽解放J6P自动挡汽车，本文涉及图片均为后者</p>
-</blockquote>
-<p>之前疫情期间在家闲来无事，正好自己刚考完驾照，于是有段时间我就每天自驾去隔壁区驾校学危险品押运员证，考证后半年多没用过，年前这一阵终于有机会出挣钱了！持证上岗！</p>
-<img src="/p/631a1438/IMG_5582.jpeg" class title="危险品押运员证">
-
-<h1 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h1><p>工作第一天，上午我像往常一样在床上趴到差不多10点，然后刷刷B站，差不多到中午吃完饭就匆匆忙忙地准备走，我本来没以为会走这么急，没想到啊没想到，然后我妈那边，她问我拿不拿方便面，我说嗯，然后就没然后了，她的意思是提醒我让我自己拿，我的意思是我以为我妈会给我拿，然后就没拿，我也不好多说啥，反之也不是多么必要的东西，无所谓了，我爸那边，又是忘拿工作鞋，又是忘拿饼啥的，因为发现的时候已经离家很远了也懒得回去拿了</p>
-<p>这次出来我拿了一些吃的，充电器，手机，iPad，笔电，单片机啥的，当时的雄心壮志是打算正好用这几天时间好好学习复习一下单片机，正好也能挣钱，一举两得，实际上车晃的要死，在车上别说用笔电了，我用手机看番都不舒服</p>
-<p>我妈开车把我们送到了郊区停车场里，开上车，出发去滨州博兴的一个工厂拉货，第一次坐上公路上的“王者”，视野就是不一样，视野要高很多，并且由于车头跟驾驶室玻璃是平齐的，在对前方距离的判断可以比小车更精确一些，并且反光镜有两对，主驾驶和副驾驶各用一对，主驾驶用的差不多是副驾驶反光镜的两三倍大，车内很宽敞，驾驶室主驾驶副驾驶不是连在一起的，中间有一部分是高起来可以放一些杂物的，比如做饭的锅，桶装水，充电器，证件啥的，驾驶座后面是双层床，下面那一层比驾驶室与副驾驶中间那一部分还高一点点，同样上面也是队满了衣服被子还有一些杂物啥的，双层床的第二层一端由铰链固连在车壁上，另一端则是由两个安全带绳连在车顶上，还算牢固，平时开车的时候就把安全带一端插在车顶上，形成一个三角形区域减少开车时占据的车内的空间，设计的还算合理，然后在我副驾驶座位下还放着一个暖壶，用来盛开水，并且车内车外也有很多柜子可以放东西，总之就是比之前坐过的任何一种车都宽敞一些，刚上车还算舒服</p>
-<img src="/p/631a1438/IMG_5285.jpeg" class title="主驾驶处反光镜">
-
-<img src="/p/631a1438/IMG_5284.jpeg" class title="副驾驶处反光镜">
-
-<blockquote>
-<p>对比第一次行程，第二辆车就比第一次的好多了，车比北奔重卡那辆更宽敞，并且车头大概高半米，即便是我站在副驾驶的座位上头也距离车顶还有一小段距离，因此大概估计车内空间应该在2.3m—2.5m之间，第一辆车估计在1.9m左右，可以说第二辆车在高度上相当舒服了，并且，第二辆车的悬挂系统比第一辆好得多，在旅途过程中没有第一辆那么颠，不过由于第一次出车非常颠簸所以第二次我就没拿笔电，没想到第二辆车的悬挂系统完全允许我使用笔电，还有就是双层床不像是第一辆车那样用安全带吊着，而是使用了液压杆的设计，这个设计就非常棒了，收起放下二层床毫不费力并且驾驶室貌似还比第一辆车长一点，因为第一辆车放下双层床后会压迫到驾驶座，因此第一辆车在行车过程中无法使用上层床，而第二辆车就不会，大概也是因为第二辆车二层床小一点的缘故？我没有测量尺寸所以没办法对比，但是使用体验是绝对比第一辆车好</p>
-</blockquote>
-<img src="/p/631a1438/IMG_5282.jpeg" class title="折叠床">
-
-<blockquote>
-<p>再就是从司机角度来看：自动挡，毫无疑问，这意味着轻松，半挂车分为12个档位，并且半挂车平时也就是跑60km/h左右的样子，档位分的比较细，如果遇上红绿灯或者说堵车就非常难受，而自动挡就完全解决了这个烦恼，刚拿到车的时候我爸还不会开自动挡，因为他和我都没有开过自动挡的汽车，家里汽车是手动挡的，但是考虑到自动挡的档位分布图，大概就能判断出：R是倒车，N是驻车，D是行车，+-分别是加减档，而A/M根据常用缩写可以判断出是Automatic/Manual（自动/手动），也就是切换为A自动挡时，变速杆放在D行车档上就行，切换为M手动挡时，变速杆也是放在D行车上，但是可以通过+-来加减档，在实际操作后，果然就是这样，<del>那么这样我也会开自动挡半挂啦XD</del></p>
-</blockquote>
-<img src="/p/631a1438/IMG_5583.jpg" class title="变速杆">
-
-<p>在车上睡了一个午觉后，到达工厂，但是拉货需要排号，那个工厂看起来也不小，并且来的车很多，下午到的，结果我们排到晚上才进去装货，装货的时候貌似工厂有规定，不允许带手机入内，貌似也不允许带水？反正不能带手机这个我理解，但是不能带水就很迷惑，车内小杯子还在，但是装水的大桶以及暖壶我爸都拿下来了让我在外面等着，然后我看外面其他正在等候的押运员也都是拿着大瓶小壶的，我也就懒得问了，跟我也没啥关系</p>
-<p>进去装货的时候是司机进去装货，押运员在外面等候，工厂门口有押运员等候的小房间，里面看着有空调，但是貌似没开？因为感觉跟外面温度差不多，不过起码挡风，我就在里面畏畏缩缩等了一个多小时吧，鬼知道装货怎么这么慢，等装完以后也八点多了，干脆开车回家了，回到家吃晚饭拿上之前忘记拿的东西就尽快睡觉了，因为第二天早上要5点起床不早睡可起不来</p>
-<h1 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h1><p>虽然我平常早上起床起不来，但是有必要的事情要做的时候我还是很准时的，起床以后还是跟第一天中午一样我妈把我们送过去，然后我们开车正式出发</p>
-<p>此次行程是去往无锡锡山，本来是要去景德镇的，但是嘛，由于一些原因不去了改成去无锡了，不过也行8，少去1天正好也赶在年前前一天回来，看了一下导航，全程大约七八百公里，按照大货车限速60再加上走下道红绿灯，要跑十几个小时，估摸着晚上大约能到扬州，到时候就在扬州睡觉，早上起来上高速</p>
-<p>平日里坐惯了小轿车，半挂车明显比小轿车颠簸的多，看来小轿车悬挂比半挂车好得多，我原本以为半挂车重量比较大，同样颠簸的路段会更稳，没想到跟我想的正好相反，一路上真的巨颠簸，有些老国道省道都破烂不堪了，地面上坑坑洼洼的，跑几步颠一下，我干脆就先补觉吧，中途的时候经过一个包子店我爸下去买了点包子吃，这就是我们出来第一顿早餐了，平日里我是不吃早餐的，但是我还是吃了点，不吃也不大行，吃完我就继续睡</p>
-<p>一觉睡起来已经是中午了，我们到了一个镇上，我爸说这个地方的烧鸡挺好，然后他就下去买了个烧鸡，我们在车上馏（蒸）了点饼就着吃，草草的解决了中午饭，继续启程，下午我也是昏昏沉沉，想拿笔电，又有点晕不想动，不拿笔电吧，又有点精神就看看手机，就这样在纠结中度过了一个下午，最终还是没能拿出笔电学习（</p>
-<p>到了晚上在一个村旁的路边停下做饭，我爸拿了些芹菜炒了炒吃，味道肯定是不如家里的，但是不知道为啥在车上啥也不干我还有点饿，估计是一路颠簸，然后就跟那些瘦身机器是绑在身上震动差不多原理吧，一会功夫芹菜就被恰完了，洗洗锅继续上路</p>
-<p>晚上按照计划，差不多9点半到达扬州，在路边停车的时候还因为太黑，没看到草丛里不知道哪来的一根铁杆子，把车后保险杠给淦弯了一点，不过还好就是丑了一点，尾灯没有什么影响。我在路边上个厕所然后漱漱口就准备上床睡觉，因为下铺放的杂物有点多，我懒得收拾，并且我爸在下铺可能会方便些，我就睡上铺了，从家走的时候我妈觉得车上的被子不干净，还给我拿了个睡袋让我睡在睡袋里，外面再盖上被子，会干净一点，我也就照做了，但是吧，说实话，睡睡袋真的不咋舒服，像我这种睡觉不怎么老实平常特别喜欢翻身并且还有抱抱枕习惯的人来说，睡袋里面那一点点空间完全就是把我束缚住了，怎么动都不方便，并且如果里面捂的比较闷热的话还没有办法像平常被子一样掀起来就能把热气放出去，所以睡睡袋挺难受的，这破玩意也就是拿着比较方便，真要睡觉还是盖被子好</p>
-<p>白天睡了大半天的觉，晚上车停稳以后，我爸早早的就睡着了，我在被窝里看番顺便吃lex的瓜到11点多才睡觉，真正意义上的第一天就这么过去了，说实话，挺无聊的，基本上在车上能做的事情也就是玩手机，看看文字类信息（但是容易晕），看看短视频（因为比较颠簸，看视频体验比较差，长视频比如番剧不能很好地看到弹幕以及视频中的细节，如果我是专职押运员我肯定会去买个云台看视频）还有睡觉，睡觉还睡的我脖子疼，因为没有拿U形枕，并且副驾驶的座位被阉割的很严重：没有前后调节，没有高低调节，靠背角度调节有限，所以坐着也不咋舒服，根本没有办法很好的集中精力干其她的事情，所以说这项工作的前景很差，想要做专职押运员的话基本上以后也就这样了</p>
-<blockquote>
-<p>第二次行程本来说着去南通来着，但是鬼知道怎么回事是去太仓，而第二次行程由于是在过年期间，高速不允许上危化品车，所以要过江就必须走轮渡，走轮渡时上下坡起伏比较大，第一次上轮渡的时候用的是自动挡，速度快了汽车自动加档，导致中途憋火了，并且汽车还有一股浓浓的柴油没烧完的味道，当时可给我吓死了，因为停的地方正好在船与地面形成的V形坡的中间，我不知道这样会不会把挂车与牵引车中间的连接处搞断，车上拉的货是四氯乙烯，再加上那个柴油没烧充分的味道，巨TM恐怖好吧，不过还好，最后我爸还是平安把车开上去了，也算是有惊无险吧</p>
-</blockquote>
-<img src="/p/631a1438/IMG_5335.jpeg" class title="轮渡">
-
-<blockquote>
-<p>登上轮渡以后，我穿上外套去甲板上看风景，前边是高速公路通过长江的沪苏通长江公铁大桥，后边是南通延边的货运码头，左右两边有行驶过的货船与航道浮标，上边有点点星光，迎着江风，戴着耳机放一首最喜欢的歌曲，感叹人类工业文明的伟大</p>
-</blockquote>
-<img src="/p/631a1438/IMG_5343.jpeg" class title="长江（夜）">
-
-<h1 id="Day-3"><a href="#Day-3" class="headerlink" title="Day 3"></a>Day 3</h1><p>因为昨天晚上撞到那个柱子的事情，我爸一晚上思来想去早上睡不着差不多4点多就醒了，哎，我也是服了，屁大点事纠结那么久，然后5点钟他就准时开车走了，我5点醒来以后本来想起床来着但是我还是跟在家一样：关了闹钟继续睡</p>
-<p>一觉醒来已经是8点了，车停在了服务站，我就说之前怎么那么舒服，原来是上了高速后路面比较平整就不颠簸了，这一觉睡起来还真是爽，醒来以后我穿上衣服去给我爸装油，不知道为啥，我爸让我把油从车里卸出来，然后拿一个桶装起来再从上面倒回去，这个操作我是没看懂，咱也不知道为啥，咱也懒得问，反之倒了三桶油以后就完事了，上车继续出发</p>
-<p>很快，上午大约9点我们就到了那个厂子，貌似是一个生产润滑油的厂？厂子比起之前装货的厂来说真是太小了，这个厂子是私营的，管理相对来说松一点，按理来说卸货是需要押运员全程盯着的，但是因为私营小厂嘛，我也就不用全程盯着，在车上看看手机，差不多半个小时就完事了，卸货前后都是要称重的，称完以后那边的负责人说少40kg，我第一反应就是少了就少呗，又不多，误差范围内嘛，但是按照人家的规定要扣钱，最后是扣了150块钱，真的坑啊，因为毕竟装车的时候用的称跟卸货的时候不一样，再加上这么远的运输，车内驾驶室啥的东西也有少许变动，这40kg相比于30多吨的货来说差不多也就是0.1%多，这还能算？不过扣钱毕竟不是扣我们的钱，跟我们关系也不大，所以也不必太理会，最后运费一共给了10050，本来应该是10200，因为扣去了150所以就这样啦，这样算的话也就是说差不多800kg的行程运30t多点的油运费是10200，这样我也就大致知道了这方面的运费</p>
-<blockquote>
-<p>第二次行程卸货之后是比之前多20kg的样子，在卸货之前我看到了车上的记事本，上面记载了之前日常工作的每一次的装货记录，基本上都是会多20-40kg，看来这就是跟地磅由很大关系，第一次去的时候真的坑，明明不是我们的原因，还是要扣，不过没扣我们的钱还好</p>
-<p>第二次出行去的厂子还算蛮大的，在太仓工业园里面，工业园我是第一次去，里面全部都是工厂，工厂与工厂之间用道路分隔，整个区域布局非常整齐整洁，毕竟是专门为了搞工业开设的园区，我估摸着那些产业园科技园都是类似的布局</p>
-</blockquote>
-<p>返程还是需要走一段高速，因为毕竟要跨过长江，不走不行，高速路费也是蛮贵的，淮安大桥走过去要200块钱，大车跑1km大约要2块多，然后如果走隧道啥的都是按米算钱的，为了省钱能不走高速就不走高速，扬州到无锡这一段来回高速都要1k多，真的贵，但是体验也是真的好，高速最低速度60，没有红绿灯，路面平整，下道最高速60，还有红绿灯，其实最高速度无所谓，主要是红绿灯太费时间了，半挂车起步很慢，碰见一个红绿灯损失的不止是等红绿灯的时间，还有汽车启动加速的时间</p>
-<blockquote>
-<p>过江依然还是走轮渡，不过这次去通常轮渡，之前没过江的时候问过通常轮渡这边，说北往南不走，南往北可以走，我也不清楚这有什么区别，不过既然说了北往南不能走就只能绕道走通沙轮渡，这次回去自然就不绕道了，因为通常汽渡是离我们最近的，貌似也是长江离海最近的一个轮渡？</p>
-</blockquote>
-<img src="/p/631a1438/IMG_5389.jpeg" class title="长江北岸码头">
-
-<h1 id="Day-4"><a href="#Day-4" class="headerlink" title="Day 4"></a>Day 4</h1><p>返程的话也就那样？没有什么好讲的，顺着原路回去就行了，回去以后先去找了个地方修车，后面那一点虽然完全不影响使用但是毕竟车不是自己的，修还是要修的，持证上岗拿到人生第一桶金：880元</p>
-<blockquote>
-<p>第二次回去拿工钱的时候出了点小插曲，一直联系不上老板，刚回去的时候老板说等那个人一起结，因为我们出去的时候是两辆车，我们先回来了让我们等他们，不过还是难以理解，我们又不认识，而且我们先完工了为啥让我们等他们？之前其实我们和那一辆车进度车差不多，但是卸货的时候他们早跑我们前面去了结果化验报告暂时找不到了就让我们先卸货了，我们卸完货那个司机才在自己口袋里找到了化验报告，我们自然不会等他们，就早走了，最后早一步回来</p>
-<p>等到那辆车回来以后，老板直接联系不上了，当时我们以为要拖欠工资，那个司机就报警了，然后我们这就暂时把车上的行驶证车钥匙拿走了，第二天老板才告诉我们昨天喝醉了，让我们回去拿钱，我就懒得去了，让我爸自己去的，我爸回来告诉我另外那个司机不咋滴，态度不大好，因为这次出去涉及到目的地变更以及轮渡的问题，多跑了路程，并且这车是改装双油箱，我爸不会用，路上漏了好多油，回去的时候还加了200多块钱的油，但是那个司机，他开车习惯不好，踩油门踩的重，他加了800多块钱的油，我都惊了，800多块钱差不多一天白干，那个人心里很不平衡呗，不过因此我也知道开车踩油门不要太重，不然这个耗油真的太恐怖咯</p>
-<p>这次行程因为是过年期间，工资自然高，这4天我就拿到了2000，这个假期用了一周时间挣了2880，还行叭，暑假有空再出去溜几圈挣点钱嘿嘿</p>
-</blockquote>
-<img src="/p/631a1438/IMG_5405.jpeg" class title="中国一汽解放J6P">
-
-<hr>
-<p><i class="fa fa-info-circle" aria-hidden="true"></i>   更新于2020/2/22</p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
-        <tag>工作体验</tag>
       </tags>
   </entry>
 </search>
