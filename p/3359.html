@@ -79,19 +79,23 @@
 
 
 
+<meta name="description" content="在这一章我们又要学习到一种重要的信息输出方法：8x8LED点阵模块，之前学习到的数码管虽然用处广泛，但是由于其LED数量较少且有固定的摆放方式，所以可以显示的信息非常有限，只能显示数字，部分字母还有一些极其简单的符号，如果要显示复杂的图形信息，就需要用到点阵模块    准备  1.使用STC89C52的普中51-单核-A2单片机（本文以该单片机为样本） 2.能够正常下载驱动以及Keil等开发软件的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="51单片机开发例程-5">
 <meta property="og:url" content="http://cnwatermeter.github.io/p/3359.html">
 <meta property="og:site_name" content="淼表のブログ">
+<meta property="og:description" content="在这一章我们又要学习到一种重要的信息输出方法：8x8LED点阵模块，之前学习到的数码管虽然用处广泛，但是由于其LED数量较少且有固定的摆放方式，所以可以显示的信息非常有限，只能显示数字，部分字母还有一些极其简单的符号，如果要显示复杂的图形信息，就需要用到点阵模块    准备  1.使用STC89C52的普中51-单核-A2单片机（本文以该单片机为样本） 2.能够正常下载驱动以及Keil等开发软件的">
 <meta property="og:locale">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/3359/dongtai.GIF">
 <meta property="article:published_time" content="2021-02-25T13:20:02.000Z">
-<meta property="article:modified_time" content="2021-03-01T02:41:59.000Z">
+<meta property="article:modified_time" content="2021-05-01T01:37:42.222Z">
 <meta property="article:author" content="淼表">
 <meta property="article:tag" content="C语言">
 <meta property="article:tag" content="单片机">
 <meta property="article:tag" content="STC89C52">
 <meta property="article:tag" content="74HC595">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cnwatermeter.github.io/p/3359/dongtai.GIF">
 
 
 
@@ -389,7 +393,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  3.4k
                 </span>
               
 
@@ -405,7 +409,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  12
                 </span>
               
             </div>
@@ -426,7 +430,65 @@
       
 
       
-        
+        <p>在这一章我们又要学习到一种重要的信息输出方法：8x8LED点阵模块，之前学习到的数码管虽然用处广泛，但是由于其LED数量较少且有固定的摆放方式，所以可以显示的信息非常有限，只能显示数字，部分字母还有一些极其简单的符号，如果要显示复杂的图形信息，就需要用到点阵模块</p>
+<!----- more ----->
+
+<p> 准备</p>
+<ul>
+<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
+<li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
+<li>3.一根micro USB to USB A数据线</li>
+<li>4.用跳线帽将<code>J24</code>处的<code>GND</code>与<code>OE</code>引脚进行短接</li>
+</ul>
+<p>跳线帽</p>
+<p>跳线帽是一个可活动的部件，外层是绝缘塑料，内部是导电材料，可以插在跳线针上，将两根跳线针进行短接。通过跳线帽连接不同的跳线针，可以改变主板的电路，从而达到不同的使用目的</p>
+
+
+<p>LED点阵</p>
+<h2 id="LED点阵原理"><a href="#LED点阵原理" class="headerlink" title="LED点阵原理"></a>LED点阵原理</h2><p>LED点阵由于增加了LED的数量并且所有LED都按同一间距进行矩形排列，因此不但可以显示数码管可以显示的数字和字母，还可以显示一些较为简单的图形和汉字，大大增加了数据输出的形式和内容</p>
+<p>图</p>
+<p>通过观察原理图我们我们可以得知想要点亮一个LED灯只需要对二极管阳极输入高电平，对阴极输入低电平就可以点亮二极管，跟之前点亮LED模块一样（实际上所有LED都是这个原理），但是如果要同时点亮多个二级管呢？8x8LED点阵并没有采用数码管那样共阴共阳的解法，而是引出了8+8个管脚，其实，虽然看起来原理并不相同，但是我们所讲的数码管并不是单个工作的而是多个并联在一起的，因此实际上也原理差不多。LED的8+8管脚分别对应之前数码管的段选和位选，因此采用同样的动态扫描原理即可实现多个LED灯同时点亮</p>
+<h2 id="74HC595"><a href="#74HC595" class="headerlink" title="74HC595"></a>74HC595</h2><p>LED点阵需要的<code>I/O</code>口比之前的数码管还要多，为了节省<code>I/O</code>口，我们同样需要用到一个可以扩展<code>I/O</code>口的芯片，在之前的数码管显示中我们使用了一个译码器来对单片机<code>I/O</code>口进行扩展，译码器可以实现3向输入8向输出，而在LED点阵中我们使用一个新的芯片来实现<code>I/O</code>口的扩展与对LED点阵的控制，我们在此使用<strong>位移缓存器</strong>：<code>74HC595</code></p>
+<blockquote>
+<p>74HC595是一个8位串行输入、并行输出的位移缓存器：并行输出为三态输出。在SCK 的上升沿，串行数据由SDL输入到内部的8位位移缓存器，并由Q7’输出，而并行输出则是在LCK的上升沿将在8位位移缓存器的数据存入到8位并行输出缓存器。当串行数据输入端OE的控制信号为低使能时，并行输出端的输出值等于并行输出缓存器所存储的值。</p>
+<p>——引用自<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/74HC595/9886491?fr=aladdin">百度百科</a></p>
+</blockquote>
+<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i>  敬告：</strong>我在学习的时候发现此部分的教学视频以及教学文档与实际资料并不匹配，并且实际开发板资料内容极其有限，所以导致没有数电模电相关知识的同学很难理解这一部分的内容，我通过分析示例程序代码，查看开发板实际原理图及资料中的文件，通过网络对相关内容搜索，咨询大佬等方式，大概也许可能了解了该芯片的基础使用方法，由于这一部分内容涉及到的东西较多，我本人<strong>能力有限</strong>所以我会以自己的理解<strong>尽可能简单直观的描述这个芯片的功能</strong></p>
+<p>不同于之前原理较为简单的译码器，译码器通过3个输入来控制8个输出，3个输出管脚正好对应3位二进制，因此很容易就能得知怎样的输入对应怎样的输出，即便是理解能力不行或者压根没想理解的也可以通过芯片手册中对应管脚输入输出的表哥来找到自己需要的控制方法。位移缓存器实现了1个输入来控制8+1个输出，那么如此高效的扩展<code>I/O</code>口的方法是怎样实现的呢？</p>
+<p>实际上，在本例程中使用到的单个595芯片是有3个输入的管脚的，但是这三个输入不同于译码器的三个输入，这三个管脚分别对应：11脚 RCK 存储寄存器 时钟引脚；12脚 SCK 移位寄存器 时钟引脚；14脚 DS 串行数据 输入引脚。我对以上词汇重要部分中间打了个空格，便于理解，那么我们按他的工作顺序讲起：</p>
+<blockquote>
+<p>14脚（DS）：串行数据输入引脚</p>
+<p>这个引脚便是595芯片真正用来输入数据的引脚，之前我们的学习中可以得知<code>I/O</code>口用来传递的信息只有高低电平仅此而己，也就是对应二进制1和0，如果输出大于1的数据呢？假如我对单片机一个<code>I/O</code>口输出7，那么实际输出的就是这个数字二进制的第一位，也就是0x0111的第一位，也就是1，对应<code>I/O</code>口的高电平；输出6，其二进制是0x0110，取第一位0，对应<code>I/O</code>口的低电平</p>
+<p>知道了上述的内容，我们得知<code>I/O</code>口可以输出一个数字二进制的一位，实现输出完整的数字也就是二进制的多个位，那么我们就需要用到595芯片内部的结构：寄存器</p>
+</blockquote>
+<blockquote>
+<p>寄存器：顾名思义，就是将数据寄存在芯片中，从DS输入的数据将依次存储在寄存器中，原理有点像入栈，也就是先入后出，我这么说肯定是很抽象了，那么看图！要使得数据一位一位地存储在寄存器中，我们就要让二进制数字从左向右每一位都依次成为最右位（第一位），并且由于先入的数据会被存储在最后一位，我们要将数据最后一位移到第一位</p>
+</blockquote>
+<img src="/p/3359/dongtai.GIF" class title="动态示意图">
+
+<blockquote>
+<p>知道了硬件上的原理，那么从软件层面来看，以0x11010111我们要使用移位运算符先将最后一位移到第一位，即：<code>SER = dat &gt;&gt; 7;</code>也就是将<code>0x11010111</code>右移7位变为<code>0x00000001</code>，此时取的<code>SER</code>的最后一位就是原数据<code>dat</code>的第一位</p>
+<p>然后按照从后往前的顺序，我们就该取倒数第二位，也就是将原数据左移一位<code>dat &lt;&lt; 1</code>，将<code>0x11010111</code>变为<code>0x10101110</code>，之后再取移位后的倒数第一位即可，以此类推，595寄存器最多寄存8位数字，因此我们只需要一个<code>for</code>循环将以上的代码循环8次即可</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*SER为实际向DS输入的数据，dat为想要向DS输入的原始数据*/</span></span><br><span class="line"><span class="keyword">for</span>(u8 a = <span class="number">0</span>; a &lt; <span class="number">8</span>; a++)&#123;</span><br><span class="line">  SER = dat &gt;&gt; <span class="number">7</span>; <span class="comment">//将最后一位移位变为第一位</span></span><br><span class="line">  dat &lt;&lt; <span class="number">1</span>; <span class="comment">//从右向左依次移位</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>12脚（SCK）移位寄存器时钟引脚：</p>
+<p>我们知道了寄存器会一位一位地存储DS口输入的数据，那芯片又是怎么知道什么时候该从DS取数据呢？这个时候我们就需要通过SCK向芯片输入一个上升沿（从低电平变为高电平的过程）来告诉芯片该取数据了。首先，我们要向SCK脚输出高电平，以防止抖动导致的意外取值，之后向SCK输出低电平间隔一段时间后输出高电平让芯片知道该在此时取DS的值，那么问题又来了，我们为什么要在高低电平之间加入一段延时呢？这个延时又该是多少呢？</p>
+<p>从SCK脚的名字“时钟引脚”可以知道，向这个引脚输入的高低电平的时间间隔相当于我们现实中的时钟，起一个时间参考作用，虽然你输入一个上升沿就可以告诉芯片该在什么时候取DS的值，但是芯片的工作频率也是有极限的，举个例子：我告诉你现在该完成数学作业，你知道了自己该完成数学作业，但是你完成的速度是有极限的，假如你一个小时才能完成，而我半个小时后告诉你现在要完成英语作业，那么就会出问题，因为你还没有完成手头的工作而新的工作就被分配下来了，但是如果我在两个小时后才告诉你现在要完成英语作业，那么就没问题，因为你一个小时就完成了，剩下的一个小时干嘛？歇着呗！通过读芯片手册我们可以知道该移位寄存器的移位频率为100MHz，因为有8位位移，那么平摊下来每一位的移位频率为100/8=12.5MHz，向SCK输入上升沿的频率就不能超12.5MHz，但是！这个参数只是设计参数，实际芯片制造商不同实际参数也不同，通过查询我使用的单片机上的芯片<code>NXP 74HC595D HYC23HK UnL1418L</code>的实际最大移位频率只有30MHz，那么根据上式计算出来移位频率就只有3.75MHz了</p>
+<p>问题又又又来了，我怎么知道我在输入低电平和高电平之间的那段延时延时了多久呢？此时我们就可以引入一个新的头文件<code>#include &lt;intrins.h&gt;</code>，这个头文件中包含了一个我们需要的函数：<code>_nop_()</code>，这个函数代表的含义就是延时一个机器周期，而一个机器周期也就是十二个时钟周期，我们只需要知道单片机上晶振的频率那么就可以知道这个函数延时的时长了，不管是什么品牌的学习单片机上所使用的晶振基本上都是11.0592MHz的，其实在单片机的实际使用中基本上都是1.2MHz或者12MHz，但是由于学习使用的单片机上有串口烧录的电路，这其中的原理我在撰写这篇文章时尚不明确，反正就是因为有烧录的电路所以需要使用到11.0592MHz的晶振，那么运行一个机器周期的频率也就是0.9216MHz，因此我们只需要延时一个机器周期即可</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*SCK为实际向SCK输入的数据*/</span></span><br><span class="line">SCK = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(u8 a = <span class="number">0</span>; a &lt; <span class="number">8</span>; a++)&#123;</span><br><span class="line">  SER = dat &gt;&gt; <span class="number">7</span>;</span><br><span class="line">  dat &lt;&lt; <span class="number">1</span>;</span><br><span class="line">  SCK = <span class="number">0</span>;_nop_();SCK = <span class="number">1</span>; <span class="comment">//约1MHz的频率输入上升沿</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>11脚（RCK）存储寄存器时钟引脚：</p>
+<p>经过这一系列操作，我们已经实现了上面GIF图中的操作，但是寄存器分为两部分，一部分就是刚刚所使用的移位寄存器，另外一部分就是存储寄存器，存储寄存器的原理跟移位寄存器有一部分相同又有一部分不相同，不相同的是移位寄存器是一位一位地将一个引脚中的数据依次输入到移位寄存器的8位中，而存储寄存器是一次性将移位寄存器内的数据一一对应地输入到存储寄存器中；相同的是两者都需要一个上升沿来告诉芯片什么时候该取数据</p>
+<p>由于存储寄存器是一次性将移位寄存器中的数据“复制粘贴”进去，因此也就不需要一个循环8次的for循环了，只需要在移位寄存器将数据全部输入后给一个上升沿就好了，代码跟上一步类似不再过多赘述</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*RCK为实际向RCK输入的数据*/</span></span><br><span class="line">SCK = <span class="number">1</span>;</span><br><span class="line">RCK = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(u8 a = <span class="number">0</span>; a &lt; <span class="number">8</span>; a++)&#123;</span><br><span class="line">  SER = dat &gt;&gt; <span class="number">7</span>;</span><br><span class="line">  dat &lt;&lt; <span class="number">1</span>;</span><br><span class="line">  SCK = <span class="number">0</span>; _nop_(); SCK = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">RCK = <span class="number">0</span>; _nop_(); RCK = <span class="number">1</span>; <span class="comment">//约1MHz的频率输入上升沿</span></span><br></pre></td></tr></table></figure>
+<p>那么以上就是74HC595芯片的大致用法原理了，我们将上述的代码稍微修改一下封装成一个函数方便调用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HC595SendByte</span> <span class="params">(u8 dat)</span></span>&#123; <span class="comment">//要按二进制输出的数据dat</span></span><br><span class="line"><span class="comment">/*RCK为实际向RCK输入的数据，SCK为实际向SCK输入的数据</span></span><br><span class="line"><span class="comment">SER为实际向DS输入的数据，dat为想要向DS输入的原始数据*/</span></span><br><span class="line">SCK = <span class="number">1</span>;</span><br><span class="line">RCK = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(u8 a = <span class="number">0</span>; a &lt; <span class="number">8</span>; a++)&#123;</span><br><span class="line">  SER = dat &gt;&gt; <span class="number">7</span>;<span class="comment">//将最后一位移位变为第一位</span></span><br><span class="line">  dat &lt;&lt; <span class="number">1</span>; <span class="comment">//从右向左依次移位</span></span><br><span class="line">  SCK = <span class="number">0</span>; _nop_(); SCK = <span class="number">1</span>; <span class="comment">//约1MHz的频率输入上升沿</span></span><br><span class="line">&#125;</span><br><span class="line">RCK = <span class="number">0</span>; _nop_(); RCK = <span class="number">1</span>; <span class="comment">//约1MHz的频率输入上升沿</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="程序编写"><a href="#程序编写" class="headerlink" title="程序编写"></a>程序编写</h2>
       
     </div>
     
@@ -547,8 +609,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -670,6 +741,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LED%E7%82%B9%E9%98%B5%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">LED点阵原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#74HC595"><span class="nav-number">2.</span> <span class="nav-text">74HC595</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99"><span class="nav-number">3.</span> <span class="nav-text">程序编写</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
