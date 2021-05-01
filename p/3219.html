@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="C语言,单片机,STC89C52,ULN2003," />
 
 
 
@@ -79,13 +79,24 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="淼表のブログ">
-<meta property="og:url" content="http://cnwatermeter.github.io/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/index.html">
+<meta name="description" content="内容概述你也许很早就注意到了单片机开发套件里面的“电动小马达”，而驱动电机不能像LED灯一样直接通过单片机核心进行控制，因为单片机核心只具有控制作用不具有驱动作用，其产生的电流太小无法驱动电机正常运转，因此我们就需要使用到集成放大电路   准备 1.使用STC89C52的普中51-单核-A2单片机（本文以该单片机为样本） 2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机开发例程-6">
+<meta property="og:url" content="http://cnwatermeter.github.io/p/3219.html">
 <meta property="og:site_name" content="淼表のブログ">
+<meta property="og:description" content="内容概述你也许很早就注意到了单片机开发套件里面的“电动小马达”，而驱动电机不能像LED灯一样直接通过单片机核心进行控制，因为单片机核心只具有控制作用不具有驱动作用，其产生的电流太小无法驱动电机正常运转，因此我们就需要使用到集成放大电路   准备 1.使用STC89C52的普中51-单核-A2单片机（本文以该单片机为样本） 2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC">
 <meta property="og:locale">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/undefined/dldg.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/undefined/uln2003.png">
+<meta property="article:published_time" content="2021-05-01T06:20:07.000Z">
+<meta property="article:modified_time" content="2021-05-01T13:46:40.441Z">
 <meta property="article:author" content="淼表">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="单片机">
+<meta property="article:tag" content="STC89C52">
+<meta property="article:tag" content="ULN2003">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cnwatermeter.github.io/p/undefined/dldg.png">
 
 
 
@@ -115,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://CNwatermeter.github.io/tags/生产力/"/>
+  <link rel="canonical" href="http://CNwatermeter.github.io/p/3219.html"/>
 
 
 
 
 
-  <title>标签: 生产力 | 淼表のブログ</title>
+  <title>51单片机开发例程-6 | 淼表のブログ</title>
   
 
 
@@ -138,7 +149,7 @@
   
   
 
-  <div class="container  ">
+  <div class="container  page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -276,54 +287,262 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>生产力<small>标签</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://CNwatermeter.github.io/p/3219.html">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淼表のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/p/a996.html" itemprop="url">
-              
-                <span itemprop="name">浅谈“生产力”——新款iPad Pro发布有感</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">51单片机开发例程-6</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2021-04-22T17:59:10+08:00"
-              content="2021-04-22" >
-          04-22
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-01T14:20:07+08:00">
+                2021-05-01
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/p/3219.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/p/3219.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>你也许很早就注意到了单片机开发套件里面的“电动小马达”，而驱动电机不能像LED灯一样直接通过单片机核心进行控制，因为单片机核心只具有控制作用不具有驱动作用，其产生的电流太小无法驱动电机正常运转，因此我们就需要使用到集成放大电路</p>
+<!----- more ----->
+
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
+<li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
+<li>3.一根micro USB to USB A数据线</li>
+<li>4.5V直流电机+2根1pin线</li>
+</ul>
+<h1 id="直流电机"><a href="#直流电机" class="headerlink" title="直流电机"></a>直流电机</h1><h2 id="直流电机原理"><a href="#直流电机原理" class="headerlink" title="直流电机原理"></a>直流电机原理</h2><p>直流电机的原理其实我们在初高中都学过，原理不在过多赘述，详细内容可以查看下面引用内容，但是在此要提一下直流电机的几个特点：首先，直流电机既可以作电动机，也可以作发电机；直流电机没有正负极之分，两端通直流电就可以正常工作，交换两极可以控制其正反转</p>
+<blockquote>
+<p>直流电机是指能将直流电能转换成机械能(直流电动机)或将机械能转换成 直流电能(直流发电机)的旋转电机。它是能实现直流电能和机械能互相转换的 电机。当它作电动机运行时是直流电动机，将电能转换为机械能;作发电机运行 时是直流发电机，将机械能转换为电能</p>
+<p>直流电机的结构应由定子和转子两大部分组成。直流电机运行时静止不动的 部分称为定子，定子的主要作用是产生磁场，由机座、主磁极、 换向极、 端盖、 轴承和电刷装置等组成。运行时转动的部分称为转子，其主要作用是产生电磁转 矩和感应电动势，是直流电机进行能量转换的枢纽，所以通常又称为电枢，由转 轴、电枢铁心、电枢绕组、换向器和风扇等组成</p>
+<p>直流电机没有正负之分，在两端加上直流电就能工作。需要知道直流电机的 额定电压和额定功率，不能使之长时间超负荷运作。 在交换接线后，可以形成 正反转</p>
+<p>——引用自普中科技单片机开发攻略149页</p>
+</blockquote>
+<h2 id="ULN2003"><a href="#ULN2003" class="headerlink" title="ULN2003"></a>ULN2003</h2><p>该芯片是一个单片高电压，高电流的达林顿晶体管阵列集成电路，不仅仅可以驱动直流电机，还可以用来驱动五项四线步进电机，关于步进电机我们在之后的内容中讲解，在此我们只讲解驱动直流电机的用法</p>
+<p><code>ULN2003</code>由7对NPN达林顿管组成，说起达林顿管你肯定不熟悉，但是如果学过电工学的同学肯定对NPN很熟悉，那么请看原理图：</p>
+<img src="/p/undefined/dldg.png" class title="ULN2003逻辑框图以及达林顿管">
+
+<p>这个达林顿管和NPN结合起来是不是想起什么了，没错，就是放大电路，当然这里不细讲其内部的原理以及电路分析，我们单片机学习更重要的是了解集成电路的功能以及使用方法而不是其原理，当然如果知道原理更好，如果没有余力去了解每个芯片的原理那么只需要知道并且能够活用每一个集成电路就好</p>
+<p><code>ULN2003</code>芯片的功能简单来讲类似非门电路，也就是反相输出，输入高电平输出低电平，输入低电平输出高电平</p>
+<h2 id="程序编写"><a href="#程序编写" class="headerlink" title="程序编写"></a>程序编写</h2><p>知道了上述原理那么事情就变的非常简单了，就像点亮LED灯一样地简单，因为直流电机的工作原理也是一端输入高电平，一端输入低电平即可，并且不像LED灯那样有明确的正负，直流电机正反接都可以正常工作，不同的只是电机旋转的方向</p>
+<img src="/p/undefined/uln2003.png" class title="ULN2003原理图">
+
+<p>我们可以看到，该集成电路输入端连接到单片机核心进行控制，输出连接到J47模块也就是单片机左上角的那裸露的5根针脚，这5根针脚分别对应4个<code>ULN2003</code>的输出引脚与VCC，但是<code>ULN2003</code>的输出引脚也有5个，为什么有一个没有与J47的引脚相接呢？看原理图，这一引脚连接到的是BEEP，也就是蜂鸣器，蜂鸣器我们在第二节就已经讲过了，并且也接触到了这个芯片，有没有回忆起来呢？如果忘记了可以去翻之前的内容，那边也对这一集成电路进行了一点说明 ——&gt; <a href="https://cnwatermeter.github.io/p/e743207f.html#more">51单片机开发例程-2</a></p>
+<p>那么程序就非常好写了，我这边仅仅示例一个通过点按开关控制直流电机开启的程序，其他使用方法请自行开发，由于原理真的非常简单，注释我也懒得写了，如果这点你都看不懂那您可以入土啦！这章是这一部分最简单的部分了，所以使用起来并不复杂</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8;</span><br><span class="line">sbit moto = P1^<span class="number">0</span>;</span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  u8 i;</span><br><span class="line">  moto = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    moto = ~K1;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>这一部分就是写着玩吧，没什么后记，驱动蜂鸣器之前讲过了，驱动直流电机太简单了，然后我手里目前没有步进电机所以不作说明，如果有必要的话之后会专门开一章来讲步进电机</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    淼表
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://cnwatermeter.github.io/p/3219.html" title="51单片机开发例程-6">http://cnwatermeter.github.io/p/3219.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank"><i class="fa fa-cc" aria-hidden="true"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-bookmark"></i> C语言</a>
+          
+            <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag"><i class="fa fa-bookmark"></i> 单片机</a>
+          
+            <a href="/tags/STC89C52/" rel="tag"><i class="fa fa-bookmark"></i> STC89C52</a>
+          
+            <a href="/tags/ULN2003/" rel="tag"><i class="fa fa-bookmark"></i> ULN2003</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/a996.html" rel="next" title="浅谈“生产力”——新款iPad Pro发布有感">
+                <i class="fa fa-chevron-left"></i> 浅谈“生产力”——新款iPad Pro发布有感
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -331,6 +550,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -351,8 +577,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -474,6 +709,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">内容概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B4%E6%B5%81%E7%94%B5%E6%9C%BA"><span class="nav-number">3.</span> <span class="nav-text">直流电机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%B5%81%E7%94%B5%E6%9C%BA%E5%8E%9F%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">直流电机原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ULN2003"><span class="nav-number">3.2.</span> <span class="nav-text">ULN2003</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99"><span class="nav-number">3.3.</span> <span class="nav-text">程序编写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">4.</span> <span class="nav-text">后记</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -614,6 +865,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

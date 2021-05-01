@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C语言,单片机,STC89C52," />
+  <meta name="keywords" content="C语言,单片机,STC89C52,ULN2003," />
 
 
 
@@ -86,16 +86,17 @@
 <meta property="og:site_name" content="淼表のブログ">
 <meta property="og:description" content="内容概述此章学习到单片机上的一个重要部件：蜂鸣器 蜂鸣器通过发出声音来达到提示以及播放音乐的功能，可以让使用者能够简单地判断单片机是否实现了自己想要的效果比如：开始工作，输出结果，程序故障等等，而蜂鸣器又分为有源蜂鸣器和无源蜂鸣器，在此单片机上使用的是无源蜂鸣器">
 <meta property="og:locale">
-<meta property="og:image" content="http://cnwatermeter.github.io/p/BEEP.png">
-<meta property="og:image" content="http://cnwatermeter.github.io/p/ULN2003D.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/e743207f/BEEP.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/e743207f/ULN2003D.png">
 <meta property="article:published_time" content="2021-02-01T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-02-19T07:21:15.000Z">
+<meta property="article:modified_time" content="2021-05-01T13:40:42.804Z">
 <meta property="article:author" content="淼表">
 <meta property="article:tag" content="C语言">
 <meta property="article:tag" content="单片机">
 <meta property="article:tag" content="STC89C52">
+<meta property="article:tag" content="ULN2003">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://cnwatermeter.github.io/p/BEEP.png">
+<meta name="twitter:image" content="http://cnwatermeter.github.io/p/e743207f/BEEP.png">
 
 
 
@@ -454,7 +455,8 @@
 <p>——引用自<a target="_blank" rel="noopener" href="https://fr.wikipedia.org/wiki/Bipeur">Wikipedia</a></p>
 </blockquote>
 <p>了解了蜂鸣器的工作原理后，现在回到单片机原理图对实际情况进行分析</p>
-<p><img src="/p/BEEP.png" alt="蜂鸣器"></p>
+<img src="/p/e743207f/BEEP.png" class title="蜂鸣器">
+
 <p>从原理图中可以看到，蜂鸣器的一端接VCC，另一段接BZ，之前在LED灯模块我们也遇到过VCC这个管脚，并且通过二极管原理推断出了VCC处是高电平，那么VCC到底有什么含义呢</p>
 <ul>
 <li>VCC（Volt Current Condenser）电路的供电电压</li>
@@ -462,7 +464,8 @@
 </ul>
 <p>以上两个在电路中常用的简写一个代表高电平，一个代表低电平，这样我们就能通过原理图更加明确地读出各个元器件工作时对应<code>I/O</code>口应该输出高电平还是低电平了</p>
 <p>而BZ又是什么含义呢？</p>
-<p><img src="/p/ULN2003D.png" alt="ULN2003D"></p>
+<img src="/p/e743207f/ULN2003D.png" class title="ULN2003原理图">
+
 <p>仔细观察原理图，我们还可以在<code>ULN2003D</code>这个芯片的管脚处看到BZ的身影：<code>P1^5</code>连接<code>IN5</code>，<code>IN5</code>连接<code>OUT5</code>，<code>OUT5</code>连接<code>BZ</code>，因此，我们可以通过控制<code>P1^5</code>输出的高低电平来控制BZ的高低电平进而控制蜂鸣器，那么为什么需要使用<code>ULN2003D</code>芯片对蜂鸣器进行驱动呢，这是因为该元件内含7个达林顿管，在电子电路里的主要特点是大电流容量和高电压输出，常作为驱动器使用，可以直接驱动蜂鸣器，继电器，步进马达等负载</p>
 <blockquote>
 <p>ULN2003是一种高压大电流的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E5%85%B1%E5%B0%84%E6%A5%B5">共发射极</a><a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%81%94%E6%9E%97%E9%A0%93%E9%9B%BB%E6%99%B6%E9%AB%94">达林顿晶体管</a>数组<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E7%A9%8D%E9%AB%94%E9%9B%BB%E8%B7%AF">集成电路</a>，内含7组达林顿对管，每组对管的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%B5%81">电流</a>容量是500mA，输出的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A3%93">电压</a>最高50V。该集成电路还集成了7只共阴极形式连接的<a target="_blank" rel="noopener" href="https://bk.tw.lvfukeji.com/baike-%E7%BB%AD%E6%B5%81%E4%BA%8C%E6%9E%81%E7%AE%A1">续流二极管</a>，用于电感性负载的开关动作的电流续流。</p>
@@ -481,8 +484,8 @@
 <thead>
 <tr>
 <th></th>
-<th><a href="mailto:&#x30;&#46;&#x31;&#x31;&#x4b;&#72;&#x7a;&#64;&#48;&#x2e;&#x31;">&#x30;&#46;&#x31;&#x31;&#x4b;&#72;&#x7a;&#64;&#48;&#x2e;&#x31;</a>%</th>
-<th><a href="mailto:&#x30;&#46;&#x31;&#49;&#x4b;&#72;&#122;&#64;&#x39;&#x39;&#46;&#x39;">&#x30;&#46;&#x31;&#49;&#x4b;&#72;&#122;&#64;&#x39;&#x39;&#46;&#x39;</a>%</th>
+<th><a href="mailto:&#48;&#46;&#x31;&#49;&#75;&#72;&#x7a;&#64;&#x30;&#46;&#49;">&#48;&#46;&#x31;&#49;&#75;&#72;&#x7a;&#64;&#x30;&#46;&#49;</a>%</th>
+<th><a href="mailto:&#x30;&#46;&#49;&#x31;&#x4b;&#x48;&#122;&#64;&#x39;&#x39;&#46;&#x39;">&#x30;&#46;&#49;&#x31;&#x4b;&#x48;&#122;&#64;&#x39;&#x39;&#46;&#x39;</a>%</th>
 <th>无蜂鸣器</th>
 </tr>
 </thead>
@@ -536,6 +539,8 @@
             <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag"><i class="fa fa-bookmark"></i> 单片机</a>
           
             <a href="/tags/STC89C52/" rel="tag"><i class="fa fa-bookmark"></i> STC89C52</a>
+          
+            <a href="/tags/ULN2003/" rel="tag"><i class="fa fa-bookmark"></i> ULN2003</a>
           
         </div>
       
@@ -644,7 +649,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -666,7 +671,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
