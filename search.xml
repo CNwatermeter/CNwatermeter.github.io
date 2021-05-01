@@ -151,8 +151,8 @@
 <thead>
 <tr>
 <th></th>
-<th><a href="mailto:&#x30;&#x2e;&#x31;&#49;&#75;&#x48;&#x7a;&#x40;&#x30;&#x2e;&#x31;">&#x30;&#x2e;&#x31;&#49;&#75;&#x48;&#x7a;&#x40;&#x30;&#x2e;&#x31;</a>%</th>
-<th><a href="mailto:&#48;&#46;&#49;&#49;&#x4b;&#x48;&#x7a;&#64;&#57;&#x39;&#x2e;&#x39;">&#48;&#46;&#49;&#49;&#x4b;&#x48;&#x7a;&#64;&#57;&#x39;&#x2e;&#x39;</a>%</th>
+<th><a href="mailto:&#48;&#46;&#49;&#49;&#x4b;&#72;&#x7a;&#x40;&#x30;&#x2e;&#x31;">&#48;&#46;&#49;&#49;&#x4b;&#72;&#x7a;&#x40;&#x30;&#x2e;&#x31;</a>%</th>
+<th><a href="mailto:&#x30;&#x2e;&#49;&#x31;&#75;&#x48;&#x7a;&#x40;&#x39;&#57;&#46;&#57;">&#x30;&#x2e;&#49;&#x31;&#75;&#x48;&#x7a;&#x40;&#x39;&#57;&#46;&#57;</a>%</th>
 <th>无蜂鸣器</th>
 </tr>
 </thead>
@@ -285,8 +285,8 @@
 <p>那么以上就是74HC595芯片的大致用法原理了，我们将上述的代码稍微修改一下封装成一个函数方便调用</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HC595SendByte</span> <span class="params">(u8 dat)</span></span>&#123; <span class="comment">//要按二进制输出的数据dat</span></span><br><span class="line"><span class="comment">/*RCK为实际向RCK输入的数据，SCK为实际向SCK输入的数据</span></span><br><span class="line"><span class="comment">SER为实际向DS输入的数据，dat为想要向DS输入的原始数据*/</span></span><br><span class="line">SCK = <span class="number">1</span>;</span><br><span class="line">RCK = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(u8 a = <span class="number">0</span>; a &lt; <span class="number">8</span>; a++)&#123;</span><br><span class="line">  SER = dat &gt;&gt; <span class="number">7</span>;<span class="comment">//将最后一位移位变为第一位</span></span><br><span class="line">  dat &lt;&lt; <span class="number">1</span>; <span class="comment">//从右向左依次移位</span></span><br><span class="line">  SCK = <span class="number">0</span>; _nop_(); SCK = <span class="number">1</span>; <span class="comment">//约1MHz的频率输入上升沿</span></span><br><span class="line">&#125;</span><br><span class="line">RCK = <span class="number">0</span>; _nop_(); RCK = <span class="number">1</span>; <span class="comment">//约1MHz的频率输入上升沿</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="编写程序"><a href="#编写程序" class="headerlink" title="编写程序"></a>编写程序</h2><p>上面已经将74HC595芯片的使用封装在函数中了，它实际占用了3个<code>I/O</code>口来控制LED点阵的8个引脚（即段选或位选），那么LED点阵的另外8个引脚在我使用的普中科技51单核A2开发板上是直接连接到单片机核心通过单片机核心的<code>I/O</code>口进行控制的，但是实际上这种控制方法并不好，因为我们知道刚刚学到的74HC595芯片能够大大帮助我们节省<code>I/O</code>口，因此我们可以将两个74HC595芯片串联来实现大大节约<code>I/O</code>口的目的，如何串联？且等我先按照实际开发板电路正确点亮单片机后再从原理上细细讲解</p>
-<p>编写程序现在已经非常简单了，先输入程序的大体框架，将该使用的函数写入，该定义的变量进行定义，这些全部写好后，我们需要在<code>main</code>函数中需要写的东西就很少了，要点亮一个点，只需要向段选和位选发送相应的高低电平即可</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg51.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;intrins.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_P0 P0</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8;</span><br><span class="line">sbit SCK = P3^<span class="number">6</span>; <span class="comment">//位定义移位寄存器时钟</span></span><br><span class="line">sbit RCK = P3^<span class="number">5</span>; <span class="comment">//位定义存储寄存器时钟</span></span><br><span class="line">sbit SER = P3^<span class="number">4</span>; <span class="comment">//位定义串行输入</span></span><br><span class="line">u8 LEDduan; u8 LEDwei; <span class="comment">//定义变量段选和位选</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span> <span class="params">(u16 i)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HC595SendByte</span> <span class="params">(u8 dat)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="comment">/*段选0b1000000，位选0b0111111，也就是点亮第1行第1列的点*/</span></span><br><span class="line">  LEDduan = <span class="number">0x80</span>; LEDwei = <span class="number">0x7f</span>; </span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    HC595SendByte(LEDduan);</span><br><span class="line">    GPIO_P0 = LEDwei;</span><br><span class="line">    delay(<span class="number">50000</span>); <span class="comment">//延时一段时间，使得亮点闪烁</span></span><br><span class="line">    HC595SendByte(<span class="number">0x00</span>); <span class="comment">//消隐</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span> <span class="params">(u16 i)</span></span>&#123;<span class="keyword">while</span>(i --);&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HC595SendByte</span> <span class="params">(u8 dat)</span></span>&#123;</span><br><span class="line">u8 a;  </span><br><span class="line">SCK = <span class="number">1</span>;</span><br><span class="line">RCK = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(a = <span class="number">0</span>; a &lt; <span class="number">8</span>; a++)&#123;</span><br><span class="line">  SER = dat &gt;&gt; <span class="number">7</span>;</span><br><span class="line">  dat &lt;&lt; <span class="number">1</span>; </span><br><span class="line">  SCK = <span class="number">0</span>; _nop_(); SCK = <span class="number">1</span>; </span><br><span class="line">&#125;</span><br><span class="line">RCK = <span class="number">0</span>; _nop_(); RCK = <span class="number">1</span>; </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>编写程序现在已经非常简单了，先输入程序的大体框架，将该使用的函数写入，该定义的变量进行定义，这些全部写好后，我们需要在<code>main</code>函数中需要写的东西就很少了，要点亮一个点，只需要向段选和位选发送相应的高低电平即可，另外需要注意，LED点阵的显示原理也是需要靠动态刷新实现的，因此与动态数码管一样需要一个for循环来实现每次的刷新，所要显示的内容以数组形式存储在程序中</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg51.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;intrins.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_P0 P0</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8;</span><br><span class="line">sbit SCK = P3^<span class="number">6</span>; <span class="comment">//位定义移位寄存器时钟</span></span><br><span class="line">sbit RCK = P3^<span class="number">5</span>; <span class="comment">//位定义存储寄存器时钟</span></span><br><span class="line">sbit SER = P3^<span class="number">4</span>; <span class="comment">//位定义串行输入</span></span><br><span class="line">u8 LEDduan[<span class="number">8</span>] = &#123;<span class="number">0x7f</span>&#125;; </span><br><span class="line">u8 LEDwei[<span class="number">8</span>] = &#123;<span class="number">0x80</span>&#125;; <span class="comment">//定义变量段选和位选</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span> <span class="params">(u16 i)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HC595SendByte</span> <span class="params">(u8 dat)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  u8 i;</span><br><span class="line">  <span class="comment">/*位选0b1000000，段选0b0111111，也就是点亮第1行第1列的点*/</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)&#123;</span><br><span class="line">    GPIO_P0 = LEDduan[i]; <span class="comment">//行</span></span><br><span class="line">    HC595SendByte(LEDwei[i]); <span class="comment">//列</span></span><br><span class="line">    delay(<span class="number">200</span>); <span class="comment">//刷新间隔</span></span><br><span class="line">    HC595SendByte(<span class="number">0x00</span>); <span class="comment">//消隐</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span> <span class="params">(u16 i)</span></span>&#123;<span class="keyword">while</span>(i --);&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HC595SendByte</span> <span class="params">(u8 dat)</span></span>&#123;</span><br><span class="line">u8 a;  </span><br><span class="line">SCK = <span class="number">1</span>;</span><br><span class="line">RCK = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(a = <span class="number">0</span>; a &lt; <span class="number">8</span>; a++)&#123;</span><br><span class="line">  SER = dat &gt;&gt; <span class="number">7</span>;</span><br><span class="line">  dat &lt;&lt; <span class="number">1</span>; </span><br><span class="line">  SCK = <span class="number">0</span>; _nop_(); SCK = <span class="number">1</span>; </span><br><span class="line">&#125;</span><br><span class="line">RCK = <span class="number">0</span>; _nop_(); RCK = <span class="number">1</span>; </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 <hr>
@@ -374,6 +374,40 @@
       </tags>
   </entry>
   <entry>
+    <title>浅谈“生产力”——新款iPad Pro发布有感</title>
+    <url>/p/a996.html</url>
+    <content><![CDATA[<p>就在北京时间2021年4月21日凌晨，苹果发布了一系列搭载Apple Silicon M1芯片的新款产品，出人意料的是，这颗“桌面级Soc”被放在了新款iPad Pro中，不少人直呼牛逼但是更多的却是质疑与几年来人们一直反复争论的<strong>生产力</strong>问题。</p>
+<!-----more ----->
+
+<p><strong>生产力</strong>，其实我非常非常讨厌这个词汇，并且我也非常讨厌拿这个词汇来攻击其他人的人（实际上坦白来讲对于使用这个词汇的我都不太喜欢），因为<strong>很多人对于这个词汇并没有一个明确的，正确的定义</strong>，比如：自媒体博主对于一些产品的评测会着重讲解剪视频的性能体验，比如程序员会着重看中使用的平台能使用哪些IDE或者说插件之类的（原谅我对此并没有了解太多），比如文字工作者只是想要一个方便码字的工具。毕竟每个人都不会对所有领域了解，每个人都有自己的需求，然后有些人就会拿自己领域的东西来攻击别的领域的东西：比如iPad没法写程序，这，我有什么好说的呢？我该去说手机没法写程序吗？或者是我该说手机没法记笔记吗？不能，因为手机不是用来写程序的，手机不是用来记笔记的。所以<strong>所谓的生产力，应该根据使用者实际情况来看</strong>。</p>
+<p>这几年来，对于生产力的争议屡见不鲜并且不仅仅是对于iPad的争论，而今年新款iPad Pro更是达到了一个新的高峰，许许多多的人坚定自己的设备是最有生产力的，并以此来质疑iPad的无用（我或许该称之为iPad无用论？）“iPad做的到吗？”，更有甚者以此来攻击iPad用户，但是他们却不知道他们口中的<strong>对比是不对等的</strong>，就如上一段末尾我所讲的那样。</p>
+<p>对于iPad无用论我听到的最多的一句话自然就是：“<strong>买前生产力，买后爱奇艺</strong>”，这句话当然非常形象，我个人有一段时间也有类似的感受，但是问题出在哪里呢？问题出在用户：“买前生产力”，用户买之前自然是想好了要用设备来干什么，但是由于自己不克制不进取而沦为了“买后爱奇艺”的娱乐工具，很多人所谓的x86生产力工具不也有“买前生产力，买后打游戏”的真实经历吗，所以说，<strong>永远不要指望更换设备就能养成良好的习惯</strong>。</p>
+<p>其实一直以来<strong>设备都只是提供了一个平台</strong>，这个平台需要开发者和用户共同维护，为什么现在Windows电脑能够运行更多程序，能够做更多事情，那是因为Windows的历史远比iOS来的悠久，用户远比iOS用户来的多，用户多了（市场大了），开发者自然就会对这一平台更上心。同理，同样是平板电脑，为什么一众安卓平板电脑打不过iPad？自然是iPad用户更多，苹果的号召力更强，能请求<del>（强迫）</del>厂商适配，并且完善的App Store会让开发者真正拿到钱，所以开发者会对iPad开发专门的app或者说对其进行适配优化。</p>
+<p>实际上，如今我们手中的设备在当今已经不仅仅是工具，也还是“一个人形象的象征”，比如相当一部分使用旗舰产品的人会有一种莫名的“优越感”，因为不管怎样，旗舰产品总的来说确实是优于次旗舰产品的，使用“智商检测机”的人可能就会被周围的人另眼相看，因为人总是喜欢对比的，不管是有意还是无意，绝大多数人都会注意到自己优于别人的方面而“骄傲”，劣于别人的方面而“嫉妒”，不过<strong>一旦涉及到了品牌，那争议就大了去了</strong>：海军，米猴，工读生，果蛆，这些负面称呼就是很好的证明，比如某些华为用户可能会觉得华为比小米好，小米就是垃圾，于是使用了一些不当的过激词汇来攻击小米或者小米用户，那么相当一部分小米用户自己觉得自己受到了冒犯，自然就会反击，于是大战一触即发，演变成两个品牌部分用户的对立，而一些看热闹的人就会在一边讲风凉话：“厂商是你们爹吗？”厂商当然不是用户的爹，但是当你手中的设备被人贬低的一无是处，那你还能心平气和的跟那个人对话吗？不要自以为是觉得无所谓，对于绝大多数人来讲被人贬低自己设备一文不值的时候即便是强忍着心平气和的交流血压实际上也是在升高的，“不以物喜不以物悲”的人毕竟是少数，如果你恰好是那少部分人并且你乐意的话可以来跟我交流一下真实感受。</p>
+<p>言归正传，iPad只是提供了一个平台，怎样使用是用户自己的事情，iPad用户不该去以己之长攻人之短，而Windows用户也不该拿自己的使用场景来贬低iPad做不到这做不到那，毕竟，<strong>大概你其实也并不是目标用户</strong>。</p>
+<p>对于这次iPad Pro的更新换代，只能说一般，iPad Pro2018可谓是iPad更新最大的一代了，一代经典，虽然当时很多软件都没有适配新的屏幕比例，两年半过去了，如今的iPad App已经全线为新屏幕比例适配优化过了，上次Pro的更新只是加了个GPU核心，加了个摄像头，激光雷达，然后基础存储增大了而已，这次基本上也都是小升级，但是比起上次更新这次对于芯片和屏幕的更新可谓巨大，搭载了M1芯片的iPad Pro把性能提升到一个新的高度，搭载了mini LED显示屏把12.9寸iPad Pro屏幕素质提升到了一个新的高度，<strong>然而对于我们这些老用户来讲呢？虽然参数上很好看但是貌似并没有更新的必要和动力</strong>，因为A12X和A12Z已经很强了，对于绝大多数用户来说性能已经是溢出了<del>（除了原神玩家）</del>，有些人说加入M1性能溢出没啥用，但是苹果把最好的芯片给最好的iPad有错吗？没有错！对于这方面厂商和用户都没有错，只能说苹果近几年来对于产品的功能与设计越来越保守了，性能的提升是必要的，所以别再跟我扯什么性能溢出了！性能高难道不好？谁不希望自己的设备能够多用几年呢？</p>
+<p>作为一个三星半家桶换到苹果全家桶的用户来说，苹果设备并没有给我带来太多惊艳与惊喜，不过我却<strong>并不想换其他品牌设备也并不想更新我手中的设备</strong>，在我看来我当前手中的设备是最经济也是最适合我的：</p>
+<blockquote>
+<p>iPhone 11 Pro Max：新的激光雷达，更好的摄像系统，更好的性能与5G对我来说都没有必要，我不打游戏不需要性能，然后摄像系统的话要付出的金钱太多了并且现在手里设备画展完全够用所以完全没必要，5G是未来但是不是现在</p>
+<p>iPad Pro 3 11inch + Apple pencil 2 ：超高性价比，跟新款比起来主要也就是芯片和摄像系统差别，正经人谁用iPad摄像啊，然后那个激光雷达的话我觉得可以有，但是也只是锦上添花，目前主要用来记笔记，影音，随航，最近开始学习用Shapr 3D建模</p>
+<p>MacBook Pro M1：唯一一个最新产品，试试水，之前的MacBook Pro2017确实比较老了风扇狂转，更新新款有更好的性能更好的续航，这个我基本上就是拿来做一些Mac特长的事情，轻办公敲代码什么，续航长就是好啊</p>
+<p>Apple Watch Series4：新款升级除了常量都对我来说没必要，S4就和iPad Pro3类似</p>
+<p>AirPods2 + AirPods Pro：搭配苹果生态自动切换很舒服，虽然音质不行但是通勤还是很舒服的，已经是最新产品没法更新</p>
+</blockquote>
+<p>这些产品与我的生活息息相关，涵盖了我几乎所有的活动，它们给了我良好的影音体验，改变了我学习的方式，记录了我生活的习惯并使我以此进行作息调整，让我舒适的听音乐。电子产品大大丰富了我的生活，它们都在不同程度上帮助了我的学习与工作，也让我享受游戏与电影。当我想要学习单片机时，我会打开我的Windows电脑；当我想要记笔记时，我拿出我的iPad和吸附在上面的pencil；当我想要去图书馆学习时，我不会忘记带我的MacBook；当别人向我发来消息时，我的Watch会第一时间提醒我；当我想要在嘈杂的校园环境中静听一曲时，AirPods能带给我属于我自己的世界，但是要说它们有怎样的生产力时，我无话可说，因为当我在学习与工作，影音与娱乐的时候，我只是在想：<strong>利用好手中的工具就好了，何必去纠结它不能做什么？</strong></p>
+<p>最后，这些仅仅是我个人的所见所闻所思所想，并且我在文中大量使用了非绝对的词语，所以不代表所有人都是如此，请不要对号入座。我肯定会有错误，并且肯定会有人不赞同我的观点，所以如有错误或你不赞同我的观点希望您能留下宝贵的意见，因为撰写此文章时候Blog的评论系统尚不完善所以评论请移步Twitter。</p>
+<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i>   其中观点完全主观，请辩证地看待文中观点</strong></p>
+]]></content>
+      <categories>
+        <category>评测</category>
+      </categories>
+      <tags>
+        <tag>iPad</tag>
+        <tag>生产力</tag>
+        <tag>奇思妙想</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>第一篇测试文章</title>
     <url>/p/af180990.html</url>
     <content><![CDATA[<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><p>内容？</p>
@@ -421,40 +455,6 @@
       </categories>
       <tags>
         <tag>测试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>浅谈“生产力”——新款iPad Pro发布有感</title>
-    <url>/p/a996.html</url>
-    <content><![CDATA[<p>就在北京时间2021年4月21日凌晨，苹果发布了一系列搭载Apple Silicon M1芯片的新款产品，出人意料的是，这颗“桌面级Soc”被放在了新款iPad Pro中，不少人直呼牛逼但是更多的却是质疑与几年来人们一直反复争论的<strong>生产力</strong>问题。</p>
-<!-----more ----->
-
-<p><strong>生产力</strong>，其实我非常非常讨厌这个词汇，并且我也非常讨厌拿这个词汇来攻击其他人的人（实际上坦白来讲对于使用这个词汇的我都不太喜欢），因为<strong>很多人对于这个词汇并没有一个明确的，正确的定义</strong>，比如：自媒体博主对于一些产品的评测会着重讲解剪视频的性能体验，比如程序员会着重看中使用的平台能使用哪些IDE或者说插件之类的（原谅我对此并没有了解太多），比如文字工作者只是想要一个方便码字的工具。毕竟每个人都不会对所有领域了解，每个人都有自己的需求，然后有些人就会拿自己领域的东西来攻击别的领域的东西：比如iPad没法写程序，这，我有什么好说的呢？我该去说手机没法写程序吗？或者是我该说手机没法记笔记吗？不能，因为手机不是用来写程序的，手机不是用来记笔记的。所以<strong>所谓的生产力，应该根据使用者实际情况来看</strong>。</p>
-<p>这几年来，对于生产力的争议屡见不鲜并且不仅仅是对于iPad的争论，而今年新款iPad Pro更是达到了一个新的高峰，许许多多的人坚定自己的设备是最有生产力的，并以此来质疑iPad的无用（我或许该称之为iPad无用论？）“iPad做的到吗？”，更有甚者以此来攻击iPad用户，但是他们却不知道他们口中的<strong>对比是不对等的</strong>，就如上一段末尾我所讲的那样。</p>
-<p>对于iPad无用论我听到的最多的一句话自然就是：“<strong>买前生产力，买后爱奇艺</strong>”，这句话当然非常形象，我个人有一段时间也有类似的感受，但是问题出在哪里呢？问题出在用户：“买前生产力”，用户买之前自然是想好了要用设备来干什么，但是由于自己不克制不进取而沦为了“买后爱奇艺”的娱乐工具，很多人所谓的x86生产力工具不也有“买前生产力，买后打游戏”的真实经历吗，所以说，<strong>永远不要指望更换设备就能养成良好的习惯</strong>。</p>
-<p>其实一直以来<strong>设备都只是提供了一个平台</strong>，这个平台需要开发者和用户共同维护，为什么现在Windows电脑能够运行更多程序，能够做更多事情，那是因为Windows的历史远比iOS来的悠久，用户远比iOS用户来的多，用户多了（市场大了），开发者自然就会对这一平台更上心。同理，同样是平板电脑，为什么一众安卓平板电脑打不过iPad？自然是iPad用户更多，苹果的号召力更强，能请求<del>（强迫）</del>厂商适配，并且完善的App Store会让开发者真正拿到钱，所以开发者会对iPad开发专门的app或者说对其进行适配优化。</p>
-<p>实际上，如今我们手中的设备在当今已经不仅仅是工具，也还是“一个人形象的象征”，比如相当一部分使用旗舰产品的人会有一种莫名的“优越感”，因为不管怎样，旗舰产品总的来说确实是优于次旗舰产品的，使用“智商检测机”的人可能就会被周围的人另眼相看，因为人总是喜欢对比的，不管是有意还是无意，绝大多数人都会注意到自己优于别人的方面而“骄傲”，劣于别人的方面而“嫉妒”，不过<strong>一旦涉及到了品牌，那争议就大了去了</strong>：海军，米猴，工读生，果蛆，这些负面称呼就是很好的证明，比如某些华为用户可能会觉得华为比小米好，小米就是垃圾，于是使用了一些不当的过激词汇来攻击小米或者小米用户，那么相当一部分小米用户自己觉得自己受到了冒犯，自然就会反击，于是大战一触即发，演变成两个品牌部分用户的对立，而一些看热闹的人就会在一边讲风凉话：“厂商是你们爹吗？”厂商当然不是用户的爹，但是当你手中的设备被人贬低的一无是处，那你还能心平气和的跟那个人对话吗？不要自以为是觉得无所谓，对于绝大多数人来讲被人贬低自己设备一文不值的时候即便是强忍着心平气和的交流血压实际上也是在升高的，“不以物喜不以物悲”的人毕竟是少数，如果你恰好是那少部分人并且你乐意的话可以来跟我交流一下真实感受。</p>
-<p>言归正传，iPad只是提供了一个平台，怎样使用是用户自己的事情，iPad用户不该去以己之长攻人之短，而Windows用户也不该拿自己的使用场景来贬低iPad做不到这做不到那，毕竟，<strong>大概你其实也并不是目标用户</strong>。</p>
-<p>对于这次iPad Pro的更新换代，只能说一般，iPad Pro2018可谓是iPad更新最大的一代了，一代经典，虽然当时很多软件都没有适配新的屏幕比例，两年半过去了，如今的iPad App已经全线为新屏幕比例适配优化过了，上次Pro的更新只是加了个GPU核心，加了个摄像头，激光雷达，然后基础存储增大了而已，这次基本上也都是小升级，但是比起上次更新这次对于芯片和屏幕的更新可谓巨大，搭载了M1芯片的iPad Pro把性能提升到一个新的高度，搭载了mini LED显示屏把12.9寸iPad Pro屏幕素质提升到了一个新的高度，<strong>然而对于我们这些老用户来讲呢？虽然参数上很好看但是貌似并没有更新的必要和动力</strong>，因为A12X和A12Z已经很强了，对于绝大多数用户来说性能已经是溢出了<del>（除了原神玩家）</del>，有些人说加入M1性能溢出没啥用，但是苹果把最好的芯片给最好的iPad有错吗？没有错！对于这方面厂商和用户都没有错，只能说苹果近几年来对于产品的功能与设计越来越保守了，性能的提升是必要的，所以别再跟我扯什么性能溢出了！性能高难道不好？谁不希望自己的设备能够多用几年呢？</p>
-<p>作为一个三星半家桶换到苹果全家桶的用户来说，苹果设备并没有给我带来太多惊艳与惊喜，不过我却<strong>并不想换其他品牌设备也并不想更新我手中的设备</strong>，在我看来我当前手中的设备是最经济也是最适合我的：</p>
-<blockquote>
-<p>iPhone 11 Pro Max：新的激光雷达，更好的摄像系统，更好的性能与5G对我来说都没有必要，我不打游戏不需要性能，然后摄像系统的话要付出的金钱太多了并且现在手里设备画展完全够用所以完全没必要，5G是未来但是不是现在</p>
-<p>iPad Pro 3 11inch + Apple pencil 2 ：超高性价比，跟新款比起来主要也就是芯片和摄像系统差别，正经人谁用iPad摄像啊，然后那个激光雷达的话我觉得可以有，但是也只是锦上添花，目前主要用来记笔记，影音，随航，最近开始学习用Shapr 3D建模</p>
-<p>MacBook Pro M1：唯一一个最新产品，试试水，之前的MacBook Pro2017确实比较老了风扇狂转，更新新款有更好的性能更好的续航，这个我基本上就是拿来做一些Mac特长的事情，轻办公敲代码什么，续航长就是好啊</p>
-<p>Apple Watch Series4：新款升级除了常量都对我来说没必要，S4就和iPad Pro3类似</p>
-<p>AirPods2 + AirPods Pro：搭配苹果生态自动切换很舒服，虽然音质不行但是通勤还是很舒服的，已经是最新产品没法更新</p>
-</blockquote>
-<p>这些产品与我的生活息息相关，涵盖了我几乎所有的活动，它们给了我良好的影音体验，改变了我学习的方式，记录了我生活的习惯并使我以此进行作息调整，让我舒适的听音乐。电子产品大大丰富了我的生活，它们都在不同程度上帮助了我的学习与工作，也让我享受游戏与电影。当我想要学习单片机时，我会打开我的Windows电脑；当我想要记笔记时，我拿出我的iPad和吸附在上面的pencil；当我想要去图书馆学习时，我不会忘记带我的MacBook；当别人向我发来消息时，我的Watch会第一时间提醒我；当我想要在嘈杂的校园环境中静听一曲时，AirPods能带给我属于我自己的世界，但是要说它们有怎样的生产力时，我无话可说，因为当我在学习与工作，影音与娱乐的时候，我只是在想：<strong>利用好手中的工具就好了，何必去纠结它不能做什么？</strong></p>
-<p>最后，这些仅仅是我个人的所见所闻所思所想，并且我在文中大量使用了非绝对的词语，所以不代表所有人都是如此，请不要对号入座。我肯定会有错误，并且肯定会有人不赞同我的观点，所以如有错误或你不赞同我的观点希望您能留下宝贵的意见，因为撰写此文章时候Blog的评论系统尚不完善所以评论请移步Twitter。</p>
-<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i>   其中观点完全主观，请辩证地看待文中观点</strong></p>
-]]></content>
-      <categories>
-        <category>评测</category>
-      </categories>
-      <tags>
-        <tag>iPad</tag>
-        <tag>生产力</tag>
-        <tag>奇思妙想</tag>
       </tags>
   </entry>
   <entry>
