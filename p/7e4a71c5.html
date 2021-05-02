@@ -87,10 +87,10 @@
 <meta property="og:description" content="内容概述此文章致力于了解单片机开发的基础内容，需要能够读懂单片机原理图，具备一定C语言知识储备，能够使用Keil uVision对程序进行编译生成.hex文件，以及能够将编译好.hex文件通过烧录软件烧录进单片机中进行运行 由于撰写该文章时知识储备尚不足以及不具备数电模电知识的入门用户难以理解一部分知识，因此本文章不进行单片机原理以及各部件原理功能的分析，如有需要可自行从网络上查询相关教学视频进行">
 <meta property="og:locale">
 <meta property="og:image" content="http://cnwatermeter.github.io/p/7e4a71c5/LED.png">
-<meta property="og:image" content="http://cnwatermeter.github.io/p/Core.png">
-<meta property="og:image" content="http://cnwatermeter.github.io/p/STC89C52.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/7e4a71c5/Core.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/7e4a71c5/STC89C52.png">
 <meta property="article:published_time" content="2021-01-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-02-22T12:38:14.000Z">
+<meta property="article:modified_time" content="2021-05-01T13:50:17.450Z">
 <meta property="article:author" content="淼表">
 <meta property="article:tag" content="C语言">
 <meta property="article:tag" content="单片机">
@@ -445,7 +445,8 @@
 
 <p>从原理图中我们可以看到，单片机上的LED模块是由8个LED灯电阻串联后并联而成，并且通过LED灯的方向我们可以得知，VCC处为高电平，<code>P2*</code>处为低电平时LED灯才会被点亮，反之由于二极管的单向导通性则LED灯不会被点亮，控制VCC处的电平无法控制单个LED灯，所以要控制LED灯就要通过<code>P20-P27</code>这8个<code>I/O</code>口的电平为低电平才能控制并点亮LED灯</p>
 <h2 id="单片机核心原理"><a href="#单片机核心原理" class="headerlink" title="单片机核心原理"></a>单片机核心原理</h2><p>单片机核心控制外部电路的原理简单来说就是控制各个<code>I/O</code>口的高低电平来实现的，从单片机核心原理图中可以看到在核心引出的管脚中也有<code>P20-P27</code>这8个<code>I/O</code>口，那么我们只需要通过程序控制单片机<code>I/O</code>口输出的高低电平就可以直接控制LED灯</p>
-<p><img src="/p/Core.png" alt="单片机核心"></p>
+<img src="/p/7e4a71c5/Core.png" class title="单片机核心">
+
 <h2 id="编写程序"><a href="#编写程序" class="headerlink" title="编写程序"></a>编写程序</h2><p>单片机使用的语言是C语言，编写程序需要一定C语言基础但是对C语言要求并不是特别高，基础薄弱也可以从最基础的例程中学习到C语言知识，并且由于单片机相比于在电脑上运行能够更好地锻炼实际应用能力，所以从单片机开始学习巩固C语言也是很好的选择</p>
 <p>众所周知，在之前的C语言学习中，在写代码之前都要调用头文件以及<code>main</code>函数构建起代码基本的框架</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line"><span class="comment">//代码内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -503,7 +504,8 @@
 <p>也就是说只需稍加修改刚刚的流水灯的代码就可以通过位移运算实现LED灯依次亮起但是不熄灭的效果</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;intrins.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED P2</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//定义延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(LED == <span class="number">0x00</span>)&#123;LED = <span class="number">0x01</span>;&#125; <span class="comment">//LED灯全部亮起使得D1灯熄灭</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(LED == <span class="number">0xFF</span>)&#123;LED = <span class="number">0xFE</span>;&#125; <span class="comment">//LED灯全部熄灭使得D1灯亮起</span></span><br><span class="line">    delay(<span class="number">50000</span>); <span class="comment">//延时约450ms</span></span><br><span class="line">    LED = LED &lt;&lt; <span class="number">1</span>; <span class="comment">//LED灯从左向右依次亮起</span></span><br><span class="line">    delay(<span class="number">50000</span>); <span class="comment">//延时约450ms</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123; <span class="comment">//定义延时函数</span></span><br><span class="line">  <span class="keyword">while</span>(time --)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在点亮D1-D8这8个LED灯的过程中，尤其是流水灯这种动态点亮LED灯的程序执行的过程中，我们可以发现动态数码管模块上的数字也会随着LED灯的点亮而进行“不规律”的闪烁，通过观察原理图可以看到，在其他很多模块比如<code>EEPROM模块</code>,<code>74HC138译码器</code>中都出现了<code>P2</code>端口中的<code>I/O</code>口，这是由于单片机上的<code>I/O</code>口的数量较少，不像桌面CPU那样动辄上千个管脚，因此需要节约<code>I/O</code>口，用尽可能少的<code>I/O</code>口实现尽可能多的功能，因此在某些情况下可能会出现这样的冲突现象，由于51单片机仅供学习使用，我们一般来说是学习单片机上各个模块的作用，要自行编写一个较大的工程则需要自行根据需要实现的功能来设计电路，所以对于学习用的单片机上这样的冲突情况我们可以暂且忽略，只需要实现需要实现的功能内容即可</p>
-<p><img src="/p/STC89C52.png" alt="单片机"></p>
+<img src="/p/7e4a71c5/STC89C52.png" class title="51单片机开发板原理图">
+
 <p>单片机的学习的核心是实践，通过在单片机上运行所写的程序能够直观的看到程序运行的状况以及结果如何，进而通过对程序进行调整，并且也能通过将自己的想法在单片机上运行起来来增长自己的知识储备以及实践能力</p>
 <p>千里之行始于足下，通过点亮LED say <code>Hello World！</code></p>
 <hr>
@@ -567,8 +569,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/af180990.html" rel="next" title="第一篇测试文章">
-                <i class="fa fa-chevron-left"></i> 第一篇测试文章
+              <a href="/p/4a17b156.html" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
           </div>

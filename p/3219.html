@@ -86,17 +86,17 @@
 <meta property="og:site_name" content="淼表のブログ">
 <meta property="og:description" content="内容概述你也许很早就注意到了单片机开发套件里面的“电动小马达”，而驱动电机不能像LED灯一样直接通过单片机核心进行控制，因为单片机核心只具有控制作用不具有驱动作用，其产生的电流太小无法驱动电机正常运转，因此我们就需要使用到集成放大电路   准备 1.使用STC89C52的普中51-单核-A2单片机（本文以该单片机为样本） 2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC">
 <meta property="og:locale">
-<meta property="og:image" content="http://cnwatermeter.github.io/p/undefined/dldg.png">
-<meta property="og:image" content="http://cnwatermeter.github.io/p/undefined/uln2003.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/3219/dldg.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/3219/uln2003.png">
 <meta property="article:published_time" content="2021-05-01T06:20:07.000Z">
-<meta property="article:modified_time" content="2021-05-01T13:46:40.441Z">
+<meta property="article:modified_time" content="2021-05-01T13:46:52.627Z">
 <meta property="article:author" content="淼表">
 <meta property="article:tag" content="C语言">
 <meta property="article:tag" content="单片机">
 <meta property="article:tag" content="STC89C52">
 <meta property="article:tag" content="ULN2003">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://cnwatermeter.github.io/p/undefined/dldg.png">
+<meta name="twitter:image" content="http://cnwatermeter.github.io/p/3219/dldg.png">
 
 
 
@@ -449,12 +449,12 @@
 </blockquote>
 <h2 id="ULN2003"><a href="#ULN2003" class="headerlink" title="ULN2003"></a>ULN2003</h2><p>该芯片是一个单片高电压，高电流的达林顿晶体管阵列集成电路，不仅仅可以驱动直流电机，还可以用来驱动五项四线步进电机，关于步进电机我们在之后的内容中讲解，在此我们只讲解驱动直流电机的用法</p>
 <p><code>ULN2003</code>由7对NPN达林顿管组成，说起达林顿管你肯定不熟悉，但是如果学过电工学的同学肯定对NPN很熟悉，那么请看原理图：</p>
-<img src="/p/undefined/dldg.png" class title="ULN2003逻辑框图以及达林顿管">
+<img src="/p/3219/dldg.png" class title="ULN2003逻辑框图以及达林顿管">
 
 <p>这个达林顿管和NPN结合起来是不是想起什么了，没错，就是放大电路，当然这里不细讲其内部的原理以及电路分析，我们单片机学习更重要的是了解集成电路的功能以及使用方法而不是其原理，当然如果知道原理更好，如果没有余力去了解每个芯片的原理那么只需要知道并且能够活用每一个集成电路就好</p>
 <p><code>ULN2003</code>芯片的功能简单来讲类似非门电路，也就是反相输出，输入高电平输出低电平，输入低电平输出高电平</p>
 <h2 id="程序编写"><a href="#程序编写" class="headerlink" title="程序编写"></a>程序编写</h2><p>知道了上述原理那么事情就变的非常简单了，就像点亮LED灯一样地简单，因为直流电机的工作原理也是一端输入高电平，一端输入低电平即可，并且不像LED灯那样有明确的正负，直流电机正反接都可以正常工作，不同的只是电机旋转的方向</p>
-<img src="/p/undefined/uln2003.png" class title="ULN2003原理图">
+<img src="/p/3219/uln2003.png" class title="ULN2003原理图">
 
 <p>我们可以看到，该集成电路输入端连接到单片机核心进行控制，输出连接到J47模块也就是单片机左上角的那裸露的5根针脚，这5根针脚分别对应4个<code>ULN2003</code>的输出引脚与VCC，但是<code>ULN2003</code>的输出引脚也有5个，为什么有一个没有与J47的引脚相接呢？看原理图，这一引脚连接到的是BEEP，也就是蜂鸣器，蜂鸣器我们在第二节就已经讲过了，并且也接触到了这个芯片，有没有回忆起来呢？如果忘记了可以去翻之前的内容，那边也对这一集成电路进行了一点说明 ——&gt; <a href="https://cnwatermeter.github.io/p/e743207f.html#more">51单片机开发例程-2</a></p>
 <p>那么程序就非常好写了，我这边仅仅示例一个通过点按开关控制直流电机开启的程序，其他使用方法请自行开发，由于原理真的非常简单，注释我也懒得写了，如果这点你都看不懂那您可以入土啦！这章是这一部分最简单的部分了，所以使用起来并不复杂</p>
@@ -523,6 +523,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/95c5.html" rel="prev" title="Doing ordinary things at extraordinary times —— is it worth it?">
+                Doing ordinary things at extraordinary times —— is it worth it? <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
