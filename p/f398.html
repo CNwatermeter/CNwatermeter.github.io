@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="内容概述在之前三章的内容中，我们学习到了三种信息输出的方法：独立LED灯，蜂鸣器，数码管，这一章我们开始学习信息输入的方法，相信你早就看到了主板上K1-K4四个独立按键以及S1-S16十六个矩阵按键，这些都是通过按键输入信息来控制单片机执行特定程序的有效方法，当然，在学习之前，你需要先将红外接收原件取下，具体原因我将在本章内容中讨论">
+<meta name="description" content="在之前三章的内容中，我们学习到了三种信息输出的方法：独立LED灯，蜂鸣器，数码管，这一章我们开始学习信息输入的方法，相信你早就看到了主板上K1-K4四个独立按键以及S1-S16十六个矩阵按键，这些都是通过按键输入信息来控制单片机执行特定程序的有效方法，当然，在学习之前，你需要先将红外接收原件取下，具体原因我将在本章内容中讨论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="51单片机开发例程-4">
 <meta property="og:url" content="http://cnwatermeter.github.io/p/f398.html">
 <meta property="og:site_name" content="淼表のブログ">
-<meta property="og:description" content="内容概述在之前三章的内容中，我们学习到了三种信息输出的方法：独立LED灯，蜂鸣器，数码管，这一章我们开始学习信息输入的方法，相信你早就看到了主板上K1-K4四个独立按键以及S1-S16十六个矩阵按键，这些都是通过按键输入信息来控制单片机执行特定程序的有效方法，当然，在学习之前，你需要先将红外接收原件取下，具体原因我将在本章内容中讨论">
+<meta property="og:description" content="在之前三章的内容中，我们学习到了三种信息输出的方法：独立LED灯，蜂鸣器，数码管，这一章我们开始学习信息输入的方法，相信你早就看到了主板上K1-K4四个独立按键以及S1-S16十六个矩阵按键，这些都是通过按键输入信息来控制单片机执行特定程序的有效方法，当然，在学习之前，你需要先将红外接收原件取下，具体原因我将在本章内容中讨论">
 <meta property="og:locale">
 <meta property="og:image" content="http://cnwatermeter.github.io/p/f398/qckg.png">
 <meta property="og:image" content="http://cnwatermeter.github.io/p/f398/dlaj.png">
 <meta property="og:image" content="http://cnwatermeter.github.io/p/f398/jzaj.png">
 <meta property="article:published_time" content="2021-02-23T10:53:28.000Z">
-<meta property="article:modified_time" content="2021-05-01T06:09:24.634Z">
+<meta property="article:modified_time" content="2021-05-05T03:38:11.839Z">
 <meta property="article:author" content="淼表">
 <meta property="article:tag" content="C语言">
 <meta property="article:tag" content="单片机">
@@ -431,7 +431,7 @@
       
 
       
-        <h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>在之前三章的内容中，我们学习到了三种信息输出的方法：独立LED灯，蜂鸣器，数码管，这一章我们开始学习信息输入的方法，相信你早就看到了主板上K1-K4四个独立按键以及S1-S16十六个矩阵按键，这些都是通过按键输入信息来控制单片机执行特定程序的有效方法，当然，在学习之前，你需要先将红外接收原件取下，具体原因我将在本章内容中讨论</p>
+        <p>在之前三章的内容中，我们学习到了三种信息输出的方法：独立LED灯，蜂鸣器，数码管，这一章我们开始学习信息输入的方法，相信你早就看到了主板上K1-K4四个独立按键以及S1-S16十六个矩阵按键，这些都是通过按键输入信息来控制单片机执行特定程序的有效方法，当然，在学习之前，你需要先将红外接收原件取下，具体原因我将在本章内容中讨论</p>
 <a id="more"></a>
 
 <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
@@ -731,7 +731,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">内容概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%8C%89%E9%94%AE"><span class="nav-number">3.</span> <span class="nav-text">独立按键</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%8C%89%E9%94%AE%E5%8E%9F%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">独立按键原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.2.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E6%8C%89%E9%94%AE"><span class="nav-number">4.</span> <span class="nav-text">矩阵按键</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E6%8C%89%E9%94%AE%E5%8E%9F%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">矩阵按键原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F-1"><span class="nav-number">4.2.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%8C%89%E9%94%AE"><span class="nav-number">2.</span> <span class="nav-text">独立按键</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%8C%89%E9%94%AE%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">独立按键原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.2.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E6%8C%89%E9%94%AE"><span class="nav-number">3.</span> <span class="nav-text">矩阵按键</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E6%8C%89%E9%94%AE%E5%8E%9F%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">矩阵按键原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F-1"><span class="nav-number">3.2.</span> <span class="nav-text">编写程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">4.</span> <span class="nav-text">后记</span></a></li></ol></div>
             
 
           </div>

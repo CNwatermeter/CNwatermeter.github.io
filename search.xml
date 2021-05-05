@@ -3,7 +3,7 @@
   <entry>
     <title>51单片机开发例程-1</title>
     <url>/p/7e4a71c5.html</url>
-    <content><![CDATA[<h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>此文章致力于了解单片机开发的基础内容，需要能够读懂单片机原理图，具备一定C语言知识储备，能够使用Keil uVision对程序进行编译生成<code>.hex</code>文件，以及能够将编译好<code>.hex</code>文件通过烧录软件烧录进单片机中进行运行</p>
+    <content><![CDATA[<p>此文章致力于了解单片机开发的基础内容，需要能够读懂单片机原理图，具备一定C语言知识储备，能够使用Keil uVision对程序进行编译生成<code>.hex</code>文件，以及能够将编译好<code>.hex</code>文件通过烧录软件烧录进单片机中进行运行</p>
 <p>由于撰写该文章时知识储备尚不足以及不具备数电模电知识的入门用户难以理解一部分知识，因此本文章不进行单片机原理以及各部件原理功能的分析，如有需要可自行从网络上查询相关教学视频进行学习</p>
 <a id="more"></a>
 
@@ -102,7 +102,7 @@
   <entry>
     <title>51单片机开发例程-2</title>
     <url>/p/e743207f.html</url>
-    <content><![CDATA[<h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>此章学习到单片机上的一个重要部件：蜂鸣器</p>
+    <content><![CDATA[<p>此章学习到单片机上的一个重要部件：蜂鸣器</p>
 <p>蜂鸣器通过发出声音来达到提示以及播放音乐的功能，可以让使用者能够简单地判断单片机是否实现了自己想要的效果比如：开始工作，输出结果，程序故障等等，而蜂鸣器又分为有源蜂鸣器和无源蜂鸣器，在此单片机上使用的是无源蜂鸣器</p>
 <a id="more"></a>
 
@@ -155,8 +155,8 @@
 <thead>
 <tr>
 <th></th>
-<th><a href="mailto:&#x30;&#46;&#49;&#x31;&#75;&#72;&#122;&#64;&#x30;&#46;&#49;">&#x30;&#46;&#49;&#x31;&#75;&#72;&#122;&#64;&#x30;&#46;&#49;</a>%</th>
-<th><a href="mailto:&#x30;&#x2e;&#49;&#x31;&#x4b;&#x48;&#122;&#x40;&#x39;&#x39;&#46;&#57;">&#x30;&#x2e;&#49;&#x31;&#x4b;&#x48;&#122;&#x40;&#x39;&#x39;&#46;&#57;</a>%</th>
+<th><a href="mailto:&#48;&#x2e;&#x31;&#x31;&#x4b;&#x48;&#x7a;&#64;&#x30;&#46;&#x31;">&#48;&#x2e;&#x31;&#x31;&#x4b;&#x48;&#x7a;&#64;&#x30;&#46;&#x31;</a>%</th>
+<th><a href="mailto:&#48;&#46;&#49;&#x31;&#x4b;&#72;&#x7a;&#64;&#57;&#57;&#x2e;&#57;">&#48;&#46;&#49;&#x31;&#x4b;&#72;&#x7a;&#64;&#57;&#57;&#x2e;&#57;</a>%</th>
 <th>无蜂鸣器</th>
 </tr>
 </thead>
@@ -184,7 +184,7 @@
   <entry>
     <title>51单片机开发例程-4</title>
     <url>/p/f398.html</url>
-    <content><![CDATA[<h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>在之前三章的内容中，我们学习到了三种信息输出的方法：独立LED灯，蜂鸣器，数码管，这一章我们开始学习信息输入的方法，相信你早就看到了主板上K1-K4四个独立按键以及S1-S16十六个矩阵按键，这些都是通过按键输入信息来控制单片机执行特定程序的有效方法，当然，在学习之前，你需要先将红外接收原件取下，具体原因我将在本章内容中讨论</p>
+    <content><![CDATA[<p>在之前三章的内容中，我们学习到了三种信息输出的方法：独立LED灯，蜂鸣器，数码管，这一章我们开始学习信息输入的方法，相信你早就看到了主板上K1-K4四个独立按键以及S1-S16十六个矩阵按键，这些都是通过按键输入信息来控制单片机执行特定程序的有效方法，当然，在学习之前，你需要先将红外接收原件取下，具体原因我将在本章内容中讨论</p>
 <a id="more"></a>
 
 <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
@@ -236,8 +236,8 @@
   <entry>
     <title>51单片机开发例程-6</title>
     <url>/p/3219.html</url>
-    <content><![CDATA[<h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>你也许很早就注意到了单片机开发套件里面的“电动小马达”，而驱动电机不能像LED灯一样直接通过单片机核心进行控制，因为单片机核心只具有控制作用不具有驱动作用，其产生的电流太小无法驱动电机正常运转，因此我们就需要使用到集成放大电路</p>
-<!----- more ----->
+    <content><![CDATA[<p>你也许很早就注意到了单片机开发套件里面的“电动小马达”，而驱动电机不能像LED灯一样直接通过单片机核心进行控制，因为单片机核心只具有控制作用不具有驱动作用，其产生的电流太小无法驱动电机正常运转，因此我们就需要使用到集成放大电路</p>
+<a id="more"></a>
 
 <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
 <li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
@@ -277,6 +277,56 @@
       </tags>
   </entry>
   <entry>
+    <title>51单片机开发例程-7</title>
+    <url>/p/f2d8.html</url>
+    <content><![CDATA[<p>之前我们都是学习通过单片机核心来控制外部的各种电路，这次我们要学习单片机内部的一个很重要的系统：中断系统，通过中断系统，我们可以使得单片机可以在运行过程中优先执行比起现在正在执行的程序更重要的程序，并且在该内容中我们也将学习到定时器以及串口等内容</p>
+<a id="more"></a>
+
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
+<li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
+<li>3.一根micro USB to USB A数据线</li>
+</ul>
+<h1 id="中断系统"><a href="#中断系统" class="headerlink" title="中断系统"></a>中断系统</h1><h2 id="中断系统概念"><a href="#中断系统概念" class="headerlink" title="中断系统概念"></a>中断系统概念</h2><p>对于单片机来讲，中断是指的CPU在执行处理某一个事件A的时候，发生了另外一个事件B（<strong>中断源</strong>），请求CPU去迅速处理事件B（<strong>中断发生</strong>），于是CPU立刻暂停现在正在执行的事件A（<strong>中断相应</strong>）转去处理事件B（<strong>中断服务</strong>），待CPU将事件B处理完毕后，再返回来，继续处理事件A被中断时的事件（<strong>中断返回</strong>）</p>
+<p>如果上面的叙述对你来说有点难以理解，那么我们可以从日常生活中的事件来举例，假如你正在做饭，锅正在灶台上烧水，而你现在正在切菜，但是你发现水烧开了（<strong>中断发生</strong>），于是你立即放下手中的刀（<strong>中断相应</strong>）去调小火或者加入要煮的东西（<strong>中断服务</strong>），当你调小火或者加入要煮的东西后，你便返回去继续去切菜（<strong>中断返回</strong>），并且你是继续上次的进度继续切菜而不是重新开始切</p>
+<img src="/p/f2d8/zhongduan.png" class title="中断程序流程图">
+
+<p>当然，中断源可能并不只一个，在我们的51单片机上一共有6个<code>I/O</code>口控制的5个中断源，因此中断也存在优先级，这部分的内容我会在之后的部分细讲，在此一代而过</p>
+<p>中断是为了使单片机具有对外部或内部随机发生的事件实时处理而设置的，中断功能的存在很大程度上提高了单片机处理外部或内部事件的能力，并且也是单片机的重要功能之一，是学习单片机必须掌握的内容</p>
+<h2 id="外部中断介绍"><a href="#外部中断介绍" class="headerlink" title="外部中断介绍"></a>外部中断介绍</h2><p>首先请看单片机核心的原理图，我们不难发现，在一些单片机的<code>I/O</code>口上，除了被称之为<code>Pnum^num</code>之外，有的还被赋予了特殊的附加功能，比如<code>P3^2</code>和<code>P3^3</code>分别被定义了INT0和INT1的功能，那么这两个功能便是单片机的外部中断</p>
+<img src="/p/f2d8/Core.png" class title="单片机核心">
+
+<p>外部中断是单片机实时处理外部事件的机制，这里的内外部指的就是单片机内外部，但是我们注意到，单片机的<code>P3^2</code>和<code>P3^3</code>口是连接到独立按键上的，那么为什么之前独立按键没有出现所谓“中断”的情况呢？那是因为中断系统也是需要“开启”的</p>
+<img src="/p/f2d8/zhongduan1.png" class title="外部中断结构图">
+
+<p>两个外部中断其实除了优先级不同差别并不大，在此以优先级最高的外部中断0作为例子进行讲解，观察上面的外部中断结构图，先不要管其他的元素，我们看到，要使得INT0接通，首先要经过TCON的控制，通过控制IT0来选择外部中断激发的模式，一种是下降沿有效，一种是低电平有效，也就是一种是从高电平变为低电平才有效，另一种是只要是低电平就有效，这两种控制方法根据自己实际的程序来选择，一会我会选择一个实例程序来演示</p>
+<blockquote>
+<p>INT0对应的是P3^2口的附加功能，可由IT0（TCON.0）选择其为低电平有效还是下降沿有效，当CPU检测到P3^2引脚上出现有效的中断信号时，中断标志IE0（TCON.1）置1，向CPU申请中断</p>
+<p>INT1对应的是P3^3口的附加功能，可由IT1（TCON.2）选择其为低电平有效还是下降沿有效，当CPU检测到P3^3引脚上出现有效的中断信号时，中断标志IE1（TCON.3）置1，向CPU申请中断</p>
+<p>——STC89C52中文芯片手册</p>
+</blockquote>
+<p>之后要经过两个开关：EX0和EA，其中EA的开关将5个中断都连接了起来，他的作用就像是我们家庭电路中的总电闸，把总电闸关掉其他用电器不管怎么样打开关闭自然都是没电的，而EX0就像是插排的开关，必须要打开插排开关，插在插排上的用电器才会通电，而有的用电器上也有开关，这就像是刚刚讲过的IT0的控制，必须给一个下降沿或者低电平来“打开开关”，用电器才会正常工作，那么梳理一下思路，我们要让台式电脑工作，就必须保证你家电源的电闸闭合（EA），然后按下插排开关（EX0），然后按下电脑的开机键（IT0），那么你的电脑才能正常工作，不过有些中断也不太一样，比如你看结构图中的内部中断T0和T1，这两个中断其余的部分和外部中断一样，但是没有IT0（IT1）的这样一个开关，那么这个内部中断就好像是你的手机充电器，充电器上没有开关，只要总电闸和插排打开了插上手机就能冲</p>
+<p>知道了外部中断由3级开关进行控制，要使用外部中断，我们就要把他们都打开，其中IE的两个开关是由一个中断允许寄存器进行控制的</p>
+<img src="/p/f2d8/zdyxjcq.png" class title="中断允许寄存器">
+
+<p>这个部分按照这个图直接给IE赋值就可以了，但是需要注意：直接给IE赋值即可，无需定义，并且赋值需要在函数内进行赋值，不能在函数外进行赋值，查看上面的图我们可以知道要将外部寄存器的这两个开关打开，只需要在函数内加一句<code>IE = 0x81;</code>即可</p>
+<img src="/p/f2d8/zdqqjcq.png" class title="中断请求寄存器">
+
+<p>这个是用来选择是下降沿有效还是上升沿有效的，因为不像IE需要打开开关，我们调用IE会方便一些，这个只需要打开一个开关即可，因此我们只需要给对应的变量赋值就好：<code>IT0 = 1;</code>（下降沿有效）或者<code>IT0 = 0;</code>（低电平有效）</p>
+<h2 id="外部中断测试"><a href="#外部中断测试" class="headerlink" title="外部中断测试"></a>外部中断测试</h2><p>我们把该打开的开关打开了，然后也把中断请求的类型选择好了，接下来就拿一个程序来测试，我们在此选择之前写过的数码管显示正整数的程序，原代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 </span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; </span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; </span><br><span class="line">u8 code SMG[]=&#123; </span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    DigDisplay(<span class="number">114514</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123; </span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>&#123; </span><br><span class="line">  <span class="keyword">long</span> LED = <span class="number">10</span>; </span><br><span class="line">  u8 numlong = <span class="number">1</span>; </span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">99999999</span>)&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;beep = ~beep;delay(<span class="number">100</span>);&#125;&#125;</span><br><span class="line">  <span class="keyword">while</span>(num / LED)&#123; </span><br><span class="line">    LED *= <span class="number">10</span>;</span><br><span class="line">    numlong ++;&#125; </span><br><span class="line">  <span class="keyword">for</span>(LED = <span class="number">8</span>; LED &gt; <span class="number">8</span> - numlong; LED--)&#123; </span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    GPIO_DIG = SMG[num % <span class="number">10</span>]; </span><br><span class="line">    num /= <span class="number">10</span>; </span><br><span class="line">    delay(<span class="number">100</span>);</span><br><span class="line">    GPIO_DIG = <span class="number">0x00</span>; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们使用外部中断0进行控制，主函数一直执行数码管动态显示的函数，然后如果外部中断发生那么我们就让数字+1，原程序中的注释我已经全部删除因此请仔细查阅下面代码的注释：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 </span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; </span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; </span><br><span class="line">u8 code SMG[]=&#123; </span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>; </span><br><span class="line">u16 number = <span class="number">0</span>; <span class="comment">//重新定义一个全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  IE = <span class="number">0x81</span>; <span class="comment">//打开“两个开关”</span></span><br><span class="line">  IT0 = <span class="number">1</span>; <span class="comment">//选择控制类型为下降沿有效</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    DigDisplay(number); <span class="comment">//数码管显示这个全局变量的值</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EX_INT0</span><span class="params">()</span> interrupt 0 <span class="comment">//外部中断函数</span></span></span><br><span class="line"><span class="function"></span>&#123;number ++;&#125; <span class="comment">//执行中断则给全局变量number+1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123; </span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>&#123; </span><br><span class="line">  <span class="keyword">long</span> LED = <span class="number">10</span>; </span><br><span class="line">  u8 numlong = <span class="number">1</span>; </span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">99999999</span>)&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;beep = ~beep;delay(<span class="number">100</span>);&#125;&#125;</span><br><span class="line">  <span class="keyword">while</span>(num / LED)&#123; </span><br><span class="line">    LED *= <span class="number">10</span>;</span><br><span class="line">    numlong ++;&#125; </span><br><span class="line">  <span class="keyword">for</span>(LED = <span class="number">8</span>; LED &gt; <span class="number">8</span> - numlong; LED--)&#123; </span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    GPIO_DIG = SMG[num % <span class="number">10</span>]; </span><br><span class="line">    num /= <span class="number">10</span>; </span><br><span class="line">    delay(<span class="number">100</span>);</span><br><span class="line">    GPIO_DIG = <span class="number">0x00</span>; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行，按下连接到外部中断0的按键K3，你会发现数码管显示的数字增加了1，这便是单片机成功执行中断程序的结果，那么如果我们把控制类型改为低电平有效呢？因为代码占用太多篇幅了我不再展示了，只需要改一改数字就行，改完后按下按键K3你会发现数码管数字飞快跳动，快到数码管显示都跟不上了，这就是因为按下K3时一直在低电平，然后程序也就一直在给数字+1，因此在这样一个程序中要使得按下一次开关数字+1就要使用上升沿有效的控制类型，这样一来程序就不用每次数码管刷新都要重新检测一下按键有没有被按下了</p>
+<p>不过上述程序有一个致命缺陷，那就是：按键没有消抖！你可以试试，按不了几下数字就会跳，并且你不动的时候，数字也会随机增加1，因此我们要将外部中断0函数进行按键消抖的处理：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">sbit K3 = P3^<span class="number">2</span>; <span class="comment">//位定义按键K3</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EX_INT0</span><span class="params">()</span> interrupt 0 <span class="comment">//外部中断函数</span></span></span><br><span class="line"><span class="function"></span>&#123;delay(<span class="number">100</span>);</span><br><span class="line">  <span class="keyword">if</span>(K3 == <span class="number">0</span>)number ++;&#125; <span class="comment">//执行中断则给全局变量number+1</span></span><br></pre></td></tr></table></figure>
+<p>这样一来就不会因为按键抖动而导致数字乱跳啦</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Doing ordinary things at extraordinary times —— is it worth it?</title>
     <url>/p/95c5.html</url>
     <content><![CDATA[<p>Nowadays, more and more students, especially college students, choose to work part-time during summer and winter vacations or even on holidays to earn money: some because of poor family circumstances, some to earn a little pocket money, and others to experience life, they all have their own reasons or purposes for working, but I can’t help asking the question: is it really worth it?</p>
@@ -301,24 +351,44 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/p/4a17b156.html</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <title>浅谈“生产力”——新款iPad Pro发布有感</title>
+    <url>/p/a996.html</url>
+    <content><![CDATA[<p>就在北京时间2021年4月21日凌晨，苹果发布了一系列搭载Apple Silicon M1芯片的新款产品，出人意料的是，这颗“桌面级Soc”被放在了新款iPad Pro中，不少人直呼牛逼但是更多的却是质疑与几年来人们一直反复争论的<strong>生产力</strong>问题</p>
+<a id="more"></a>
+
+<p><strong>生产力</strong>，其实我非常非常讨厌这个词汇，并且我也非常讨厌拿这个词汇来攻击其他人的人（实际上坦白来讲对于使用这个词汇的我都不太喜欢），因为<strong>很多人对于这个词汇并没有一个明确的，正确的定义</strong>，比如：自媒体博主对于一些产品的评测会着重讲解剪视频的性能体验，比如程序员会着重看中使用的平台能使用哪些IDE或者说插件之类的（原谅我对此并没有了解太多），比如文字工作者只是想要一个方便码字的工具。毕竟每个人都不会对所有领域了解，每个人都有自己的需求，然后有些人就会拿自己领域的东西来攻击别的领域的东西：比如iPad没法写程序，这，我有什么好说的呢？我该去说手机没法写程序吗？或者是我该说手机没法记笔记吗？不能，因为手机不是用来写程序的，手机不是用来记笔记的。所以<strong>所谓的生产力，应该根据使用者实际情况来看</strong></p>
+<p>这几年来，对于生产力的争议屡见不鲜并且不仅仅是对于iPad的争论，而今年新款iPad Pro更是达到了一个新的高峰，许许多多的人坚定自己的设备是最有生产力的，并以此来质疑iPad的无用（我或许该称之为iPad无用论？）“iPad做的到吗？”，更有甚者以此来攻击iPad用户，但是他们却不知道他们口中的<strong>对比是不对等的</strong>，就如上一段末尾我所讲的那样</p>
+<p>对于iPad无用论我听到的最多的一句话自然就是：“<strong>买前生产力，买后爱奇艺</strong>”，这句话当然非常形象，我个人有一段时间也有类似的感受，但是问题出在哪里呢？问题出在用户：“买前生产力”，用户买之前自然是想好了要用设备来干什么，但是由于自己不克制不进取而沦为了“买后爱奇艺”的娱乐工具，很多人所谓的x86生产力工具不也有“买前生产力，买后打游戏”的真实经历吗，所以说，<strong>永远不要指望更换设备就能养成良好的习惯</strong></p>
+<p>其实一直以来<strong>设备都只是提供了一个平台</strong>，这个平台需要开发者和用户共同维护，为什么现在Windows电脑能够运行更多程序，能够做更多事情，那是因为Windows的历史远比iOS来的悠久，用户远比iOS用户来的多，用户多了（市场大了），开发者自然就会对这一平台更上心。同理，同样是平板电脑，为什么一众安卓平板电脑打不过iPad？自然是iPad用户更多，苹果的号召力更强，能请求<del>（强迫）</del>厂商适配，并且完善的App Store会让开发者真正拿到钱，所以开发者会对iPad开发专门的app或者说对其进行适配优化</p>
+<p>实际上，如今我们手中的设备在当今已经不仅仅是工具，也还是“一个人形象的象征”，比如相当一部分使用旗舰产品的人会有一种莫名的“优越感”，因为不管怎样，旗舰产品总的来说确实是优于次旗舰产品的，使用“智商检测机”的人可能就会被周围的人另眼相看，因为人总是喜欢对比的，不管是有意还是无意，绝大多数人都会注意到自己优于别人的方面而“骄傲”，劣于别人的方面而“嫉妒”，不过<strong>一旦涉及到了品牌，那争议就大了去了</strong>：海军，米猴，工读生，果蛆，这些负面称呼就是很好的证明，比如某些华为用户可能会觉得华为比小米好，小米就是垃圾，于是使用了一些不当的过激词汇来攻击小米或者小米用户，那么相当一部分小米用户自己觉得自己受到了冒犯，自然就会反击，于是大战一触即发，演变成两个品牌部分用户的对立，而一些看热闹的人就会在一边讲风凉话：“厂商是你们爹吗？”厂商当然不是用户的爹，但是当你手中的设备被人贬低的一无是处，那你还能心平气和的跟那个人对话吗？不要自以为是觉得无所谓，对于绝大多数人来讲被人贬低自己设备一文不值的时候即便是强忍着心平气和的交流血压实际上也是在升高的，“不以物喜不以物悲”的人毕竟是少数，如果你恰好是那少部分人并且你乐意的话可以来跟我交流一下真实感受</p>
+<p>言归正传，iPad只是提供了一个平台，怎样使用是用户自己的事情，iPad用户不该去以己之长攻人之短，而Windows用户也不该拿自己的使用场景来贬低iPad做不到这做不到那，毕竟，<strong>大概你其实也并不是目标用户</strong></p>
+<p>对于这次iPad Pro的更新换代，只能说一般，iPad Pro2018可谓是iPad更新最大的一代了，一代经典，虽然当时很多软件都没有适配新的屏幕比例，两年半过去了，如今的iPad App已经全线为新屏幕比例适配优化过了，上次Pro的更新只是加了个GPU核心，加了个摄像头，激光雷达，然后基础存储增大了而已，这次基本上也都是小升级，但是比起上次更新这次对于芯片和屏幕的更新可谓巨大，搭载了M1芯片的iPad Pro把性能提升到一个新的高度，搭载了mini LED显示屏把12.9寸iPad Pro屏幕素质提升到了一个新的高度，<strong>然而对于我们这些老用户来讲呢？虽然参数上很好看但是貌似并没有更新的必要和动力</strong>，因为A12X和A12Z已经很强了，对于绝大多数用户来说性能已经是溢出了<del>（除了原神玩家）</del>，有些人说加入M1性能溢出没啥用，但是苹果把最好的芯片给最好的iPad有错吗？没有错！对于这方面厂商和用户都没有错，只能说苹果近几年来对于产品的功能与设计越来越保守了，性能的提升是必要的，所以别再跟我扯什么性能溢出了！性能高难道不好？谁不希望自己的设备能够多用几年呢？</p>
+<p>作为一个三星半家桶换到苹果全家桶的用户来说，苹果设备并没有给我带来太多惊艳与惊喜，不过我却<strong>并不想换其他品牌设备也并不想更新我手中的设备</strong>，在我看来我当前手中的设备是最经济也是最适合我的：</p>
+<blockquote>
+<p>iPhone 11 Pro Max：新的激光雷达，更好的摄像系统，更好的性能与5G对我来说都没有必要，我不打游戏不需要性能，然后摄像系统的话要付出的金钱太多了并且现在手里设备画展完全够用所以完全没必要，5G是未来但是不是现在</p>
+<p>iPad Pro 3 11inch + Apple pencil 2 ：超高性价比，跟新款比起来主要也就是芯片和摄像系统差别，正经人谁用iPad摄像啊，然后那个激光雷达的话我觉得可以有，但是也只是锦上添花，目前主要用来记笔记，影音，随航，最近开始学习用Shapr 3D建模</p>
+<p>MacBook Pro M1：唯一一个最新产品，试试水，之前的MacBook Pro2017确实比较老了风扇狂转，更新新款有更好的性能更好的续航，这个我基本上就是拿来做一些Mac特长的事情，轻办公敲代码什么，续航长就是好啊</p>
+<p>Apple Watch Series4：新款升级除了常量都对我来说没必要，S4就和iPad Pro3类似</p>
+<p>AirPods2 + AirPods Pro：搭配苹果生态自动切换很舒服，虽然音质不行但是通勤还是很舒服的，已经是最新产品没法更新</p>
+</blockquote>
+<p>这些产品与我的生活息息相关，涵盖了我几乎所有的活动，它们给了我良好的影音体验，改变了我学习的方式，记录了我生活的习惯并使我以此进行作息调整，让我舒适的听音乐。电子产品大大丰富了我的生活，它们都在不同程度上帮助了我的学习与工作，也让我享受游戏与电影。当我想要学习单片机时，我会打开我的Windows电脑；当我想要记笔记时，我拿出我的iPad和吸附在上面的pencil；当我想要去图书馆学习时，我不会忘记带我的MacBook；当别人向我发来消息时，我的Watch会第一时间提醒我；当我想要在嘈杂的校园环境中静听一曲时，AirPods能带给我属于我自己的世界，但是要说它们有怎样的生产力时，我无话可说，因为当我在学习与工作，影音与娱乐的时候，我只是在想：<strong>利用好手中的工具就好了，何必去纠结它不能做什么？</strong></p>
+<p>最后，这些仅仅是我个人的所见所闻所思所想，并且我在文中大量使用了非绝对的词语，所以不代表所有人都是如此，请不要对号入座。我肯定会有错误，并且肯定会有人不赞同我的观点，所以如有错误或你不赞同我的观点希望您能留下宝贵的意见，因为撰写此文章时候Blog的评论系统尚不完善所以评论请移步Telegram</p>
+<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i>   其中观点完全主观，请辩证地看待文中观点</strong></p>
 ]]></content>
+      <categories>
+        <category>评测</category>
+      </categories>
+      <tags>
+        <tag>奇思妙想</tag>
+        <tag>iPad</tag>
+        <tag>生产力</tag>
+      </tags>
   </entry>
   <entry>
     <title>iPad书写体验</title>
     <url>/p/a833.html</url>
     <content><![CDATA[<p>iPad书写体验一直以来都被人们所诟病，因为Apple  pencil与屏幕阻尼过小导致大部分人体验极差，因此自从Apple pencil问世以来，人们就在不停探寻改善Apple pencil书写体验的方法，就目前来说，主流方法有：类纸膜，笔尖套以及第三方笔尖</p>
-<!--- more --->
+<a id="more"></a>
 
 <p>首先我先说一下结论，单纯看书写体验，最好的是类纸膜+原装笔尖，其次是以珞小希笔尖为代表的第三方2B笔尖，最次是笔尖套，这三种方法各有各的优点，适用的人群也大不相同，并且每个人的书写体验以及习惯具有很强的主观性，因此以下内容仅为我的个人体验，并不代表客观评价</p>
 <h1 id="类纸膜-原装笔尖"><a href="#类纸膜-原装笔尖" class="headerlink" title="类纸膜+原装笔尖"></a>类纸膜+原装笔尖</h1><blockquote>
@@ -365,40 +435,6 @@
       <tags>
         <tag>iPad</tag>
         <tag>Apple pencil</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>浅谈“生产力”——新款iPad Pro发布有感</title>
-    <url>/p/a996.html</url>
-    <content><![CDATA[<p>就在北京时间2021年4月21日凌晨，苹果发布了一系列搭载Apple Silicon M1芯片的新款产品，出人意料的是，这颗“桌面级Soc”被放在了新款iPad Pro中，不少人直呼牛逼但是更多的却是质疑与几年来人们一直反复争论的<strong>生产力</strong>问题。</p>
-<!-----more ----->
-
-<p><strong>生产力</strong>，其实我非常非常讨厌这个词汇，并且我也非常讨厌拿这个词汇来攻击其他人的人（实际上坦白来讲对于使用这个词汇的我都不太喜欢），因为<strong>很多人对于这个词汇并没有一个明确的，正确的定义</strong>，比如：自媒体博主对于一些产品的评测会着重讲解剪视频的性能体验，比如程序员会着重看中使用的平台能使用哪些IDE或者说插件之类的（原谅我对此并没有了解太多），比如文字工作者只是想要一个方便码字的工具。毕竟每个人都不会对所有领域了解，每个人都有自己的需求，然后有些人就会拿自己领域的东西来攻击别的领域的东西：比如iPad没法写程序，这，我有什么好说的呢？我该去说手机没法写程序吗？或者是我该说手机没法记笔记吗？不能，因为手机不是用来写程序的，手机不是用来记笔记的。所以<strong>所谓的生产力，应该根据使用者实际情况来看</strong>。</p>
-<p>这几年来，对于生产力的争议屡见不鲜并且不仅仅是对于iPad的争论，而今年新款iPad Pro更是达到了一个新的高峰，许许多多的人坚定自己的设备是最有生产力的，并以此来质疑iPad的无用（我或许该称之为iPad无用论？）“iPad做的到吗？”，更有甚者以此来攻击iPad用户，但是他们却不知道他们口中的<strong>对比是不对等的</strong>，就如上一段末尾我所讲的那样。</p>
-<p>对于iPad无用论我听到的最多的一句话自然就是：“<strong>买前生产力，买后爱奇艺</strong>”，这句话当然非常形象，我个人有一段时间也有类似的感受，但是问题出在哪里呢？问题出在用户：“买前生产力”，用户买之前自然是想好了要用设备来干什么，但是由于自己不克制不进取而沦为了“买后爱奇艺”的娱乐工具，很多人所谓的x86生产力工具不也有“买前生产力，买后打游戏”的真实经历吗，所以说，<strong>永远不要指望更换设备就能养成良好的习惯</strong>。</p>
-<p>其实一直以来<strong>设备都只是提供了一个平台</strong>，这个平台需要开发者和用户共同维护，为什么现在Windows电脑能够运行更多程序，能够做更多事情，那是因为Windows的历史远比iOS来的悠久，用户远比iOS用户来的多，用户多了（市场大了），开发者自然就会对这一平台更上心。同理，同样是平板电脑，为什么一众安卓平板电脑打不过iPad？自然是iPad用户更多，苹果的号召力更强，能请求<del>（强迫）</del>厂商适配，并且完善的App Store会让开发者真正拿到钱，所以开发者会对iPad开发专门的app或者说对其进行适配优化。</p>
-<p>实际上，如今我们手中的设备在当今已经不仅仅是工具，也还是“一个人形象的象征”，比如相当一部分使用旗舰产品的人会有一种莫名的“优越感”，因为不管怎样，旗舰产品总的来说确实是优于次旗舰产品的，使用“智商检测机”的人可能就会被周围的人另眼相看，因为人总是喜欢对比的，不管是有意还是无意，绝大多数人都会注意到自己优于别人的方面而“骄傲”，劣于别人的方面而“嫉妒”，不过<strong>一旦涉及到了品牌，那争议就大了去了</strong>：海军，米猴，工读生，果蛆，这些负面称呼就是很好的证明，比如某些华为用户可能会觉得华为比小米好，小米就是垃圾，于是使用了一些不当的过激词汇来攻击小米或者小米用户，那么相当一部分小米用户自己觉得自己受到了冒犯，自然就会反击，于是大战一触即发，演变成两个品牌部分用户的对立，而一些看热闹的人就会在一边讲风凉话：“厂商是你们爹吗？”厂商当然不是用户的爹，但是当你手中的设备被人贬低的一无是处，那你还能心平气和的跟那个人对话吗？不要自以为是觉得无所谓，对于绝大多数人来讲被人贬低自己设备一文不值的时候即便是强忍着心平气和的交流血压实际上也是在升高的，“不以物喜不以物悲”的人毕竟是少数，如果你恰好是那少部分人并且你乐意的话可以来跟我交流一下真实感受。</p>
-<p>言归正传，iPad只是提供了一个平台，怎样使用是用户自己的事情，iPad用户不该去以己之长攻人之短，而Windows用户也不该拿自己的使用场景来贬低iPad做不到这做不到那，毕竟，<strong>大概你其实也并不是目标用户</strong>。</p>
-<p>对于这次iPad Pro的更新换代，只能说一般，iPad Pro2018可谓是iPad更新最大的一代了，一代经典，虽然当时很多软件都没有适配新的屏幕比例，两年半过去了，如今的iPad App已经全线为新屏幕比例适配优化过了，上次Pro的更新只是加了个GPU核心，加了个摄像头，激光雷达，然后基础存储增大了而已，这次基本上也都是小升级，但是比起上次更新这次对于芯片和屏幕的更新可谓巨大，搭载了M1芯片的iPad Pro把性能提升到一个新的高度，搭载了mini LED显示屏把12.9寸iPad Pro屏幕素质提升到了一个新的高度，<strong>然而对于我们这些老用户来讲呢？虽然参数上很好看但是貌似并没有更新的必要和动力</strong>，因为A12X和A12Z已经很强了，对于绝大多数用户来说性能已经是溢出了<del>（除了原神玩家）</del>，有些人说加入M1性能溢出没啥用，但是苹果把最好的芯片给最好的iPad有错吗？没有错！对于这方面厂商和用户都没有错，只能说苹果近几年来对于产品的功能与设计越来越保守了，性能的提升是必要的，所以别再跟我扯什么性能溢出了！性能高难道不好？谁不希望自己的设备能够多用几年呢？</p>
-<p>作为一个三星半家桶换到苹果全家桶的用户来说，苹果设备并没有给我带来太多惊艳与惊喜，不过我却<strong>并不想换其他品牌设备也并不想更新我手中的设备</strong>，在我看来我当前手中的设备是最经济也是最适合我的：</p>
-<blockquote>
-<p>iPhone 11 Pro Max：新的激光雷达，更好的摄像系统，更好的性能与5G对我来说都没有必要，我不打游戏不需要性能，然后摄像系统的话要付出的金钱太多了并且现在手里设备画展完全够用所以完全没必要，5G是未来但是不是现在</p>
-<p>iPad Pro 3 11inch + Apple pencil 2 ：超高性价比，跟新款比起来主要也就是芯片和摄像系统差别，正经人谁用iPad摄像啊，然后那个激光雷达的话我觉得可以有，但是也只是锦上添花，目前主要用来记笔记，影音，随航，最近开始学习用Shapr 3D建模</p>
-<p>MacBook Pro M1：唯一一个最新产品，试试水，之前的MacBook Pro2017确实比较老了风扇狂转，更新新款有更好的性能更好的续航，这个我基本上就是拿来做一些Mac特长的事情，轻办公敲代码什么，续航长就是好啊</p>
-<p>Apple Watch Series4：新款升级除了常量都对我来说没必要，S4就和iPad Pro3类似</p>
-<p>AirPods2 + AirPods Pro：搭配苹果生态自动切换很舒服，虽然音质不行但是通勤还是很舒服的，已经是最新产品没法更新</p>
-</blockquote>
-<p>这些产品与我的生活息息相关，涵盖了我几乎所有的活动，它们给了我良好的影音体验，改变了我学习的方式，记录了我生活的习惯并使我以此进行作息调整，让我舒适的听音乐。电子产品大大丰富了我的生活，它们都在不同程度上帮助了我的学习与工作，也让我享受游戏与电影。当我想要学习单片机时，我会打开我的Windows电脑；当我想要记笔记时，我拿出我的iPad和吸附在上面的pencil；当我想要去图书馆学习时，我不会忘记带我的MacBook；当别人向我发来消息时，我的Watch会第一时间提醒我；当我想要在嘈杂的校园环境中静听一曲时，AirPods能带给我属于我自己的世界，但是要说它们有怎样的生产力时，我无话可说，因为当我在学习与工作，影音与娱乐的时候，我只是在想：<strong>利用好手中的工具就好了，何必去纠结它不能做什么？</strong></p>
-<p>最后，这些仅仅是我个人的所见所闻所思所想，并且我在文中大量使用了非绝对的词语，所以不代表所有人都是如此，请不要对号入座。我肯定会有错误，并且肯定会有人不赞同我的观点，所以如有错误或你不赞同我的观点希望您能留下宝贵的意见，因为撰写此文章时候Blog的评论系统尚不完善所以评论请移步Twitter。</p>
-<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i>   其中观点完全主观，请辩证地看待文中观点</strong></p>
-]]></content>
-      <categories>
-        <category>评测</category>
-      </categories>
-      <tags>
-        <tag>奇思妙想</tag>
-        <tag>iPad</tag>
-        <tag>生产力</tag>
       </tags>
   </entry>
   <entry>
@@ -487,7 +523,7 @@
   <entry>
     <title>51单片机开发例程-3</title>
     <url>/p/904410e9.html</url>
-    <content><![CDATA[<h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>在这一章的内容中，将会学习到另一个运用非常广泛的元器件：数码管，数码管常用来表示16进制及以内的数字，因此可以显示我们要输入单片机的数字以及单片机输出的数字，在计算器，电子时钟以及一些可以调节简单参数的机械中都有数码管的广泛运用，因此熟练掌握数码管的使用是单片机学习过程中必不可少的</p>
+    <content><![CDATA[<p>在这一章的内容中，将会学习到另一个运用非常广泛的元器件：数码管，数码管常用来表示16进制及以内的数字，因此可以显示我们要输入单片机的数字以及单片机输出的数字，在计算器，电子时钟以及一些可以调节简单参数的机械中都有数码管的广泛运用，因此熟练掌握数码管的使用是单片机学习过程中必不可少的</p>
 <a id="more"></a>
 
 <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
@@ -624,8 +660,8 @@
   <entry>
     <title>51单片机开发例程-5</title>
     <url>/p/3359.html</url>
-    <content><![CDATA[<h1 id="内容概述"><a href="#内容概述" class="headerlink" title="内容概述"></a>内容概述</h1><p>在这一章我们又要学习到一种重要的信息输出方法：8x8LED点阵模块，之前学习到的数码管虽然用处广泛，但是由于其LED数量较少且有固定的摆放方式，所以可以显示的信息非常有限，只能显示数字，部分字母还有一些极其简单的符号，如果要显示复杂的图形信息，就需要用到点阵模块</p>
-<!----- more ----->
+    <content><![CDATA[<p>在这一章我们又要学习到一种重要的信息输出方法：8x8LED点阵模块，之前学习到的数码管虽然用处广泛，但是由于其LED数量较少且有固定的摆放方式，所以可以显示的信息非常有限，只能显示数字，部分字母还有一些极其简单的符号，如果要显示复杂的图形信息，就需要用到点阵模块</p>
+<a id="more"></a>
 
 <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
 <li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>

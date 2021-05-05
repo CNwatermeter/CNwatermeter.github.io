@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C语言,单片机,STC89C52,ULN2003," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,24 +79,23 @@
 
 
 
-<meta name="description" content="你也许很早就注意到了单片机开发套件里面的“电动小马达”，而驱动电机不能像LED灯一样直接通过单片机核心进行控制，因为单片机核心只具有控制作用不具有驱动作用，其产生的电流太小无法驱动电机正常运转，因此我们就需要使用到集成放大电路">
+<meta name="description" content="之前我们都是学习通过单片机核心来控制外部的各种电路，这次我们要学习单片机内部的一个很重要的系统：中断系统，通过中断系统，我们可以使得单片机可以在运行过程中优先执行比起现在正在执行的程序更重要的程序，并且在该内容中我们也将学习到定时器以及串口等内容">
 <meta property="og:type" content="article">
-<meta property="og:title" content="51单片机开发例程-6">
-<meta property="og:url" content="http://cnwatermeter.github.io/p/3219.html">
+<meta property="og:title" content="51单片机开发例程-7">
+<meta property="og:url" content="http://cnwatermeter.github.io/p/f2d8.html">
 <meta property="og:site_name" content="淼表のブログ">
-<meta property="og:description" content="你也许很早就注意到了单片机开发套件里面的“电动小马达”，而驱动电机不能像LED灯一样直接通过单片机核心进行控制，因为单片机核心只具有控制作用不具有驱动作用，其产生的电流太小无法驱动电机正常运转，因此我们就需要使用到集成放大电路">
+<meta property="og:description" content="之前我们都是学习通过单片机核心来控制外部的各种电路，这次我们要学习单片机内部的一个很重要的系统：中断系统，通过中断系统，我们可以使得单片机可以在运行过程中优先执行比起现在正在执行的程序更重要的程序，并且在该内容中我们也将学习到定时器以及串口等内容">
 <meta property="og:locale">
-<meta property="og:image" content="http://cnwatermeter.github.io/p/3219/dldg.png">
-<meta property="og:image" content="http://cnwatermeter.github.io/p/3219/uln2003.png">
-<meta property="article:published_time" content="2021-05-01T06:20:07.000Z">
-<meta property="article:modified_time" content="2021-05-05T03:56:53.513Z">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/f2d8/zhongduan.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/f2d8/Core.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/f2d8/zhongduan1.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/f2d8/zdyxjcq.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/f2d8/zdqqjcq.png">
+<meta property="article:published_time" content="2021-05-05T03:39:08.221Z">
+<meta property="article:modified_time" content="2021-05-05T08:55:34.360Z">
 <meta property="article:author" content="淼表">
-<meta property="article:tag" content="C语言">
-<meta property="article:tag" content="单片机">
-<meta property="article:tag" content="STC89C52">
-<meta property="article:tag" content="ULN2003">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://cnwatermeter.github.io/p/3219/dldg.png">
+<meta name="twitter:image" content="http://cnwatermeter.github.io/p/f2d8/zhongduan.png">
 
 
 
@@ -126,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://CNwatermeter.github.io/p/3219.html"/>
+  <link rel="canonical" href="http://CNwatermeter.github.io/p/f2d8.html"/>
 
 
 
 
 
-  <title>51单片机开发例程-6 | 淼表のブログ</title>
+  <title>51单片机开发例程-7 | 淼表のブログ</title>
   
 
 
@@ -301,7 +300,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://CNwatermeter.github.io/p/3219.html">
+    <link itemprop="mainEntityOfPage" href="http://CNwatermeter.github.io/p/f2d8.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -318,7 +317,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">51单片机开发例程-6</h2>
+          <h2 class="post-title" itemprop="name headline">51单片机开发例程-7</h2>
         
 
         <div class="post-meta">
@@ -330,8 +329,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-01T14:20:07+08:00">
-                2021-05-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-05T11:39:08+08:00">
+                2021-05-05
               </time>
             
 
@@ -371,8 +370,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/p/3219.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/p/3219.html" itemprop="commentCount"></span>
+                <a href="/p/f2d8.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/p/f2d8.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -394,7 +393,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k
+                  2.7k
                 </span>
               
 
@@ -410,7 +409,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  10
                 </span>
               
             </div>
@@ -431,35 +430,48 @@
       
 
       
-        <p>你也许很早就注意到了单片机开发套件里面的“电动小马达”，而驱动电机不能像LED灯一样直接通过单片机核心进行控制，因为单片机核心只具有控制作用不具有驱动作用，其产生的电流太小无法驱动电机正常运转，因此我们就需要使用到集成放大电路</p>
+        <p>之前我们都是学习通过单片机核心来控制外部的各种电路，这次我们要学习单片机内部的一个很重要的系统：中断系统，通过中断系统，我们可以使得单片机可以在运行过程中优先执行比起现在正在执行的程序更重要的程序，并且在该内容中我们也将学习到定时器以及串口等内容</p>
 <a id="more"></a>
 
 <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
 <li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
 <li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
 <li>3.一根micro USB to USB A数据线</li>
-<li>4.5V直流电机+2根1pin线</li>
 </ul>
-<h1 id="直流电机"><a href="#直流电机" class="headerlink" title="直流电机"></a>直流电机</h1><h2 id="直流电机原理"><a href="#直流电机原理" class="headerlink" title="直流电机原理"></a>直流电机原理</h2><p>直流电机的原理其实我们在初高中都学过，原理不在过多赘述，详细内容可以查看下面引用内容，但是在此要提一下直流电机的几个特点：首先，直流电机既可以作电动机，也可以作发电机；直流电机没有正负极之分，两端通直流电就可以正常工作，交换两极可以控制其正反转</p>
+<h1 id="中断系统"><a href="#中断系统" class="headerlink" title="中断系统"></a>中断系统</h1><h2 id="中断系统概念"><a href="#中断系统概念" class="headerlink" title="中断系统概念"></a>中断系统概念</h2><p>对于单片机来讲，中断是指的CPU在执行处理某一个事件A的时候，发生了另外一个事件B（<strong>中断源</strong>），请求CPU去迅速处理事件B（<strong>中断发生</strong>），于是CPU立刻暂停现在正在执行的事件A（<strong>中断相应</strong>）转去处理事件B（<strong>中断服务</strong>），待CPU将事件B处理完毕后，再返回来，继续处理事件A被中断时的事件（<strong>中断返回</strong>）</p>
+<p>如果上面的叙述对你来说有点难以理解，那么我们可以从日常生活中的事件来举例，假如你正在做饭，锅正在灶台上烧水，而你现在正在切菜，但是你发现水烧开了（<strong>中断发生</strong>），于是你立即放下手中的刀（<strong>中断相应</strong>）去调小火或者加入要煮的东西（<strong>中断服务</strong>），当你调小火或者加入要煮的东西后，你便返回去继续去切菜（<strong>中断返回</strong>），并且你是继续上次的进度继续切菜而不是重新开始切</p>
+<img src="/p/f2d8/zhongduan.png" class title="中断程序流程图">
+
+<p>当然，中断源可能并不只一个，在我们的51单片机上一共有6个<code>I/O</code>口控制的5个中断源，因此中断也存在优先级，这部分的内容我会在之后的部分细讲，在此一代而过</p>
+<p>中断是为了使单片机具有对外部或内部随机发生的事件实时处理而设置的，中断功能的存在很大程度上提高了单片机处理外部或内部事件的能力，并且也是单片机的重要功能之一，是学习单片机必须掌握的内容</p>
+<h2 id="外部中断介绍"><a href="#外部中断介绍" class="headerlink" title="外部中断介绍"></a>外部中断介绍</h2><p>首先请看单片机核心的原理图，我们不难发现，在一些单片机的<code>I/O</code>口上，除了被称之为<code>Pnum^num</code>之外，有的还被赋予了特殊的附加功能，比如<code>P3^2</code>和<code>P3^3</code>分别被定义了INT0和INT1的功能，那么这两个功能便是单片机的外部中断</p>
+<img src="/p/f2d8/Core.png" class title="单片机核心">
+
+<p>外部中断是单片机实时处理外部事件的机制，这里的内外部指的就是单片机内外部，但是我们注意到，单片机的<code>P3^2</code>和<code>P3^3</code>口是连接到独立按键上的，那么为什么之前独立按键没有出现所谓“中断”的情况呢？那是因为中断系统也是需要“开启”的</p>
+<img src="/p/f2d8/zhongduan1.png" class title="外部中断结构图">
+
+<p>两个外部中断其实除了优先级不同差别并不大，在此以优先级最高的外部中断0作为例子进行讲解，观察上面的外部中断结构图，先不要管其他的元素，我们看到，要使得INT0接通，首先要经过TCON的控制，通过控制IT0来选择外部中断激发的模式，一种是下降沿有效，一种是低电平有效，也就是一种是从高电平变为低电平才有效，另一种是只要是低电平就有效，这两种控制方法根据自己实际的程序来选择，一会我会选择一个实例程序来演示</p>
 <blockquote>
-<p>直流电机是指能将直流电能转换成机械能(直流电动机)或将机械能转换成 直流电能(直流发电机)的旋转电机。它是能实现直流电能和机械能互相转换的 电机。当它作电动机运行时是直流电动机，将电能转换为机械能;作发电机运行 时是直流发电机，将机械能转换为电能</p>
-<p>直流电机的结构应由定子和转子两大部分组成。直流电机运行时静止不动的 部分称为定子，定子的主要作用是产生磁场，由机座、主磁极、 换向极、 端盖、 轴承和电刷装置等组成。运行时转动的部分称为转子，其主要作用是产生电磁转 矩和感应电动势，是直流电机进行能量转换的枢纽，所以通常又称为电枢，由转 轴、电枢铁心、电枢绕组、换向器和风扇等组成</p>
-<p>直流电机没有正负之分，在两端加上直流电就能工作。需要知道直流电机的 额定电压和额定功率，不能使之长时间超负荷运作。 在交换接线后，可以形成 正反转</p>
-<p>——引用自普中科技单片机开发攻略149页</p>
+<p>INT0对应的是P3^2口的附加功能，可由IT0（TCON.0）选择其为低电平有效还是下降沿有效，当CPU检测到P3^2引脚上出现有效的中断信号时，中断标志IE0（TCON.1）置1，向CPU申请中断</p>
+<p>INT1对应的是P3^3口的附加功能，可由IT1（TCON.2）选择其为低电平有效还是下降沿有效，当CPU检测到P3^3引脚上出现有效的中断信号时，中断标志IE1（TCON.3）置1，向CPU申请中断</p>
+<p>——STC89C52中文芯片手册</p>
 </blockquote>
-<h2 id="ULN2003"><a href="#ULN2003" class="headerlink" title="ULN2003"></a>ULN2003</h2><p>该芯片是一个单片高电压，高电流的达林顿晶体管阵列集成电路，不仅仅可以驱动直流电机，还可以用来驱动五项四线步进电机，关于步进电机我们在之后的内容中讲解，在此我们只讲解驱动直流电机的用法</p>
-<p><code>ULN2003</code>由7对NPN达林顿管组成，说起达林顿管你肯定不熟悉，但是如果学过电工学的同学肯定对NPN很熟悉，那么请看原理图：</p>
-<img src="/p/3219/dldg.png" class title="ULN2003逻辑框图以及达林顿管">
+<p>之后要经过两个开关：EX0和EA，其中EA的开关将5个中断都连接了起来，他的作用就像是我们家庭电路中的总电闸，把总电闸关掉其他用电器不管怎么样打开关闭自然都是没电的，而EX0就像是插排的开关，必须要打开插排开关，插在插排上的用电器才会通电，而有的用电器上也有开关，这就像是刚刚讲过的IT0的控制，必须给一个下降沿或者低电平来“打开开关”，用电器才会正常工作，那么梳理一下思路，我们要让台式电脑工作，就必须保证你家电源的电闸闭合（EA），然后按下插排开关（EX0），然后按下电脑的开机键（IT0），那么你的电脑才能正常工作，不过有些中断也不太一样，比如你看结构图中的内部中断T0和T1，这两个中断其余的部分和外部中断一样，但是没有IT0（IT1）的这样一个开关，那么这个内部中断就好像是你的手机充电器，充电器上没有开关，只要总电闸和插排打开了插上手机就能冲</p>
+<p>知道了外部中断由3级开关进行控制，要使用外部中断，我们就要把他们都打开，其中IE的两个开关是由一个中断允许寄存器进行控制的</p>
+<img src="/p/f2d8/zdyxjcq.png" class title="中断允许寄存器">
 
-<p>这个达林顿管和NPN结合起来是不是想起什么了，没错，就是放大电路，当然这里不细讲其内部的原理以及电路分析，我们单片机学习更重要的是了解集成电路的功能以及使用方法而不是其原理，当然如果知道原理更好，如果没有余力去了解每个芯片的原理那么只需要知道并且能够活用每一个集成电路就好</p>
-<p><code>ULN2003</code>芯片的功能简单来讲类似非门电路，也就是反相输出，输入高电平输出低电平，输入低电平输出高电平</p>
-<h2 id="程序编写"><a href="#程序编写" class="headerlink" title="程序编写"></a>程序编写</h2><p>知道了上述原理那么事情就变的非常简单了，就像点亮LED灯一样地简单，因为直流电机的工作原理也是一端输入高电平，一端输入低电平即可，并且不像LED灯那样有明确的正负，直流电机正反接都可以正常工作，不同的只是电机旋转的方向</p>
-<img src="/p/3219/uln2003.png" class title="ULN2003原理图">
+<p>这个部分按照这个图直接给IE赋值就可以了，但是需要注意：直接给IE赋值即可，无需定义，并且赋值需要在函数内进行赋值，不能在函数外进行赋值，查看上面的图我们可以知道要将外部寄存器的这两个开关打开，只需要在函数内加一句<code>IE = 0x81;</code>即可</p>
+<img src="/p/f2d8/zdqqjcq.png" class title="中断请求寄存器">
 
-<p>我们可以看到，该集成电路输入端连接到单片机核心进行控制，输出连接到J47模块也就是单片机左上角的那裸露的5根针脚，这5根针脚分别对应4个<code>ULN2003</code>的输出引脚与VCC，但是<code>ULN2003</code>的输出引脚也有5个，为什么有一个没有与J47的引脚相接呢？看原理图，这一引脚连接到的是BEEP，也就是蜂鸣器，蜂鸣器我们在第二节就已经讲过了，并且也接触到了这个芯片，有没有回忆起来呢？如果忘记了可以去翻之前的内容，那边也对这一集成电路进行了一点说明 ——&gt; <a href="https://cnwatermeter.github.io/p/e743207f.html#more">51单片机开发例程-2</a></p>
-<p>那么程序就非常好写了，我这边仅仅示例一个通过点按开关控制直流电机开启的程序，其他使用方法请自行开发，由于原理真的非常简单，注释我也懒得写了，如果这点你都看不懂那您可以入土啦！这章是这一部分最简单的部分了，所以使用起来并不复杂</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8;</span><br><span class="line">sbit moto = P1^<span class="number">0</span>;</span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  u8 i;</span><br><span class="line">  moto = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    moto = ~K1;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>这一部分就是写着玩吧，没什么后记，驱动蜂鸣器之前讲过了，驱动直流电机太简单了，然后我手里目前没有步进电机所以不作说明，如果有必要的话之后会专门开一章来讲步进电机</p>
+<p>这个是用来选择是下降沿有效还是上升沿有效的，因为不像IE需要打开开关，我们调用IE会方便一些，这个只需要打开一个开关即可，因此我们只需要给对应的变量赋值就好：<code>IT0 = 1;</code>（下降沿有效）或者<code>IT0 = 0;</code>（低电平有效）</p>
+<h2 id="外部中断测试"><a href="#外部中断测试" class="headerlink" title="外部中断测试"></a>外部中断测试</h2><p>我们把该打开的开关打开了，然后也把中断请求的类型选择好了，接下来就拿一个程序来测试，我们在此选择之前写过的数码管显示正整数的程序，原代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 </span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; </span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; </span><br><span class="line">u8 code SMG[]=&#123; </span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    DigDisplay(<span class="number">114514</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123; </span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>&#123; </span><br><span class="line">  <span class="keyword">long</span> LED = <span class="number">10</span>; </span><br><span class="line">  u8 numlong = <span class="number">1</span>; </span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">99999999</span>)&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;beep = ~beep;delay(<span class="number">100</span>);&#125;&#125;</span><br><span class="line">  <span class="keyword">while</span>(num / LED)&#123; </span><br><span class="line">    LED *= <span class="number">10</span>;</span><br><span class="line">    numlong ++;&#125; </span><br><span class="line">  <span class="keyword">for</span>(LED = <span class="number">8</span>; LED &gt; <span class="number">8</span> - numlong; LED--)&#123; </span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    GPIO_DIG = SMG[num % <span class="number">10</span>]; </span><br><span class="line">    num /= <span class="number">10</span>; </span><br><span class="line">    delay(<span class="number">100</span>);</span><br><span class="line">    GPIO_DIG = <span class="number">0x00</span>; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们使用外部中断0进行控制，主函数一直执行数码管动态显示的函数，然后如果外部中断发生那么我们就让数字+1，原程序中的注释我已经全部删除因此请仔细查阅下面代码的注释：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> u8; </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> u16;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GPIO_DIG P0 </span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; </span><br><span class="line">sbit SLA = P2^<span class="number">2</span>;</span><br><span class="line">sbit SLB = P2^<span class="number">3</span>;</span><br><span class="line">sbit SLC = P2^<span class="number">4</span>; </span><br><span class="line">u8 code SMG[]=&#123; </span><br><span class="line">  <span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,</span><br><span class="line">  <span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">  <span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>; </span><br><span class="line">u16 number = <span class="number">0</span>; <span class="comment">//重新定义一个全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  IE = <span class="number">0x81</span>; <span class="comment">//打开“两个开关”</span></span><br><span class="line">  IT0 = <span class="number">1</span>; <span class="comment">//选择控制类型为下降沿有效</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    DigDisplay(number); <span class="comment">//数码管显示这个全局变量的值</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EX_INT0</span><span class="params">()</span> interrupt 0 <span class="comment">//外部中断函数</span></span></span><br><span class="line"><span class="function"></span>&#123;number ++;&#125; <span class="comment">//执行中断则给全局变量number+1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 time)</span></span>&#123; </span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DigDisplay</span><span class="params">(<span class="keyword">long</span> num)</span></span>&#123; </span><br><span class="line">  <span class="keyword">long</span> LED = <span class="number">10</span>; </span><br><span class="line">  u8 numlong = <span class="number">1</span>; </span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">99999999</span>)&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;beep = ~beep;delay(<span class="number">100</span>);&#125;&#125;</span><br><span class="line">  <span class="keyword">while</span>(num / LED)&#123; </span><br><span class="line">    LED *= <span class="number">10</span>;</span><br><span class="line">    numlong ++;&#125; </span><br><span class="line">  <span class="keyword">for</span>(LED = <span class="number">8</span>; LED &gt; <span class="number">8</span> - numlong; LED--)&#123; </span><br><span class="line">    <span class="keyword">switch</span>(LED)&#123;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">1</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">2</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">3</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">4</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">5</span>): SLA = <span class="number">1</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">6</span>): SLA = <span class="number">0</span>;SLB = <span class="number">1</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">7</span>): SLA = <span class="number">1</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span>(<span class="number">8</span>): SLA = <span class="number">0</span>;SLB = <span class="number">0</span>;SLC = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    GPIO_DIG = SMG[num % <span class="number">10</span>]; </span><br><span class="line">    num /= <span class="number">10</span>; </span><br><span class="line">    delay(<span class="number">100</span>);</span><br><span class="line">    GPIO_DIG = <span class="number">0x00</span>; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行，按下连接到外部中断0的按键K3，你会发现数码管显示的数字增加了1，这便是单片机成功执行中断程序的结果，那么如果我们把控制类型改为低电平有效呢？因为代码占用太多篇幅了我不再展示了，只需要改一改数字就行，改完后按下按键K3你会发现数码管数字飞快跳动，快到数码管显示都跟不上了，这就是因为按下K3时一直在低电平，然后程序也就一直在给数字+1，因此在这样一个程序中要使得按下一次开关数字+1就要使用上升沿有效的控制类型，这样一来程序就不用每次数码管刷新都要重新检测一下按键有没有被按下了</p>
+<p>不过上述程序有一个致命缺陷，那就是：按键没有消抖！你可以试试，按不了几下数字就会跳，并且你不动的时候，数字也会随机增加1，因此我们要将外部中断0函数进行按键消抖的处理：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sbit K3 = P3^<span class="number">2</span>; <span class="comment">//位定义按键K3</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EX_INT0</span><span class="params">()</span> interrupt 0 <span class="comment">//外部中断函数</span></span></span><br><span class="line"><span class="function"></span>&#123;delay(<span class="number">100</span>);</span><br><span class="line">  <span class="keyword">if</span>(K3 == <span class="number">0</span>)number ++;&#125; <span class="comment">//执行中断则给全局变量number+1</span></span><br></pre></td></tr></table></figure>
+<p>这样一来就不会因为按键抖动而导致数字乱跳啦</p>
 
       
     </div>
@@ -480,7 +492,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://cnwatermeter.github.io/p/3219.html" title="51单片机开发例程-6">http://cnwatermeter.github.io/p/3219.html</a>
+    <a href="http://cnwatermeter.github.io/p/f2d8.html" title="51单片机开发例程-7">http://cnwatermeter.github.io/p/f2d8.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -493,18 +505,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-bookmark"></i> C语言</a>
-          
-            <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag"><i class="fa fa-bookmark"></i> 单片机</a>
-          
-            <a href="/tags/STC89C52/" rel="tag"><i class="fa fa-bookmark"></i> STC89C52</a>
-          
-            <a href="/tags/ULN2003/" rel="tag"><i class="fa fa-bookmark"></i> ULN2003</a>
-          
-        </div>
-      
 
       
       
@@ -514,8 +514,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/a996.html" rel="next" title="浅谈“生产力”——新款iPad Pro发布有感">
-                <i class="fa fa-chevron-left"></i> 浅谈“生产力”——新款iPad Pro发布有感
+              <a href="/p/95c5.html" rel="next" title="Doing ordinary things at extraordinary times —— is it worth it?">
+                <i class="fa fa-chevron-left"></i> Doing ordinary things at extraordinary times —— is it worth it?
               </a>
             
           </div>
@@ -523,10 +523,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/p/95c5.html" rel="prev" title="Doing ordinary things at extraordinary times —— is it worth it?">
-                Doing ordinary things at extraordinary times —— is it worth it? <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -723,7 +719,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B4%E6%B5%81%E7%94%B5%E6%9C%BA"><span class="nav-number">2.</span> <span class="nav-text">直流电机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%B5%81%E7%94%B5%E6%9C%BA%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">直流电机原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ULN2003"><span class="nav-number">2.2.</span> <span class="nav-text">ULN2003</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99"><span class="nav-number">2.3.</span> <span class="nav-text">程序编写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">后记</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">中断系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.</span> <span class="nav-text">中断系统概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.2.</span> <span class="nav-text">外部中断介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD%E6%B5%8B%E8%AF%95"><span class="nav-number">2.3.</span> <span class="nav-text">外部中断测试</span></a></li></ol></li></ol></div>
             
 
           </div>
