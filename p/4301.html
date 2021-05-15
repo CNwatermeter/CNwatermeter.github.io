@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C语言,单片机,STC89C52,霍尔元件," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="淼表のブログ" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本篇的标题不同于其他的51单片机开发基础文章，没错，这个是新坑，主要用于介绍单片机中用到的各种传感器，要学习这部分内容需要你有一定的单片机开发基础，并且拥有相应的传感器或者使用仿真器，这部分会一一以51单片机为基础讲解我从某宝上买到的45个传感器以及开关，因为套件刚到就使用到了这一传感器，所以也从这个传感器开始讲起，而这部分内容用到的正是我们在高中物理就接触过的：霍尔元件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机传感器-1">
+<meta property="og:url" content="http://cnwatermeter.github.io/p/4301.html">
+<meta property="og:site_name" content="淼表のブログ">
+<meta property="og:description" content="本篇的标题不同于其他的51单片机开发基础文章，没错，这个是新坑，主要用于介绍单片机中用到的各种传感器，要学习这部分内容需要你有一定的单片机开发基础，并且拥有相应的传感器或者使用仿真器，这部分会一一以51单片机为基础讲解我从某宝上买到的45个传感器以及开关，因为套件刚到就使用到了这一传感器，所以也从这个传感器开始讲起，而这部分内容用到的正是我们在高中物理就接触过的：霍尔元件">
+<meta property="og:locale">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/undefined/hall.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/undefined/hallio.png">
+<meta property="article:published_time" content="2021-05-12T15:12:53.000Z">
+<meta property="article:modified_time" content="2021-05-15T12:10:49.932Z">
+<meta property="article:author" content="淼表">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="单片机">
+<meta property="article:tag" content="STC89C52">
+<meta property="article:tag" content="霍尔元件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cnwatermeter.github.io/p/undefined/hall.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: "",
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://CNwatermeter.github.io/p/4301.html"/>
+
+
+
+
+
+  <title>51单片机传感器-1 | 淼表のブログ</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">淼表のブログ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Live in the present.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://CNwatermeter.github.io/p/4301.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淼表のブログ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">51单片机传感器-1</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-12T23:12:53+08:00">
+                2021-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/p/4301.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/p/4301.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇的标题不同于其他的51单片机开发基础文章，没错，这个是新坑，主要用于介绍单片机中用到的各种传感器，要学习这部分内容需要你有一定的单片机开发基础，并且拥有相应的传感器或者使用仿真器，这部分会一一以51单片机为基础讲解我从某宝上买到的45个传感器以及开关，因为套件刚到就使用到了这一传感器，所以也从这个传感器开始讲起，而这部分内容用到的正是我们在高中物理就接触过的：霍尔元件</p>
+<a id="more"></a>
+
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文基于51单片机撰写）</li>
+<li>2.能够正常下载驱动以及Keil等开发软件或者能够正常使用Proteus仿真软件的Windows10.0系统PC</li>
+<li>3.一根micro USB to USB A数据线</li>
+<li>4.三根母对母杜邦线</li>
+<li>5.3144霍尔磁力传感器</li>
+<li>6.一块磁铁</li>
+</ul>
+<h1 id="霍尔磁力传感器"><a href="#霍尔磁力传感器" class="headerlink" title="霍尔磁力传感器"></a>霍尔磁力传感器</h1><h2 id="霍尔元件简介"><a href="#霍尔元件简介" class="headerlink" title="霍尔元件简介"></a>霍尔元件简介</h2><p>简单点来说，霍尔元件就是一个检测磁场的传感器，我们生活中很多地方都能用到它，比如手机或者iPad那些关盖息屏的手机壳，门窗感应器等，好处也是非常多，那到底有什么好处呢，看下面：</p>
+<blockquote>
+<p>霍尔元件是一种基于霍尔效应的磁传感器。用它们可以检测磁场及其变化，可在各种与磁场有关的场合中使用。霍尔元件具有许多优点，它们的结构牢固，体积小，重量轻，寿命长，安装方便，功耗小，频率高（可达1MHZ），耐震动，不怕灰尘、油污、水汽及盐雾等的污染或腐蚀</p>
+<p>——引用自<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%9C%8D%E5%B0%94%E5%85%83%E4%BB%B6/5120044?fr=aladdin">百度百科</a></p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.51dzw.com/embed/embed_128565.html">[1]</a> 霍尔元件不仅仅在外观上有区别，在功能上也有所区分：一种是开关霍尔传感器，一种是线性霍尔传感器，它们有什么区别？开关霍尔传感器输出端输出的是高低电平，输出的波形是方波，也就是数字电路中所说的数字量，而线性霍尔传感器当给其施加的磁场逐渐增强时，其输出的电压会逐渐增大，也就是模拟电路中的模拟量，在实际使用中，我们更多地使用线性霍尔传感器，因为开关霍尔传感器常常因为温度等原因使得设定值漂移，灵敏度下降，并且开关霍尔传感器能做的事情比线性霍尔传感器少，那为何不用后者呢？</p>
+<h2 id="3114线性霍尔磁力传感器"><a href="#3114线性霍尔磁力传感器" class="headerlink" title="3114线性霍尔磁力传感器"></a>3114线性霍尔磁力传感器</h2><p>首先要提醒下，<strong>不同芯片传感器的引脚功能是不一定相同的</strong>，一定要搞清楚引脚的功能，查阅正确的芯片手册，或者问购买的商家，不要自己瞎接线，不仅仅是这个霍尔传感器，其他的芯片传感器也是同理！<strong>自己瞎接线后果很严重！轻则烧集成电路，烧电阻，重则电容爆炸！</strong></p>
+<p>霍尔元件的原理很简单，就是利用霍尔效应：当磁场作用于载流金属导体或者半导体中的电子时，产生横向电位差的物理现象，我们通过放大器将这个电位差放大输出，这就是最基本的霍尔传感器原理</p>
+<img src="/p/undefined/hall.png" class title="霍尔传感器原理图">
+
+<p>绝大多数的霍尔传感器都具有三个引脚，分别是：GND，VCC和GPIO，前两者一个是接地，一个是按照芯片手册接入传感器正确的工作电压，后者是传感器的输出引脚，在本示例中我所使用的是3144霍尔传感器，其引脚定义图如下，从左到右分别是：接地，接3.3V电源，输出，因此我们只需要按照这个接入单片机即可，接入单片机核心的引脚只需要接输出即可</p>
+<img src="/p/undefined/hallio.png" class title="3144霍尔传感器引脚定义图">
+
+<p>因为刚刚我们讲过，该传感器是线性传感器，那么实际上输出引脚输出的是一个波形，单片机如何判断呢？51单片机使用的是<a target="_blank" rel="noopener" href="http://www.51hei.com/bbs/dpj-135738-1.html">[2]</a><strong>TTL电平：采用5V电源，输出高电平Uoh≥2.4V，输出低电平Uol≤0.4V，输入高电平Uih≥2.0V，输入低电平Uil≤0.8V</strong>，也就是说线性霍尔传感器输出的模拟量会被转换成数字量，因此也就不必担心线性霍尔传感器的使用问题了</p>
+<h1 id="通过磁力点亮LED灯"><a href="#通过磁力点亮LED灯" class="headerlink" title="通过磁力点亮LED灯"></a>通过磁力点亮LED灯</h1><p>如果上面的理论知识对你来说还是太抽象的话，下面这样一个简单的程序示例就能让你很快了解到线性霍尔磁力传感器的使用方法了</p>
+<p>我们刚刚讲到，对于线性霍尔传感器，单片机使用的TTL电平会对其起一个转化作用，我们就用下面这样一个简单的小程序来验证一下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//将霍尔元件的输出端插到单片机P1^0口上</span></span><br><span class="line">sbit LED = P2^<span class="number">0</span>; <span class="comment">//LED灯</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>; <span class="comment">//按键1</span></span><br><span class="line">sbit K2 = P3^<span class="number">0</span>; <span class="comment">//按键2</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">      <span class="keyword">if</span>(Hall == <span class="number">1</span>)LED = <span class="number">0</span>; <span class="comment">//输出1时灯亮</span></span><br><span class="line">      <span class="keyword">else</span> LED = <span class="number">1</span>; <span class="comment">//输出0时灯灭</span></span><br><span class="line">  &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>你会发现你把传感器相应的那一面靠近磁铁相应的一极LED灯就会亮起，那么你就学会了霍尔传感器最基本的使用方法啦</p>
+<h1 id="通过磁力检测门的开关"><a href="#通过磁力检测门的开关" class="headerlink" title="通过磁力检测门的开关"></a>通过磁力检测门的开关</h1><p>只检测门的开关那就过于简单了，跟上面LED灯一模一样，因此我们要实现的功能是：检测门的开关，如果门关着，那么什么都不会发生，如果门打开了一段时间没关，那么蜂鸣器响起，提醒关门，如果门关上了，蜂鸣器停止提示声</p>
+<p>具体写的过程大概就是：检测门开启关闭，如果关闭，计时器清零，如果开启，开始计时，计时达到设定时间进入蜂鸣器循环，如果此时检测到门关闭那么跳出蜂鸣器循环，程序重新开始判断</p>
+<p>然后呢，一步步写的过程我也懒得写了，代码做的详细的注释，值得注意的是代码调用了<code>51FunctionLibrary</code>中的函数，当然这个函数并不是必要的，而是调试过程中使用的，用于显示计时器是否开始工作，开工作后计时了多少，毕竟单片机不像直接写程序那么容易调试，当然你用仿真器的话这个貌似也并不是很需要XD</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u16 ms = <span class="number">0</span>;</span><br><span class="line">u8 timesecond = <span class="number">10</span>; <span class="comment">//设定从未关闭车门到报警的时间（秒）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    LED1 = Hall; <span class="comment">//调试用，可删</span></span><br><span class="line">    <span class="keyword">if</span>(Hall == <span class="number">0</span>)&#123; <span class="comment">//如果车门关闭 </span></span><br><span class="line">	    TR0 = <span class="number">0</span>;	<span class="comment">//关闭定时器</span></span><br><span class="line">		  ms = <span class="number">0</span>;  <span class="comment">//重置计时</span></span><br><span class="line">	&#125;<span class="keyword">else</span>&#123; <span class="comment">//如果车门开启</span></span><br><span class="line">	  <span class="keyword">if</span>(ms == <span class="number">0</span>)Timer0Init(); <span class="comment">//如果计时为0那么开启定时器并输入参数</span></span><br><span class="line">	&#125;</span><br><span class="line">	DigDisplay(ms);	<span class="comment">//调试用数码管显示计时时长</span></span><br><span class="line">	<span class="keyword">if</span>(ms &gt;= <span class="number">100</span>*timesecond)&#123; <span class="comment">//如果时间达到设定时间</span></span><br><span class="line">	  ms = <span class="number">0</span>;	<span class="comment">//重置计时</span></span><br><span class="line">	  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	    beep = ~beep;delay(<span class="number">100</span>); <span class="comment">//蜂鸣器响起</span></span><br><span class="line">	    <span class="keyword">if</span>(K1 == <span class="number">0</span> || Hall == <span class="number">0</span>)<span class="keyword">break</span>;&#125;	<span class="comment">//如果按下按键K1或者关闭车门重置</span></span><br><span class="line">	  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>&#123; <span class="comment">//开启16位定时器中断0并设定参数</span></span><br><span class="line">  ms ++; <span class="comment">//让ms不等于1，那么该函数就不会连续运行</span></span><br><span class="line">  TMOD |= <span class="number">0x01</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>; </span><br><span class="line">  TL0 = <span class="number">0x22</span>; </span><br><span class="line">  EA = <span class="number">1</span>; </span><br><span class="line">  ET0 = <span class="number">1</span>; </span><br><span class="line">  TR0 = <span class="number">1</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上的程序运行起来没有问题，但是理论有大问题：频繁开关中断，因为上面的程序过于简单，只用到了一个中断，在我之前讲中断的那一节里面讲到，中断是有优先级的，<strong>频繁开关中断会导致时序冲突</strong>，因此代码需要对中断部分进行修改：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u16 ms = <span class="number">0</span>;</span><br><span class="line">u8 timesecond = <span class="number">10</span>; <span class="comment">//设定从未关闭车门到报警的时间（秒）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">Timer0Init();</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    LED1 = Hall; <span class="comment">//调试用，可删</span></span><br><span class="line">    <span class="keyword">if</span>(Hall == <span class="number">0</span>)&#123; <span class="comment">//如果车门关闭 </span></span><br><span class="line">      ms = <span class="number">0</span>;  <span class="comment">//重置计时</span></span><br><span class="line">	&#125;<span class="keyword">else</span>&#123; <span class="comment">//如果车门开启</span></span><br><span class="line">	  <span class="keyword">if</span>(ms == <span class="number">0</span>)timer0start(); <span class="comment">//如果计时为0那么开启定时器</span></span><br><span class="line">	&#125;</span><br><span class="line">	DigDisplay(ms);	<span class="comment">//调试用数码管显示计时时长</span></span><br><span class="line">	<span class="keyword">if</span>(ms &gt;= <span class="number">100</span>*timesecond)&#123; <span class="comment">//如果时间达到设定时间</span></span><br><span class="line">	  ms = <span class="number">0</span>;	<span class="comment">//重置计时</span></span><br><span class="line">	  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	    beep = ~beep;delay(<span class="number">100</span>); <span class="comment">//蜂鸣器响起</span></span><br><span class="line">	    <span class="keyword">if</span>(K1 == <span class="number">0</span> || Hall == <span class="number">0</span>)&#123;</span><br><span class="line">		  <span class="keyword">break</span>;ms = <span class="number">0</span>;	<span class="comment">//如果按下按键K1或者关闭车门重置</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;	</span><br><span class="line">  &#125;</span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  timer0start();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>&#123; <span class="comment">//开启16位定时器中断0并设定参数</span></span><br><span class="line">  TMOD |= <span class="number">0x01</span>; </span><br><span class="line">  EA = <span class="number">1</span>; </span><br><span class="line">  ET0 = <span class="number">1</span>; </span><br><span class="line">  TR0 = <span class="number">1</span>; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>&#123;</span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>哈哈哈上面的其实也是有点问题的，因此计时器开了就是开了，如果你在计时器中断内对计时器的寄存器进行了赋值，那么除非是计时器关了或者机器关了，不然计时器都是一直在运行的，因此上面判断到车门开启就调用time0start就完全没有意义了，因此这个需要删除，而在else内只有这一条语句，因此对应的else也可以删除，然后在程序后面判断到达到时间后无需急着让ms为0，进入进入了蜂鸣器的循环，ms在循环内毫无意义，因此只需要跳出这个循环的时候给ms赋值0就可以了，最终修改的程序如下，以我的代码风格貌似这个程序没办法再精简了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u16 ms = <span class="number">0</span>;</span><br><span class="line">u8 timesecond = <span class="number">10</span>; <span class="comment">//设定从未关闭车门到报警的时间（秒）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">TMOD |= <span class="number">0x01</span>; <span class="comment">//开启16位计时器中断0</span></span><br><span class="line">EA = <span class="number">1</span>; </span><br><span class="line">ET0 = <span class="number">1</span>; </span><br><span class="line">TR0 = <span class="number">1</span>; </span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    LED1 = Hall; <span class="comment">//调试用，可删</span></span><br><span class="line">    <span class="keyword">if</span>(Hall == <span class="number">0</span>)&#123; <span class="comment">//如果车门关闭 </span></span><br><span class="line">      ms = <span class="number">0</span>;  <span class="comment">//重置计时</span></span><br><span class="line">	&#125; <span class="comment">//如果车门打开，继续计时，车门非开即关，因此无需多余操作</span></span><br><span class="line">	DigDisplay(ms);	<span class="comment">//调试用数码管显示计时时长</span></span><br><span class="line">	<span class="keyword">if</span>(ms &gt;= <span class="number">100</span>*timesecond)&#123; <span class="comment">//如果时间达到设定时间</span></span><br><span class="line">	  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	    beep = ~beep;delay(<span class="number">100</span>); <span class="comment">//蜂鸣器响起</span></span><br><span class="line">	    <span class="keyword">if</span>(K1 == <span class="number">0</span> || Hall == <span class="number">0</span>)&#123;</span><br><span class="line">		  ms = <span class="number">0</span>;<span class="keyword">break</span>;	<span class="comment">//如果按下按键K1或者关闭车门重置</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;	</span><br><span class="line">  &#125;</span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="通过霍尔元件进行测速"><a href="#通过霍尔元件进行测速" class="headerlink" title="通过霍尔元件进行测速"></a>通过霍尔元件进行测速</h1><p>不知道你有没有用过或者见到过自行车上的测速表，在使用的时候需要在轮毂上安装一个磁铁，然后探测端绑到自行车前架上，与轮毂上磁铁对应，这一车轮每转一圈，传感器就能探测到磁铁的磁性因此也就知道了车轮转了一圈，结合车轮的半径数据，码表上就能显示出正确的车速，这个传感器便是霍尔传感器</p>
+<p>如何知道车速呢？我们需要设定一个检测时间，检测在这个时间内车轮的转的圈数，然后进行计算才能得到在这一段时间内的平均速度，如果检测的时间够短，那么这段时间内的平均速度就可以近似的视为瞬时速度，但是考虑到如果你只转了9/10圈的话码表显示的速度依然是0，因此检测的时间越长，检测出的速度越准确，但是也就越不是“瞬时速度”，因此我们要在这两者之间进行权衡，究竟是“更直观”还是“更准确”？或者说两者都要？这就类似于之前的数码管，刷新的太快亮度会变低，刷新的太慢眼睛就能看到明显的频闪，因此在此我们取刷新时间为3秒，这个时间不会太快而导致测不准，也不至于太慢，实际上这个时间是以自行车为基准的，因为汽车的速度相比自行车要快，所以如果是汽车那么检测时间可以缩短</p>
+<p>在这个程序中有三个进程，一个是必要的显示，这里使用动态数码管，一个是计时，对检测时间进行计时，还有一个是检测到车轮转过就加1的计数器</p>
+<p>首先是动态数码管，我们直接将其放入主函数，计时使用计时中断，计数则使用外部中断，并且外部中断选择下降沿有效，因为当车轮转过时，转过的时间还远小于指令周期，如果选择低电平有效则会多次计数，车轮转过电平由高到低再到高，这其中只会有一次下降沿，因此我们选择下降沿有效</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P3^<span class="number">2</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u8 ms = <span class="number">0</span>;</span><br><span class="line">u8 wheelcount = <span class="number">0</span>;</span><br><span class="line">u16 speed = <span class="number">0</span>; <span class="comment">//速度（m/h）</span></span><br><span class="line">u8 wheeldiam = <span class="number">1</span>; <span class="comment">//轮毂的直径（m）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">Timer0Init();</span><br><span class="line">IE |= <span class="number">0x81</span>; <span class="comment">//打开外部中断0</span></span><br><span class="line">IT0 = <span class="number">1</span>;  <span class="comment">//下降沿有效</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">  DigDisplay(speed); </span><br><span class="line">  <span class="keyword">if</span>(ms &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">  speed = <span class="number">3.1416</span> * wheeldiam * wheelcount * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">  wheelcount = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">  ms = <span class="number">0</span>;&#125; <span class="comment">//重置计时</span></span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EX_INTO</span><span class="params">()</span> interrupt 0</span>&#123; <span class="comment">//探测计数外部中断</span></span><br><span class="line">  wheelcount ++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的程序非常简陋但是足以写出测速的原理和实现的方法了，当然，本程序在理论上还存在很大的缺陷，实际上虽然我们的测速时间是3秒，但是刷新时间并不一定是3秒，如果你细心的话可能会发现，你的车停下后速度不会立刻变成0，而是在几秒甚至十几秒内快速下降，最后变成0，并且起步的时候也是同理，速度会慢慢增大而不是在你开始骑的3秒后突然增大，因此我们可以对程序稍加改进，这样一来既保证了准确性又保证了刷新频率</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P3^<span class="number">2</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u8 ms1 = <span class="number">0</span>;</span><br><span class="line">u8 ms2 = <span class="number">100</span>;</span><br><span class="line">u8 ms3 = <span class="number">200</span>;</span><br><span class="line">u8 wheelcount1 = <span class="number">0</span>;</span><br><span class="line">u8 wheelcount2 = <span class="number">0</span>;</span><br><span class="line">u8 wheelcount3 = <span class="number">0</span>;</span><br><span class="line">u16 speed = <span class="number">0</span>; <span class="comment">//速度（m/h）</span></span><br><span class="line">u8 wheeldiam = <span class="number">1</span>; <span class="comment">//轮毂的直径（m）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">Timer0Init();</span><br><span class="line">IE |= <span class="number">0x81</span>; <span class="comment">//打开外部中断0</span></span><br><span class="line">IT0 = <span class="number">1</span>;  <span class="comment">//下降沿有效</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">  DigDisplay(speed); </span><br><span class="line">  <span class="keyword">if</span>(ms1 &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">    speed = <span class="number">3.1416</span> * wheeldiam * wheelcount1 * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">    wheelcount1 = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">    ms1 = <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="comment">//重置计时</span></span><br><span class="line">  <span class="keyword">if</span>(ms2 &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">    speed = <span class="number">3.1416</span> * wheeldiam * wheelcount2 * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">    wheelcount2 = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">    ms2 = <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="comment">//重置计时</span></span><br><span class="line">  <span class="keyword">if</span>(ms3 &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">    speed = <span class="number">3.1416</span> * wheeldiam * wheelcount3 * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">    wheelcount3 = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">    ms3 = <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="comment">//重置计时</span></span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EX_INTO</span><span class="params">()</span> interrupt 0</span>&#123; <span class="comment">//探测计数外部中断</span></span><br><span class="line">  wheelcount1 ++;</span><br><span class="line">    wheelcount2 ++;</span><br><span class="line">      wheelcount3 ++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms1 ++;</span><br><span class="line">  ms2 ++;</span><br><span class="line">  ms3 ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为这个程序我暂时还没有实际应用到所以暂时不做优化啦，反正大致上就是这么个意思，逻辑上是没有问题的，这样也就保证了刷新的速度和准确性，但是如果检测时间太长还是会失去瞬时性，但是生活中大多数的测速都是通过平均速度来代替瞬时速度的，毕竟真正意义上瞬时速度貌似是没办法测的吧，这就涉及到物理层面了，不再赘述</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>开了个新坑，过程中遇到了太多阻碍了，一是开发资料的不足，另外是自己知识的盲区，所以导致这一部分虽然内容很少但是浪费了很多时间，希望我单片机课设的时候能抽到这个吧哈哈哈，即便是没有抽到，我在这一部分学习的内容中帮助到了在做课设的学长，也收到了dalao的帮助，填补了一部分之前知识的漏洞，收获也算是颇丰吧</p>
+<p><strong>特别鸣谢：@sorakage_33</strong></p>
+<p><i class="fa fa-info-circle" aria-hidden="true"></i>   本文还未与函数库同步21/5/15</p>
+<hr>
+<p><strong>参考资料：</strong></p>
+<p>[1] 开关霍尔传感器与线性霍尔传感器：<a target="_blank" rel="noopener" href="https://www.51dzw.com/embed/embed_128565.html">https://www.51dzw.com/embed/embed_128565.html</a></p>
+<p>[2]TTL电平与CMOS电平：<a target="_blank" rel="noopener" href="http://www.51hei.com/bbs/dpj-135738-1.html">http://www.51hei.com/bbs/dpj-135738-1.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    淼表
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://cnwatermeter.github.io/p/4301.html" title="51单片机传感器-1">http://cnwatermeter.github.io/p/4301.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank"><i class="fa fa-cc" aria-hidden="true"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-bookmark"></i> C语言</a>
+          
+            <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag"><i class="fa fa-bookmark"></i> 单片机</a>
+          
+            <a href="/tags/STC89C52/" rel="tag"><i class="fa fa-bookmark"></i> STC89C52</a>
+          
+            <a href="/tags/%E9%9C%8D%E5%B0%94%E5%85%83%E4%BB%B6/" rel="tag"><i class="fa fa-bookmark"></i> 霍尔元件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/f698.html" rel="next" title="51单片机开发例程-8">
+                <i class="fa fa-chevron-left"></i> 51单片机开发例程-8
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CNwatermeter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/miaobiao" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/CNwatermeter" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:watermeter114514@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google.com/" title="Google" target="_blank">Google</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://wikipedia.org/" title="Wikipedia" target="_blank">Wikipedia</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://snapdrop.net/#" title="Snapdrop" target="_blank">Snapdrop</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://saucenao.com/" title="SauceNAO" target="_blank">SauceNAO</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://fontawesome.com/v4.7.0/icons/#web-application/" title="Icon" target="_blank">Icon</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9C%8D%E5%B0%94%E7%A3%81%E5%8A%9B%E4%BC%A0%E6%84%9F%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">霍尔磁力传感器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%8D%E5%B0%94%E5%85%83%E4%BB%B6%E7%AE%80%E4%BB%8B"><span class="nav-number">2.1.</span> <span class="nav-text">霍尔元件简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3114%E7%BA%BF%E6%80%A7%E9%9C%8D%E5%B0%94%E7%A3%81%E5%8A%9B%E4%BC%A0%E6%84%9F%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">3114线性霍尔磁力传感器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%A3%81%E5%8A%9B%E7%82%B9%E4%BA%AELED%E7%81%AF"><span class="nav-number">3.</span> <span class="nav-text">通过磁力点亮LED灯</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%A3%81%E5%8A%9B%E6%A3%80%E6%B5%8B%E9%97%A8%E7%9A%84%E5%BC%80%E5%85%B3"><span class="nav-number">4.</span> <span class="nav-text">通过磁力检测门的开关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E9%9C%8D%E5%B0%94%E5%85%83%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%B5%8B%E9%80%9F"><span class="nav-number">5.</span> <span class="nav-text">通过霍尔元件进行测速</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-code"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">淼表</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered By <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> </div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'xraqmf9N7GKwUpxgnX5rnodm-gzGzoHsz',
+        appKey: 'IGuVrALBxmnoUrV3uw93R8dQ',
+        placeholder: '发条评论吧～',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+</html>
+</body>

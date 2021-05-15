@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="C语言,单片机,中断系统," />
 
 
 
@@ -104,9 +104,12 @@
 <meta property="og:image" content="http://cnwatermeter.github.io/p/f2d8/zhongduan.png">
 <meta property="og:image" content="http://cnwatermeter.github.io/p/f2d8/win10jsq.png">
 <meta property="og:image" content="http://cnwatermeter.github.io/p/f2d8/jsq.png">
-<meta property="article:published_time" content="2021-05-05T03:39:08.221Z">
-<meta property="article:modified_time" content="2021-05-11T04:04:34.679Z">
+<meta property="article:published_time" content="2021-05-05T03:39:08.000Z">
+<meta property="article:modified_time" content="2021-05-15T09:31:09.333Z">
 <meta property="article:author" content="淼表">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="单片机">
+<meta property="article:tag" content="中断系统">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://cnwatermeter.github.io/p/f2d8/zhongduan.png">
 
@@ -406,7 +409,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  7.6k
+                  7.7k
                 </span>
               
 
@@ -539,6 +542,7 @@
 
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>这几种工作方式中应用较多的是方式 1 和方式 2。定时器中通常使用定时器，方式 1，串口通信中通常使用方式 2</p>
 <h1 id="基于定时器的计时器"><a href="#基于定时器的计时器" class="headerlink" title="基于定时器的计时器"></a>基于定时器的计时器</h1><h2 id="定时器配置"><a href="#定时器配置" class="headerlink" title="定时器配置"></a>定时器配置</h2><p>知道了上面各个寄存器的作用之后我们就可以开始配置定时器了，我们以16位定时器0为例：把计时器的开关打开<code>TR0 = 1;</code>，因为我们在该程序中并不需要外部中断的控制，因此<code>GATE = 0;</code>，选择定时模式<code>C/T = 0;</code>，选择16位定时<code>M1 = 0;M0 = 1;</code>我们可以看到对TMOD的配置比较多，因此我们直接对整个TMOD赋值，此时建议使用或运算符，这样有什么好处呢？我们只需要给想打开的位赋值1，不需要打开或者不知道的位赋值0，这样会很方便，并且不会影响其他位，因为已经赋值1的位在与0进行或运算后依然是1，举个例子：假如我们在之前已经打开了定时/计数器1，它的配置是<code>TMOD = 0x10</code>;其功能我们都已经写好了，但是之后我们又需要到定时器0，此时如果我们直接赋值<code>TMOD = 0x01;</code>那么之前打开的T1就会被关闭，此时我们需要的赋值就是<code>TMOD = 0x11;</code>要知道T1是怎么配置的还需要去翻前面的代码才能知道，但是如果我们直接给一个或运算进行赋值<code>TMOD |= 0x01</code>就不会影响T1的功能，位运算我也不细讲了之前学过C语言都会<del>懂得都懂</del></p>
+<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i></strong>   这边需要提醒一下，在之前的内容中虽然没有讲到，但是<strong>中断的不能频繁的开关，这样会引起时序问题！</strong>具体实例：<a href>51单片机传感器</a></p>
 <p>上面配置好了以后定时器还不能正常工作，因为“总电闸”还有“插排开关”还没有打开，为了方便我在这里再放一下前面的图：</p>
 <img src="/p/f2d8/zhongduan.png" class title="中断程序流程图">
 
@@ -563,6 +567,7 @@
 <p>经过简单拼装就完成了，因此，越往后学习越需要用到之前的函数，程序的模块化非常重要，一方面大大增加了写程序时的效率，一方面大大增加了可读性，另一方面易于维护，可以说好处多多，因此从现在开始使用函数吧！</p>
 <p>通过与手机的计时器对比，大约5-6分钟误差就会有1秒，这是因为晶振的震荡频率与温度关系密切，并且本程序还有可供优化的空间，在学习完温度传感器后我会再次讲起。虽然有一定误差，但是在一定范围内精度也是肉眼可观的，总比延时函数来的精确</p>
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>这部分内容比较多，实际上其实并不是特别难，刚开始学起记不住各种功能很正常，需要使用的时候翻看文档或者封装成函数即可，中断用起来不算特别困难，但是其能够实现的功能非常多，需要自己进行思考然后根据所需要的情况进行灵活运用组合，十分考验逻辑性，可以说下限非常低上限比较高就是了，因为中断是计算机的一个重要机制，在很多实例中我们都可以看到它们的身影，因此本章务必将使用方法了解透彻</p>
+<p><i class="fa fa-refresh" aria-hidden="true"></i>   更新于2020/5/15</p>
 
       
     </div>
@@ -595,6 +600,16 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-bookmark"></i> C语言</a>
+          
+            <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag"><i class="fa fa-bookmark"></i> 单片机</a>
+          
+            <a href="/tags/%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-bookmark"></i> 中断系统</a>
+          
+        </div>
       
 
       
@@ -701,7 +716,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -723,7 +738,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
