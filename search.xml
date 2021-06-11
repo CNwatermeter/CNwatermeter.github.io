@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>51单片机传感器-2</title>
+    <url>/p/4241.html</url>
+    <content><![CDATA[<p>撰写中。。。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>51单片机开发例程-1</title>
     <url>/p/7e4a71c5.html</url>
     <content><![CDATA[<p>此文章致力于了解单片机开发的基础内容，需要能够读懂单片机原理图，具备一定C语言知识储备，能够使用Keil uVision对程序进行编译生成<code>.hex</code>文件，以及能够将编译好<code>.hex</code>文件通过烧录软件烧录进单片机中进行运行</p>
@@ -98,93 +104,6 @@
         <tag>单片机</tag>
         <tag>STC89C52</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>51单片机开发例程-2</title>
-    <url>/p/e743207f.html</url>
-    <content><![CDATA[<p>此章学习到单片机上的一个重要部件：蜂鸣器</p>
-<p>蜂鸣器通过发出声音来达到提示以及播放音乐的功能，可以让使用者能够简单地判断单片机是否实现了自己想要的效果比如：开始工作，输出结果，程序故障等等，而蜂鸣器又分为有源蜂鸣器和无源蜂鸣器，在此单片机上使用的是无源蜂鸣器</p>
-<a id="more"></a>
-
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
-<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
-<li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
-<li>3.一根micro USB to USB A数据线</li>
-</ul>
-<h1 id="驱动蜂鸣器发声"><a href="#驱动蜂鸣器发声" class="headerlink" title="驱动蜂鸣器发声"></a>驱动蜂鸣器发声</h1><h2 id="蜂鸣器原理"><a href="#蜂鸣器原理" class="headerlink" title="蜂鸣器原理"></a>蜂鸣器原理</h2><p>单片机上使用的蜂鸣器是无源蜂鸣器，这种蜂鸣器又被称为压电蜂鸣器，原因是这种蜂鸣器发声的原理是压电效应</p>
-<blockquote>
-<p>当对压电材料施以物理压强时，材料体内之<a href="https://bk.tw.lvfukeji.com/baike-%E7%94%B5%E5%81%B6%E6%9E%81%E7%9F%A9">电偶极矩</a>会因压缩而变短，此时压电材料为抵抗这变化会在材料相对的表面上产生等量正负电荷，以保持原状。这种由于<a href="https://bk.tw.lvfukeji.com/baike-%E5%BD%A2%E8%AE%8A">形变</a>而产生<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%A5%B5%E5%8C%96">电极化</a>的现象称为“正压电效应”。若欲持续产生电能，须使材料振动。</p>
-<p>正压电效应实质上是机械能转化为电能的过程。</p>
-<p>当在压电材料表面施加<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A0%B4">电场</a>（电压），因电场作用时电偶极矩会被拉长，压电材料为抵抗变化，会沿电场方向伸长。这种通过电场作用而产生机械形变的过程称为“逆压电效应”。</p>
-<p>逆压电效应实质上是电能转化为机械能的过程。</p>
-<p>——引用自<a href="https://bk.tw.lvfukeji.com/wiki/%E5%A3%93%E9%9B%BB%E6%95%88%E6%87%89">Wikipedia</a></p>
-</blockquote>
-<p>如何使得蜂鸣器发生且发出不同声音？我们可以通过改变蜂鸣器连接到单片机引脚输出交变电压波形的频率来调整控制蜂鸣器的音调，也可以改变输出交变电压占空比来控制蜂鸣器声音的大小</p>
-<blockquote>
-<p>Un buzzer (transducteur) piézoélectrique est typiquement composé d’un diaphragme piézoélectrique, d’une cavité avec un orifice et de connexions pour les bornes électriques. Il nécessite une tension alternative pour fonctionner, de quelques volts à quelques dizaines de volts (3 V à 30 V par exemple). C’est ce type de <a href="https://fr.wikipedia.org/wiki/Transducteur">transducteur</a> que l’on retrouve au dos des montres ayant une fonction alarme.Il présente une fréquence de résonance optimale de quelques kilohertz, entre 1 kHz et 5 kHz en général, par exemple 2,8 kHz ou 3 kHz, mais il peut atteindre des fréquences plus hautes jusqu’à 80 kHz. Il faut donc un oscillateur chargé de produire un signal rectangulaire, ce dernier pouvant facilement être construit avec des portes logiques ou avec des transistors. Si on applique au transducteur piézoélectrique un signal donné sur une de ses bornes, et le même signal mais en opposition de phase sur son autre borne, il sera en mesure de délivrer une puissance quadruple, avec une tension d’alimentation identique (montage en pont, même principe que celui adopté pour certains amplificateurs audio de puissance).</p>
-<p>压电蜂鸣器通常由压电隔膜，带孔的空腔和电气端子的连接组成。它需要交替电压才能运行，从几伏特到几十伏特（例如3伏到30伏特）。这种<a href="https://fr.wikipedia.org/wiki/Transducteur">传感器</a>可以在手表背面找到，具有报警功能。它的最佳共振频率为几千赫，一般在1千赫至5千赫之间，例如2.8千赫或3千赫2，但它可以达到高达80千赫3的更高频率。因此，有必要有一个振荡器来负责产生矩形信号，该信号可以很容易地使用逻辑门或晶体管构建。如果给定的信号被施加到其一个终端上的压电传感器上，并且信号相同，但与另一个终端相位相反，它将能够以相同的电源电压（桥接安装，与某些功率音频放大器采用的原理相同）提供四倍功率。</p>
-<p>——引用自<a href="https://fr.wikipedia.org/wiki/Bipeur">Wikipedia</a></p>
-</blockquote>
-<p>了解了蜂鸣器的工作原理后，现在回到单片机原理图对实际情况进行分析</p>
-<img src="/p/e743207f/BEEP.png" class title="蜂鸣器">
-
-<p>从原理图中可以看到，蜂鸣器的一端接VCC，另一段接BZ，之前在LED灯模块我们也遇到过VCC这个管脚，并且通过二极管原理推断出了VCC处是高电平，那么VCC到底有什么含义呢</p>
-<ul>
-<li>VCC（Volt Current Condenser）电路的供电电压</li>
-<li>GND（Ground）电线接地端</li>
-</ul>
-<p>以上两个在电路中常用的简写一个代表高电平，一个代表低电平，这样我们就能通过原理图更加明确地读出各个元器件工作时对应<code>I/O</code>口应该输出高电平还是低电平了</p>
-<p>而BZ又是什么含义呢？</p>
-<img src="/p/e743207f/ULN2003D.png" class title="ULN2003原理图">
-
-<p>仔细观察原理图，我们还可以在<code>ULN2003D</code>这个芯片的管脚处看到BZ的身影：<code>P1^5</code>连接<code>IN5</code>，<code>IN5</code>连接<code>OUT5</code>，<code>OUT5</code>连接<code>BZ</code>，因此，我们可以通过控制<code>P1^5</code>输出的高低电平来控制BZ的高低电平进而控制蜂鸣器，那么为什么需要使用<code>ULN2003D</code>芯片对蜂鸣器进行驱动呢，这是因为该元件内含7个达林顿管，在电子电路里的主要特点是大电流容量和高电压输出，常作为驱动器使用，可以直接驱动蜂鸣器，继电器，步进马达等负载</p>
-<blockquote>
-<p>ULN2003是一种高压大电流的<a href="https://bk.tw.lvfukeji.com/baike-%E5%85%B1%E5%B0%84%E6%A5%B5">共发射极</a><a href="https://bk.tw.lvfukeji.com/baike-%E9%81%94%E6%9E%97%E9%A0%93%E9%9B%BB%E6%99%B6%E9%AB%94">达林顿晶体管</a>数组<a href="https://bk.tw.lvfukeji.com/baike-%E7%A9%8D%E9%AB%94%E9%9B%BB%E8%B7%AF">集成电路</a>，内含7组达林顿对管，每组对管的<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%B5%81">电流</a>容量是500mA，输出的<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A3%93">电压</a>最高50V。该集成电路还集成了7只共阴极形式连接的<a href="https://bk.tw.lvfukeji.com/baike-%E7%BB%AD%E6%B5%81%E4%BA%8C%E6%9E%81%E7%AE%A1">续流二极管</a>，用于电感性负载的开关动作的电流续流。</p>
-<p>——引用自<a href="https://bk.tw.lvfukeji.com/baike-ULN2003A?wprov=srpw1_0">Wikipedia</a></p>
-<p>达灵顿晶体管是<a href="https://bk.tw.lvfukeji.com/baike-%E7%94%B5%E5%AD%90%E5%AD%A6">电子学</a>中由两个（甚至多个）<a href="https://bk.tw.lvfukeji.com/baike-%E5%8F%8C%E6%9E%81%E6%80%A7%E6%99%B6%E4%BD%93%E7%AE%A1">双极性晶体管</a>（或者其他类似的集成电路或分立元件）组成的复合结构，通过这样的结构，经第一个双极性晶体管放大的电流可以进一步被放大。]这样的结构可以提供一个比其中任意一个双极性晶体管高得多的电流<a href="https://bk.tw.lvfukeji.com/baike-%E5%A2%9E%E7%9B%8A">增益</a>。在使用集成电流芯片的情况里，达灵顿晶体管可以使得芯片比使用两个分立晶体管元件占用更少的空间，因为两个晶体管可以共用一个<a href="https://bk.tw.lvfukeji.com/w/index.php?title=%E9%9B%86%E7%94%B5%E6%9E%81&action=edit&redlink=1">集电极</a>。达灵顿晶体管通常被封装在单一的芯片里，从外面看就像一个双极性晶体管。有时，集成电路芯片中会包含8个这样的结构方便使用。</p>
-<p>——引用自<a href="https://bk.tw.lvfukeji.com/baike-%E9%81%94%E6%9E%97%E9%A0%93%E9%9B%BB%E6%99%B6%E9%AB%94">Wikipedia</a></p>
-</blockquote>
-<h2 id="编写程序"><a href="#编写程序" class="headerlink" title="编写程序"></a>编写程序</h2><p>有了以上知识，我们很容易就可以得知只需在程序中让<code>P1^5</code>管脚输出的电平以一定频率在高低电平间切换就可以控制蜂鸣器发出声音的音调</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义控制蜂鸣器的I/O口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    beep = ~beep; <span class="comment">//控制高低电平来回切换</span></span><br><span class="line">    delay(<span class="number">100</span>); <span class="comment">//延时0.9ms，使得发出声音的频率约为0.55KHz</span></span><br><span class="line">    <span class="comment">//高低电平之间切换时间相同，占空比为50%</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>编译运行，单片机成功发出声音，但是需要注意，在使用之前建议将蜂鸣器上的保护贴纸撕掉，不然可能会一定程度上影响发声的频率</p>
-<p>如果要改变蜂鸣器发生的频率，只需要改变延时函数参数即可</p>
-<p>那么如果要改变占空比来改变蜂鸣器发声的大小又该如何修改程序，其实只需要将<code>while</code>循环中的代码复制一下后再改一下<code>beep</code>的赋值即可，这样就可以通过修改两个延时函数延时之和所占比例来调节占空比进而调节声音大小</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义控制蜂鸣器的I/O口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    beep = <span class="number">1</span>; <span class="comment">//控制高电平</span></span><br><span class="line">    delay(<span class="number">50</span>); <span class="comment">//延时0.45ms</span></span><br><span class="line">     beep = <span class="number">0</span>; <span class="comment">//控制低电平</span></span><br><span class="line">    delay(<span class="number">150</span>); <span class="comment">//延时1.35ms</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但实际上通过调节占空比来调节蜂鸣器响度的方法效果并不好，在房间内进行135s持续响度测试得出以下数据</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th><a href="mailto:&#48;&#x2e;&#49;&#x31;&#x4b;&#72;&#122;&#64;&#x30;&#x2e;&#49;">&#48;&#x2e;&#49;&#x31;&#x4b;&#72;&#122;&#64;&#x30;&#x2e;&#49;</a>%</th>
-<th><a href="mailto:&#x30;&#46;&#x31;&#x31;&#x4b;&#72;&#122;&#x40;&#x39;&#57;&#46;&#57;">&#x30;&#46;&#x31;&#x31;&#x4b;&#72;&#122;&#x40;&#x39;&#57;&#46;&#57;</a>%</th>
-<th>无蜂鸣器</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>平均响度</td>
-<td>26dB</td>
-<td>33dB</td>
-<td>11dB</td>
-</tr>
-</tbody></table>
-<p>当然，增大响度的方法还有增大电压，但是在前期学习中难以实现增大电压的方法，并且在学习过程中蜂鸣器的响度对学习以及程序的正常运行没有影响，因此只需要知道改变占空比与电压都可以改变蜂鸣器的占空比即可</p>
-<hr>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>通过本章的内容，我们又学习到了一种数据输出的方法，蜂鸣器的原理较为复杂，涉及到一部分电子知识，之前没有基础的同学也完全可以暂且忽略原理，只需要知道驱动蜂鸣器需要脉冲波，且在单片机上还需要通过一个大电流高电压的元器件来驱动即可，同时我们也发现要实现一项功能可能不止需要单个元件，还需要其他芯片配合使用，所以当遇到不熟悉的管脚不妨到其他元件上找找是否有这个管脚</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>C语言</tag>
-        <tag>单片机</tag>
-        <tag>STC89C52</tag>
-        <tag>ULN2003</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>51单片机传感器-2</title>
-    <url>/p/4241.html</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>51单片机开发例程-4</title>
@@ -311,130 +230,85 @@
       </tags>
   </entry>
   <entry>
-    <title>iPad书写体验</title>
-    <url>/p/a833.html</url>
-    <content><![CDATA[<p>iPad书写体验一直以来都被人们所诟病，因为Apple  pencil与屏幕阻尼过小导致大部分人体验极差，因此自从Apple pencil问世以来，人们就在不停探寻改善Apple pencil书写体验的方法，就目前来说，主流方法有：类纸膜，笔尖套以及第三方笔尖</p>
+    <title>51单片机开发例程-2</title>
+    <url>/p/e743207f.html</url>
+    <content><![CDATA[<p>此章学习到单片机上的一个重要部件：蜂鸣器</p>
+<p>蜂鸣器通过发出声音来达到提示以及播放音乐的功能，可以让使用者能够简单地判断单片机是否实现了自己想要的效果比如：开始工作，输出结果，程序故障等等，而蜂鸣器又分为有源蜂鸣器和无源蜂鸣器，在此单片机上使用的是无源蜂鸣器</p>
 <a id="more"></a>
 
-<p>首先我先说一下结论，单纯看书写体验，最好的是类纸膜+原装笔尖，其次是以珞小希笔尖为代表的第三方2B笔尖，最次是笔尖套，这三种方法各有各的优点，适用的人群也大不相同，并且每个人的书写体验以及习惯具有很强的主观性，因此以下内容仅为我的个人体验，并不代表客观评价</p>
-<h1 id="类纸膜-原装笔尖"><a href="#类纸膜-原装笔尖" class="headerlink" title="类纸膜+原装笔尖"></a>类纸膜+原装笔尖</h1><blockquote>
-<p>优点：还原纸质书写体验</p>
-<p>缺点：类纸膜价格昂贵，严重影响屏幕分辨率，磨损笔尖(?)</p>
-</blockquote>
-<p>这个方案是目前绝大多数人在使用的方案，也是我最初使用iPad书写时使用的方案，当初刚拿到iPad之后立马就贴上了类纸膜开始使用了起来，虽然与纸质书写还是有点一点不同，不过能够很快适应，类纸膜表面的磨砂感能够很好还原在纸上书写的感觉并且能够提供良好的阻尼感，因此为绝大多数人所追捧</p>
-<p>但是，类纸膜价格比较贵，价格差不多是钢化膜的2倍以上，不过个人感觉没有必要购买太贵的类纸膜，因为类纸膜本质上区别并不大，高价类纸膜提供的体验并不符合其价位，个人认为类纸膜选购价格在50-100元左右即可，之前有听说过这样一个说法：低价的类纸膜不是类纸膜是磨砂膜，个人认为这句话就跟凤梨不是菠萝，车厘子不是樱桃一样，具体什么意思自己体会一下吧</p>
-<p>类纸膜对于屏幕分辨率的影响有多大？个人观感分辨率砍半，换算下来也就是iPad的分辨率被砍到720p～1080p之间的水平，这个说法毫不夸张，因为类纸膜表面的颗粒会严重影响分辨率，更加可怕的是，表面的颗粒会折射屏幕光线，导致你看屏幕会有类似相机拍照出现的彩噪，如果你要兼顾观影体验的话，这个影响无异于直接给你打回视网膜屏前的iPad（iPad1，iPad2），有的人大概是能接受或者说能凑合，反正我有点接受不了了</p>
-<p>磨损笔尖这个说法见很多人说过，不过我不知道是我写的太少了还是那些人下笔太重？个人notability笔记差不多1000页应该是有了吧，笔尖能看到磨损但是并不影响正常使用，如果那些人是因为磨损笔尖不好看而不是磨损笔尖导致不能用那我也无力吐槽，个人觉得有点迷惑，笔尖生来就是为了磨损的，不磨损还供起来养着？</p>
-<h1 id="钢化膜-2B笔尖"><a href="#钢化膜-2B笔尖" class="headerlink" title="钢化膜+2B笔尖"></a>钢化膜+2B笔尖</h1><blockquote>
-<p>优点：书写声音较小，保留了屏幕全分辨率</p>
-<p>缺点：阻尼感仍然不够，书写时屏幕过滑</p>
-</blockquote>
-<p>2B笔尖不同于原装笔尖是硬的，笔尖实际上是有一点软的，这样就能够极大减小书写时笔尖碰触屏幕发出的声音，我在使用的iPad Pro是全贴合屏幕，使用2B笔尖之后的声音几乎听不到了，不过iPad就不清楚了，非全贴合屏幕手敲一下都会有很大的声音</p>
-<p>使用2B笔尖就是为了全分辨率，不影响分辨率自然也没什么好说的，分辨率就跟你刚拿到iPad还没有贴膜时一样，由于我使用的是iPad Pro，我不能只记笔记吧，那就太浪费iPad Pro强大的性能以及屏幕还有扬声器了，钢化膜价格不高，建议使用20～40之间价位的钢化膜，个人使用的钢化膜价格是36元，使用起来非常棒，感觉这个价格就是非常高端的膜了在贵没什么必要。另外这边安利一下大米家的钢化膜，在使用iPad Pro34以及iPad Air4的小伙伴强烈建议使用这个膜，因为这个膜不同于市面上其他膜在Face ID以及摄像头处开了一个刘海（iPad都要开刘海真的是巨丑巨丑），这个膜是全贴合的，只有证明麦克风处打了一个小孔，其余的地方没有开控没有刘海，并且膜的周围还是有点弧边的，这就很棒</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文以该单片机为样本）</li>
+<li>2.能够正常下载驱动以及Keil等开发软件的Windows10.0系统PC</li>
+<li>3.一根micro USB to USB A数据线</li>
+</ul>
+<h1 id="驱动蜂鸣器发声"><a href="#驱动蜂鸣器发声" class="headerlink" title="驱动蜂鸣器发声"></a>驱动蜂鸣器发声</h1><h2 id="蜂鸣器原理"><a href="#蜂鸣器原理" class="headerlink" title="蜂鸣器原理"></a>蜂鸣器原理</h2><p>单片机上使用的蜂鸣器是无源蜂鸣器，这种蜂鸣器又被称为压电蜂鸣器，原因是这种蜂鸣器发声的原理是压电效应</p>
 <blockquote>
-<p><i class="fa fa-info-circle" aria-hidden="true"></i>   <a href="https://m.tb.cn/h.4lA1xZY?sm=c28238">大米评测iPad全面屏钢化膜</a></p>
+<p>当对压电材料施以物理压强时，材料体内之<a href="https://bk.tw.lvfukeji.com/baike-%E7%94%B5%E5%81%B6%E6%9E%81%E7%9F%A9">电偶极矩</a>会因压缩而变短，此时压电材料为抵抗这变化会在材料相对的表面上产生等量正负电荷，以保持原状。这种由于<a href="https://bk.tw.lvfukeji.com/baike-%E5%BD%A2%E8%AE%8A">形变</a>而产生<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%A5%B5%E5%8C%96">电极化</a>的现象称为“正压电效应”。若欲持续产生电能，须使材料振动。</p>
+<p>正压电效应实质上是机械能转化为电能的过程。</p>
+<p>当在压电材料表面施加<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A0%B4">电场</a>（电压），因电场作用时电偶极矩会被拉长，压电材料为抵抗变化，会沿电场方向伸长。这种通过电场作用而产生机械形变的过程称为“逆压电效应”。</p>
+<p>逆压电效应实质上是电能转化为机械能的过程。</p>
+<p>——引用自<a href="https://bk.tw.lvfukeji.com/wiki/%E5%A3%93%E9%9B%BB%E6%95%88%E6%87%89">Wikipedia</a></p>
 </blockquote>
-<p>刚拿到2B笔尖的时候在屏幕上划拉了几个字，感觉还凑合，阻尼感有点像橡皮的感觉，但是实际书写时就不大行了，虽然阻尼大于原装笔尖，但是还差得远，依然比较滑，并且类纸膜的精髓在于其表面的凹凸不平还原了纸张凹凸不平的感觉，这个笔尖完全没有，所以根本没有在纸上写的感觉，体验只能说能用，原装笔尖个人认为是完全不能用</p>
-<p>还有一点就是，我购买的膜表面疏油层做的非常到位，导致书写的时候手与屏幕的接触面阻尼较小，手会有点打滑</p>
-<p><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>   使用大约4天后的补充：第一天开始使用的时候是非常非常难受的，因为假期中写字不多，开学都会出现“不会写字的”现象，再加上钢化膜的负面手感加成，写出来的字会歪歪扭扭，横不平竖不直，很难写也很难看，具体分析原因大概是因为阻尼太小导致下笔很滑，笔尖移动的方向与距离不会按照自己的意思来，很难写出直线来，据我多年写字的经验，写字要好看一定要横平竖直（这里说的好看不是传统意义上的好看，而是别人看你写的字能很轻松看出你在写什么字）而由于笔尖过滑导致并不能写出直线来，具体什么样子，看下图：</p>
-<img src="/p/a833/IMG_1931.jpg" class title="第一天使用notability书写的部分笔记1">
-
-<img src="/p/a833/IMG_ABA976E152E2-1.jpeg" class title="第一天使用notability书写的部分笔记2">
-
-<p>当时我写完标题还在下面重新写了一遍尝试补救一下，但是失败了，我这辈子都想不到自己能写出这么歪的字来，并且当时写的非常吃力，因为笔很滑，每写一个字我都要付出巨大的努力</p>
-<p>不过当我使用4天后，不知道是因为笔尖被“用开了”的缘故还是因为我熟悉了这样的阻尼感了，写字莫名变得顺滑起来，虽然还有一丢丢打滑，但是写字已经基本上能有之前的感觉了（<del>虽然手感依然不咋滴</del>），并且写字没有前几天那么吃力了，写字用的力度基本上就是之前正常写字的力度了，不知道我继续使用以后会不会完全适应呢？让我们拭目以待！</p>
-<p>另外更换钢化膜还有一个问题，那就是屏幕反光问题，之前的类纸膜由于屏幕是磨砂的，导致一些较强光源在屏幕上的反光被大大削弱了，因此在之前一年多的使用中没有被反光问题困扰，但是新学期我换上了新的钢化膜并且开始使用屏幕挂灯我发现一个大问题：电脑显示屏是不反光了，但是我的ipad显示屏会反光，我能做的唯一解决方法就是书写时身子更靠前一点</p>
-<h1 id="钢化膜-笔尖套"><a href="#钢化膜-笔尖套" class="headerlink" title="钢化膜+笔尖套"></a>钢化膜+笔尖套</h1><blockquote>
-<p>优点：价格低廉</p>
-<p>缺点：容易破损，体验类似2B笔尖</p>
+<p>如何使得蜂鸣器发生且发出不同声音？我们可以通过改变蜂鸣器连接到单片机引脚输出交变电压波形的频率来调整控制蜂鸣器的音调，也可以改变输出交变电压占空比来控制蜂鸣器声音的大小</p>
+<blockquote>
+<p>Un buzzer (transducteur) piézoélectrique est typiquement composé d’un diaphragme piézoélectrique, d’une cavité avec un orifice et de connexions pour les bornes électriques. Il nécessite une tension alternative pour fonctionner, de quelques volts à quelques dizaines de volts (3 V à 30 V par exemple). C’est ce type de <a href="https://fr.wikipedia.org/wiki/Transducteur">transducteur</a> que l’on retrouve au dos des montres ayant une fonction alarme.Il présente une fréquence de résonance optimale de quelques kilohertz, entre 1 kHz et 5 kHz en général, par exemple 2,8 kHz ou 3 kHz, mais il peut atteindre des fréquences plus hautes jusqu’à 80 kHz. Il faut donc un oscillateur chargé de produire un signal rectangulaire, ce dernier pouvant facilement être construit avec des portes logiques ou avec des transistors. Si on applique au transducteur piézoélectrique un signal donné sur une de ses bornes, et le même signal mais en opposition de phase sur son autre borne, il sera en mesure de délivrer une puissance quadruple, avec une tension d’alimentation identique (montage en pont, même principe que celui adopté pour certains amplificateurs audio de puissance).</p>
+<p>压电蜂鸣器通常由压电隔膜，带孔的空腔和电气端子的连接组成。它需要交替电压才能运行，从几伏特到几十伏特（例如3伏到30伏特）。这种<a href="https://fr.wikipedia.org/wiki/Transducteur">传感器</a>可以在手表背面找到，具有报警功能。它的最佳共振频率为几千赫，一般在1千赫至5千赫之间，例如2.8千赫或3千赫2，但它可以达到高达80千赫3的更高频率。因此，有必要有一个振荡器来负责产生矩形信号，该信号可以很容易地使用逻辑门或晶体管构建。如果给定的信号被施加到其一个终端上的压电传感器上，并且信号相同，但与另一个终端相位相反，它将能够以相同的电源电压（桥接安装，与某些功率音频放大器采用的原理相同）提供四倍功率。</p>
+<p>——引用自<a href="https://fr.wikipedia.org/wiki/Bipeur">Wikipedia</a></p>
 </blockquote>
-<p>笔尖套价格是公认的低，几块钱就能买到好多，不过笔尖套也分好多种，个人没有进行太多体验，因为其价格低廉就注定了体验绝对不会好太多，因此我对笔尖套的评价不具备任何参考价值，看看图一乐就行</p>
-<p>为什么要买很多笔尖套？因为容易破损，你想想，你在教室上着课，看着黑板，记着笔记，突然笔尖套就破了，你还忘带多余的笔尖套，这多蛋疼？</p>
-<p>体验个人没有细细体验，但是鉴于材质与2B笔尖类似，暂时默认体验类似，此处待完善</p>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>另外还有往笔尖上贴各自胶带的，emm。。。看着就有点傻，不过这个自己完全没有试过，所以也不做评价，最近打算从网上买一个iPad笔尖各类笔尖套以及贴纸的试用套装，过一阵到了以后全都试试再完善一下</p>
+<p>了解了蜂鸣器的工作原理后，现在回到单片机原理图对实际情况进行分析</p>
+<img src="/p/e743207f/BEEP.png" class title="蜂鸣器">
+
+<p>从原理图中可以看到，蜂鸣器的一端接VCC，另一段接BZ，之前在LED灯模块我们也遇到过VCC这个管脚，并且通过二极管原理推断出了VCC处是高电平，那么VCC到底有什么含义呢</p>
+<ul>
+<li>VCC（Volt Current Condenser）电路的供电电压</li>
+<li>GND（Ground）电线接地端</li>
+</ul>
+<p>以上两个在电路中常用的简写一个代表高电平，一个代表低电平，这样我们就能通过原理图更加明确地读出各个元器件工作时对应<code>I/O</code>口应该输出高电平还是低电平了</p>
+<p>而BZ又是什么含义呢？</p>
+<img src="/p/e743207f/ULN2003D.png" class title="ULN2003原理图">
+
+<p>仔细观察原理图，我们还可以在<code>ULN2003D</code>这个芯片的管脚处看到BZ的身影：<code>P1^5</code>连接<code>IN5</code>，<code>IN5</code>连接<code>OUT5</code>，<code>OUT5</code>连接<code>BZ</code>，因此，我们可以通过控制<code>P1^5</code>输出的高低电平来控制BZ的高低电平进而控制蜂鸣器，那么为什么需要使用<code>ULN2003D</code>芯片对蜂鸣器进行驱动呢，这是因为该元件内含7个达林顿管，在电子电路里的主要特点是大电流容量和高电压输出，常作为驱动器使用，可以直接驱动蜂鸣器，继电器，步进马达等负载</p>
+<blockquote>
+<p>ULN2003是一种高压大电流的<a href="https://bk.tw.lvfukeji.com/baike-%E5%85%B1%E5%B0%84%E6%A5%B5">共发射极</a><a href="https://bk.tw.lvfukeji.com/baike-%E9%81%94%E6%9E%97%E9%A0%93%E9%9B%BB%E6%99%B6%E9%AB%94">达林顿晶体管</a>数组<a href="https://bk.tw.lvfukeji.com/baike-%E7%A9%8D%E9%AB%94%E9%9B%BB%E8%B7%AF">集成电路</a>，内含7组达林顿对管，每组对管的<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E6%B5%81">电流</a>容量是500mA，输出的<a href="https://bk.tw.lvfukeji.com/baike-%E9%9B%BB%E5%A3%93">电压</a>最高50V。该集成电路还集成了7只共阴极形式连接的<a href="https://bk.tw.lvfukeji.com/baike-%E7%BB%AD%E6%B5%81%E4%BA%8C%E6%9E%81%E7%AE%A1">续流二极管</a>，用于电感性负载的开关动作的电流续流。</p>
+<p>——引用自<a href="https://bk.tw.lvfukeji.com/baike-ULN2003A?wprov=srpw1_0">Wikipedia</a></p>
+<p>达灵顿晶体管是<a href="https://bk.tw.lvfukeji.com/baike-%E7%94%B5%E5%AD%90%E5%AD%A6">电子学</a>中由两个（甚至多个）<a href="https://bk.tw.lvfukeji.com/baike-%E5%8F%8C%E6%9E%81%E6%80%A7%E6%99%B6%E4%BD%93%E7%AE%A1">双极性晶体管</a>（或者其他类似的集成电路或分立元件）组成的复合结构，通过这样的结构，经第一个双极性晶体管放大的电流可以进一步被放大。]这样的结构可以提供一个比其中任意一个双极性晶体管高得多的电流<a href="https://bk.tw.lvfukeji.com/baike-%E5%A2%9E%E7%9B%8A">增益</a>。在使用集成电流芯片的情况里，达灵顿晶体管可以使得芯片比使用两个分立晶体管元件占用更少的空间，因为两个晶体管可以共用一个<a href="https://bk.tw.lvfukeji.com/w/index.php?title=%E9%9B%86%E7%94%B5%E6%9E%81&action=edit&redlink=1">集电极</a>。达灵顿晶体管通常被封装在单一的芯片里，从外面看就像一个双极性晶体管。有时，集成电路芯片中会包含8个这样的结构方便使用。</p>
+<p>——引用自<a href="https://bk.tw.lvfukeji.com/baike-%E9%81%94%E6%9E%97%E9%A0%93%E9%9B%BB%E6%99%B6%E9%AB%94">Wikipedia</a></p>
+</blockquote>
+<h2 id="编写程序"><a href="#编写程序" class="headerlink" title="编写程序"></a>编写程序</h2><p>有了以上知识，我们很容易就可以得知只需在程序中让<code>P1^5</code>管脚输出的电平以一定频率在高低电平间切换就可以控制蜂鸣器发出声音的音调</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义控制蜂鸣器的I/O口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    beep = ~beep; <span class="comment">//控制高低电平来回切换</span></span><br><span class="line">    delay(<span class="number">100</span>); <span class="comment">//延时0.9ms，使得发出声音的频率约为0.55KHz</span></span><br><span class="line">    <span class="comment">//高低电平之间切换时间相同，占空比为50%</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行，单片机成功发出声音，但是需要注意，在使用之前建议将蜂鸣器上的保护贴纸撕掉，不然可能会一定程度上影响发声的频率</p>
+<p>如果要改变蜂鸣器发生的频率，只需要改变延时函数参数即可</p>
+<p>那么如果要改变占空比来改变蜂鸣器发声的大小又该如何修改程序，其实只需要将<code>while</code>循环中的代码复制一下后再改一下<code>beep</code>的赋值即可，这样就可以通过修改两个延时函数延时之和所占比例来调节占空比进而调节声音大小</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit beep = P1^<span class="number">5</span>; <span class="comment">//定义控制蜂鸣器的I/O口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>; <span class="comment">//延时函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    beep = <span class="number">1</span>; <span class="comment">//控制高电平</span></span><br><span class="line">    delay(<span class="number">50</span>); <span class="comment">//延时0.45ms</span></span><br><span class="line">     beep = <span class="number">0</span>; <span class="comment">//控制低电平</span></span><br><span class="line">    delay(<span class="number">150</span>); <span class="comment">//延时1.35ms</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(<span class="keyword">int</span> time)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(time--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但实际上通过调节占空比来调节蜂鸣器响度的方法效果并不好，在房间内进行135s持续响度测试得出以下数据</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><a href="mailto:&#x30;&#46;&#x31;&#49;&#x4b;&#x48;&#122;&#x40;&#x30;&#x2e;&#x31;">&#x30;&#46;&#x31;&#49;&#x4b;&#x48;&#122;&#x40;&#x30;&#x2e;&#x31;</a>%</th>
+<th><a href="mailto:&#48;&#x2e;&#49;&#49;&#75;&#x48;&#122;&#64;&#x39;&#57;&#46;&#57;">&#48;&#x2e;&#49;&#49;&#75;&#x48;&#122;&#64;&#x39;&#57;&#46;&#57;</a>%</th>
+<th>无蜂鸣器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>平均响度</td>
+<td>26dB</td>
+<td>33dB</td>
+<td>11dB</td>
+</tr>
+</tbody></table>
+<p>当然，增大响度的方法还有增大电压，但是在前期学习中难以实现增大电压的方法，并且在学习过程中蜂鸣器的响度对学习以及程序的正常运行没有影响，因此只需要知道改变占空比与电压都可以改变蜂鸣器的占空比即可</p>
 <hr>
-<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i>   待完善的文章，内容尚不全面</strong></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>通过本章的内容，我们又学习到了一种数据输出的方法，蜂鸣器的原理较为复杂，涉及到一部分电子知识，之前没有基础的同学也完全可以暂且忽略原理，只需要知道驱动蜂鸣器需要脉冲波，且在单片机上还需要通过一个大电流高电压的元器件来驱动即可，同时我们也发现要实现一项功能可能不止需要单个元件，还需要其他芯片配合使用，所以当遇到不熟悉的管脚不妨到其他元件上找找是否有这个管脚</p>
 ]]></content>
       <categories>
-        <category>评测</category>
+        <category>技术</category>
       </categories>
       <tags>
-        <tag>iPad</tag>
-        <tag>Apple pencil</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>互联网将人们联系到一起，但是人们究竟是成为了朋友还是成为了仇人？</title>
-    <url>/p/492.html</url>
-    <content><![CDATA[<p><i class="fa fa-info-circle" aria-hidden="true"></i>   <strong>存在有争议的内容，待修改</strong></p>
-<p>我最近在思考，自从我们有了互联网，我们究竟是成为了朋友还是仇人？或许是我不善社交的缘故，我感觉到很多很不好的感觉，整个事件的起因大概也就是最近推上闹的沸沸扬扬的关于那两个“学中文的外国人”的事情吧，因为整件事情不同于以往设计政治的事情，在对政治方面，我一直在回避很多问题，因此我的关注基本上都是：与我政治见解相似或者不相差甚远，或者虽然政治见解有所偏差但是其本身有对我来说过硬的技术知识的网友，不过最近的这件事情我看到了部分我关注的网友站到了我的另一方面，即便是我没有公开发表立场，但这仍然让我有点难过</p>
-<p>整个事件的起因是源于一个人对另外三个人发出疑似政治间谍的质疑，我看过了他本人的原文，他本人的话语个人不是太相信，因为猜想的有些激进与片面了，但是因此才引起了这一波双方的对立</p>
-<p>第一个韩国人，自称是14岁初中生，但是我很久之前貌似是看到过说自己是小学生来着？忘记了，也可能是我记错了，不过这都不重要，重要的是其被关注者数量较大，且关注者数量极少，这让我有点不适，因为这种行为完全与我的网络社交理念背离，给我一种“极度以自我为中心，不想了解其他人，高高在上”的感觉，并且此事一出，下面的“天狗”行为有点溢出（实际上在此之前也是），这位被关注量较多的根本原因无非两点：1.她是学习中文的外国人，中推圈对这类人一般都抱有友好的态度 2.她是女性，这一点很重要，因为我刚上推的时候也关注过很多学习中文的外国人，他们的关注数都比较少，并且关注量与被关注量接近1:1，部分风趣幽默或者能够引起共同话题的人这个比例会低一些，这些人几乎都是男性，回到这件事情上，试想一下如果当事人是男性，那么结果会怎样？结果是这种事情根本不会发生，因为如果是男性，并且没有互fo进行互相交流互动的话，被关注量绝对不会那么多，也不会出现这类事情被推向风口浪尖</p>
-<p>第二位日本人，对于她我了解的并不多，但是与上面那一位相仿，都是：极少的关注量，极高的被关注量，是学习中文的外国人，是女性，发生的事情与刚刚的也相仿，首先这样的行为就在我这不引起好感，并且根据聊天截图可以看到，这位在私人聊天中的言语有点让人反感，她的人设貌似也就是这样，并且她的中文貌似很好？能够在合适的场景下使用俚语与紧跟时事的网络用语，因为上面的这些所以被怀疑了，对此我觉得无法得出所谓“间谍”的判断，仅仅是人设层面我不喜欢而已</p>
-<p>我讨厌的仅仅是上面的社交理念以及人们对待不同人群的态度，不过我貌似更不喜欢后者，但是这无所谓，毕竟不是所有人都招人喜欢的，也不是所有人都能看谁都顺眼，并且我个人也不咋讨人喜欢哈哈，对于这两位仅仅发表自己的一点真实想法，仅此而已，我选择从博客发表也是因为这两位不可能看到这里，避免了误伤对其本人的伤害同样也因为释放了我自己内心的想法而轻松一点，实际上真正让我不适的是下方评论区的人们，这些人我不知道是真的为了安慰别人还是仅仅因为她们是女性满足自己某些精神方面的快感，因为事实表明女性网友出事除非是有官方实锤不然为其说话的人远高于男性，很多都让我感到不适，相对而言较有素质的人群会发表一些相对文明的语言，但是也有不少人在双方都无明确证据的时候互相骂了起来，有的骂的就比较难听了，并且最近貌似事情也不少，我的timeline充满了争吵与不信任，这导致我有点烦，我不知道自己是出于“嫉妒”的心理还是“愤怒”的心理，但是这都让我感到不适，并且我不敢直接发表自己的看法，我不希望自己也被卷入其中，因此我也就无法得知自己到底是这件事情上到底是“相对正确”还是“相对错误”，究竟是“我错了”还是“我没错”</p>
-<p>第三位的话，之前我跟他互fo过，但是现在他的言论与思想让我极其不适，不管是任何方面，都让我感到不适，不过依然还是有许多我关注的网友关注了他，对于他的各种言论，我不作评判，但是他下面的评论区也是妖魔鬼怪最多的</p>
-<p>“言论自由”是一把双刃剑，一方面让大家畅所欲言，一方面让大家成为仇人（虽然没有言论自由的地方也并不影响大家成为仇人），不过后者我觉得大概更多的是人们自身的问题，自从人类通过使用虚构的东西来让能够实现合作的人群突破150人以来，人们就活在“虚拟的世界”中，因此当网络这种虚拟的世界真正出现后，大家便理所当然的将他当作了现实，有的人说“网络虚拟，交心不宜”，但现实中更何况不是如此呢？人们共同生活共同合作，其原因并不是他们一出生就相识，因而你所看到的其他人实际上也可能在隐瞒自己的内心，在你的视野之外他们可能是另外一个人，在之前人们会为了自己的信仰而出征，而进行种族屠杀，那么为什么就不能在网络上口诛笔伐呢？网络仅仅是提供了便利的条件，就像玩家们游玩fps游戏时不必真正前往战场一样，因此也就没有了那么多的顾虑</p>
-<p>从古至今，人们发生争吵的理由有的是信仰，那是因为他们的信仰在他们自身看来是真实的，是至高无上的；也有的是财富，那是因为财富能给他们带来真真切切的物质便利；也有的是自己喜欢的明星，那是因为他们所喜欢的明星能给他们带来他们认为最好的影视作品；也有的是自己使用设备的厂商，那是因为他们认为自己使用的产品与使用者的素质相关；而如今，人们却能够为了根本就没鸟过自己的人发生争吵，这真的是荒谬至极，虽然这其中夹杂了不少政治上的因素，但是这依然不能被我视而不见</p>
-<p>趋利避害是所有生物的本能，如今，我也决定避害，我不愿看到人们因为荒谬的理由发生争吵，更不愿为了荒谬的理由与人发生争吵，岁月并不静好，但为什么还在为了这样的事情而争吵呢？</p>
-<p><del>淦，写着写着电脑崩溃了，下面写的一段都没了，还要重新写</del></p>
-<p>今天有感而发吧，行文与逻辑可能不是很通顺，因为我是想到什么就写了什么，然后呢，这篇文章大概也不会有人看，即便是有看的大概也是来我博客翻教程偶然看到的哈哈，不过人总要抱点希望的，如果人失去了希望活着也就没有意义了，如果你是看到我已经很久不使用之前的账号了因此来翻博客或者去关注我新号了，那么非常感谢你，感谢你能让我在你的社交圈留下印象！</p>
-<p>具体联系方式的话旧号个人简介我也留啦，或者说你可以通过本网站的PC端向我发送电子邮件或者电报，新号我将遵循个人刚刚学习到的一些社交上的理念，新号的被关注量大概不会超过200，原则上在150以内吧，不过估计现实中能有20个就不错啦，因为其实也没跟太多人关系比较好，之前有几个因为各种原因有的失踪了，有的退推了，有的加了别的联系方式，新号我大概也不会去关注太多之前认识的网友，我大概会主动加几个自己认为值得信任并且一些思想我想对认同或者之前给我过许多帮助的推油，不过也都是随缘，偶尔看一眼会加几个吧，没加也不代表什么，我懒得一次性全加上，并且这次决定是我一时决定，我需要一段时间冷静期来思考，如果加新号通过了的话说明我一定不会对你有太多意见。。。</p>
-<p>那么就到此为止吧：2019.2——2021.5｜382关注｜1228被关注</p>
-<p>不管怎样，感谢陪伴</p>
-]]></content>
-      <categories>
-        <category>思考</category>
-      </categories>
-      <tags>
-        <tag>奇思妙想</tag>
-        <tag>社交</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>低廉的价格，低廉的体验————从小米小爱音箱Play到米家</title>
-    <url>/p/aa9d.html</url>
-    <content><![CDATA[<p>今年年初，为了配合寝室内的其他米家设备，我换掉了之前办手机卡送的天猫精灵音箱，取而代之的是小米小爱音箱Play，本篇评测不仅仅是对这个音箱进行评测，更多的是一年多以来在寝室使用米家设备的一些体验，如果你对小米小爱音箱其实并不是特别感兴趣但是你对米家智能设备有兴趣，那么你可以看看我是怎么吐槽米家这些破玩意的</p>
-<a id="more"></a>
-
-<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i>   声明：</strong>我其实也算是半个米粉了，购买很多电子产品的时候都会优先考虑小米的产品，因此本篇评测可能说不上完全客观但是我绝对会有一说一，并且实际上这一段时间米家的体验非常糟糕，至于怎么糟糕，请看我慢慢道来</p>
-<h2 id="本篇内涉及到的所有设备："><a href="#本篇内涉及到的所有设备：" class="headerlink" title="本篇内涉及到的所有设备："></a>本篇内涉及到的所有设备：</h2><p>米家空调网关，米家门窗感应器，小米音箱Play，iPhone11，米家智能蓝牙温湿度计，米家无线开关，飞利浦智能台灯，米家夜灯2</p>
-<h2 id="音箱开箱"><a href="#音箱开箱" class="headerlink" title="音箱开箱"></a>音箱开箱</h2><p>这款小米小爱音箱是我以75元包邮在闲鱼上从个人卖家手中收的，全新未拆，生产日期是2020年6月，我觉得没差，跟其他渠道买的都一样</p>
-<p>包装盒基本上就是一层纸壳子实际上对里面的产品没有多少保护作用，毕竟这个玩意的价格在这摆着，官网价格实际上也不过百，包装什么的廉价一点无所谓，拆开盒子，拿出主体，小爱音箱Play延续了小米音箱一贯的设计风格，实际上就是小爱音箱的缩小版，这个外观见仁见智吧，我个人认为说不是好看也说不上丑</p>
-<p>之后，便是噩梦的开始</p>
-<h2 id="配对"><a href="#配对" class="headerlink" title="配对"></a>配对</h2><p>这个破玩意死活连不上Wi-Fi，明明其他设备就是连的同一个Wi-Fi，但是小爱音箱Play一直无法通过米家app进行Wi-Fi的连接，我翻了翻说明书然后网上搜索了一下，从app Store下载了“小爱音箱app”才吧这个音箱连上Wi-Fi接入米家，这一方面体验巨差，鬼知道为什么连不上网，顺便一提我的青米智能插座也很久很久连不上Wi-Fi了，翻看说明书，从网上查资料都没办法重新配对，所以就交了智商税：拿买智能家居的钱买了普通家居</p>
-<h2 id="小爱同学，打开温控"><a href="#小爱同学，打开温控" class="headerlink" title="小爱同学，打开温控"></a>小爱同学，打开温控</h2><p>连上Wi-Fi以后，我便迫不及待打开了这个音箱一个非常大的卖点，那就是蓝牙网关，这个可能是米家系列最便宜的蓝牙网关了，其他的蓝牙网关都是插座样式的，价格也在几十块钱不等，这个买网关还送音箱功能，岂不美哉？但是呢，蓝牙网关功能打开之后，音箱就没办法使用蓝牙模式了，也就是没办法通过蓝牙连接手机播放音乐，这个对我影响不大，毕竟这玩意音质肯定不如我iPad和耳机</p>
-<p>我的寝室内有米家智能蓝牙温湿度计，这个温湿度计之前我买了触屏版小爱音箱就没办法连，然后我觉得是那个小爱音箱的问题并且实际上我买了那个音箱有点小后悔，我就给退了，时隔一年多我终于通过蓝牙把这玩意接入米家了！我终于可以随时在手机上看寝室的温湿度状况以及温湿度变化曲线了！然而这玩意的刷新率貌似。。。非常低，我从app中只能看到每小时的温度然后每小时的温度用“平滑曲线”连起来，一个小时一同步。。。我都无力吐槽了。。。如果对于“看温度”来说其实还是够了，但是呢，我总想搞点骚操作，我想通过这个温湿度计结合空调控制器实现室内恒温功能，但是呢，刚刚也将了，一个小时一同步温度，一个小时。。。我要么热死了要么冻死了，反正我就开了一次这个功能发现空调根本不会像我想象的那样智能开关，所以我也就没用了</p>
-<p>然后呢我宿舍也没有什么其他的蓝牙的米家设备，其他的蓝牙设备还有个米家电动牙刷，没办法通过蓝牙传输刷牙数据</p>
-<h2 id="小爱同学，放首凉凉"><a href="#小爱同学，放首凉凉" class="headerlink" title="小爱同学，放首凉凉"></a>小爱同学，放首凉凉</h2><p>起因是一天下午考试前，按照惯例临走前放！战！歌！没想到小爱跟我说：“对不起，没有凉凉”（没有《凉凉》这首歌/考试没有凉凉）把我们都整乐了，考完试我又去试了试小爱音箱的曲库，甚至连《Are you ok？》都没有，有的过年过节放的那种喜庆的歌也没有原曲，取而代之的是一些唱的很垃圾的翻唱，小米音乐药丸，此时我突然想起来能把曲库换成QQ音乐，我切乎后再次尝试曲库，本来还以为能白嫖会员，结果发现很多歌都需要会员，《凉凉》也只有试听版，不过曲库至少比小米音乐丰富一点</p>
-<p>另外在放歌的时候，那个音质，低音不足，中音不行，高音也不行，说不上特别廉价到不能听，但是确实不是很好听，要买贵的小爱音箱肯定会好一点，但是前提是：你有QQ音乐会员</p>
-<h2 id="小爱同学，空调制冷24度自动风"><a href="#小爱同学，空调制冷24度自动风" class="headerlink" title="小爱同学，空调制冷24度自动风"></a>小爱同学，空调制冷24度自动风</h2><p>米家这个空调网关一开始还好，疫情期间不在寝室并且我换了热点之后，网关里貌似自己存了一些自动化，导致某些特殊时间点比如7点，23点，24点等会执行我之前设置的自动化，这些东西具体设置的什么我已经忘了，并且米家app我已经全部清除了，但是这个空调网关内部的存储貌似并不会因此而清楚，迫于无奈也只能在自动化里面新设置几个特殊是简单+1分钟的关闭空调的指令</p>
-<p>另外我用上小爱音箱Play之后，有些指令它不能正确执行，指令原本都执行完了，空调设置好了，它反手给我把空调关了，我：？？？？？并且反手关空调这种事情还不是偶然现象，出现的次数还是蛮多的，有时候还反手给我开一个暖风？我使用手机手动控制的时候从来没有出现按冷风出暖风的情况，因此应该不是红外信号的问题，在这里出现的问题绝对就是米家的问题</p>
-<h2 id="小爱同学？小爱同学？"><a href="#小爱同学？小爱同学？" class="headerlink" title="小爱同学？小爱同学？"></a>小爱同学？小爱同学？</h2><p>我不知道是性能的原因还是什么玩意，小爱音箱Play有时候会卡，就是你叫他时候他回应一下，然后就卡机了，按按键也不管用，这就emm。。。很让人抓狂吧。。。</p>
-<p>并且实际上用了这一阵，我并没有感觉到小爱多么智能，感觉跟几年前我主力机还是小米手机的时候并无区别，有些人能理解的口令依然无法很好的执行</p>
-<h2 id="米家？狗都不用！"><a href="#米家？狗都不用！" class="headerlink" title="米家？狗都不用！"></a>米家？狗都不用！</h2><p>前一阵我用米家app深色模式，他们的工程师居然就直接把背景搞黑就整出来个深色模式，我经常在半夜点开一个设置或者功能找不到返回键，后来才发现，米家工程师只改了背景颜色，然而文字很多也都是黑色的，两者重叠文字就看不到了，米家团队建议把做深色模式iOS开发那个人开除咯，有这么敷衍的吗？到现在这个现象少一点了但是还有残余，比如这个台灯亮度设置，以及米家app深色模式打开后需要有操作，比如点开一个选项，深色模式才会启用</p>
-<img src="/p/aa9d/mihome.png" class title="米家App内台灯控制页面">
-
-<p>米家那些对于智能设备进行自动化运行的选项。。。几年了都，完全没改没进步，功能逻辑较少且设置并不方便快捷，并且你以为他会乖乖听话，但是实际上并不会，比如设定通过位置来进行自动化，位置经常有问题，我给了精确位置权限，并且米家在后台，也都没用，然后还有就是前面提到的温控，完全没法实现，还有一些稍微复杂一点的逻辑都搞不来，我寝室就这么几样东西都设置不来更何况设备更多的情况</p>
-<p>小米貌似也对广告特别执着，特别喜欢给自己app通通加上广告，加上一些花里胡哨的购物的选项卡，很无语，用户有需要自然会去下载小米有品，你非要给米家植入这些玩意我感觉没必要并且还降低用户体验</p>
-<h2 id="其他米家设备"><a href="#其他米家设备" class="headerlink" title="其他米家设备"></a>其他米家设备</h2><p>米家那个门窗感应器，额，我除了用它来看宿舍有没有查卫生（在我们上课时间门被打开）外没有啥用，本来想设置一些自动化，但是舍友老不关门并且门经常被打开关闭就很难设置，当然我知道这个是我自己的问题，所以这个玩意还是凑合的，但是价格有点小贵</p>
-<p>米家无线开关：这个东西比较小，也很贵，一个差不多五六十我记得，之前是用来设置空调一些预设模式以及开关台灯，没有出现过错误操作，还算可以</p>
-<p>米家温湿度计：价格老贵，比现在新出的那个小的贵多了，我记得要80左右吧，忘记了，然后数据跟音箱连接只能一小时一同步，就很难受，但是本身颜值还可以，传感器刷新率以及准确度也都可以，并且还可以从粘贴的地方方便得拿下来</p>
-<p>米家夜灯2：我这个是非智能款，如果是智能款可以搭配当作人体传感器用，比单独买划算非常多，因我对我来说目前没必要就没换，值得一提的是，这个东西非常非常耐摔，我的米家夜灯2从双层床上铺摔下来少说几十次了，依然正常使用并且没有裂口，大概是跟圆润的设计脱不了干系，就是有时候蚊帐会误触，这个需要注意</p>
-<p>飞利浦智能台灯：这个不是小米代工厂的东西，但是接入了米家，体验上尚可，就是个台灯也没什么太多好讲的</p>
-<p>青米智能插座：这个玩意用一阵就连不上网了，并且能连上网的时候也不能对单独插口进行控制，只能全部开全部关，以及计算功率，因为我连不上网因此后面的功能我现在就都用不到了，不知道网络这个是米家app的问题还是产品本身的问题</p>
-<p>米家空调网关：这个作为家庭中枢插在空调插座上，还是蛮好用的但是问题也是很多，之前也都讲过了：无法清除之前设置的自动化，配合音箱有时候瞎调节，这其中任何一个都是致命的，不知道米家团队在搞什么</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总之我因为寝室限制，很多东西没买也没办法用，但是只是这几样的体验就并不是很好，我的寝室功能核心是小爱音箱以及对空调的控制，小爱音箱控制空调有问题，音乐曲库也很少，然后还卡死，然后还不好连Wi-Fi，空调网关那边之前残留的自动化没办法清除，这些问题除了音乐曲库由于版权问题可能不太好搞之外，其他都是完全可以解决并且都十分致命的问题，我不认为米家团队没有能力解决这类问题，因为时间跨度太久了，这些东西没搞好就是团队本身压根就不知道自己产品存在哪些问题或者压根不想做</p>
-<p>由于米家团队的问题，我感觉未来十分渺茫，本来觉得米家应该拥有国内最多的智能家居，用的人很多，体验上一定不会很差，但是到现在我的体验真的不好，虽然平常一定程度上给我带来了便利，但是有问题的时候也是很糟心的，更何况问题并不少呢</p>
-<p>这次评测写的比较乱吧，因为前一天晚上睡觉太晚了脑子也不是很清晰，所以凑合康吧，绝大多数问题我都写出来了，算是拔草吧，体验实在不行，除非你能保证自己拿到手设置好之后就不乱动了，大概就不会因为之前一些操作逻辑以及自动化把之后设置的东西打乱掉吧</p>
-]]></content>
-      <categories>
-        <category>评测</category>
-      </categories>
-      <tags>
-        <tag>小米</tag>
-        <tag>米家</tag>
-        <tag>小爱音箱Play</tag>
-        <tag>智能家居</tag>
+        <tag>C语言</tag>
+        <tag>单片机</tag>
+        <tag>STC89C52</tag>
+        <tag>ULN2003</tag>
       </tags>
   </entry>
   <entry>
@@ -489,6 +363,106 @@
       <tags>
         <tag>奇思妙想</tag>
         <tag>社交</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>iPad书写体验</title>
+    <url>/p/a833.html</url>
+    <content><![CDATA[<p>iPad书写体验一直以来都被人们所诟病，因为Apple  pencil与屏幕阻尼过小导致大部分人体验极差，因此自从Apple pencil问世以来，人们就在不停探寻改善Apple pencil书写体验的方法，就目前来说，主流方法有：类纸膜，笔尖套以及第三方笔尖</p>
+<a id="more"></a>
+
+<p>首先我先说一下结论，单纯看书写体验，最好的是类纸膜+原装笔尖，其次是以珞小希笔尖为代表的第三方2B笔尖，最次是笔尖套，这三种方法各有各的优点，适用的人群也大不相同，并且每个人的书写体验以及习惯具有很强的主观性，因此以下内容仅为我的个人体验，并不代表客观评价</p>
+<h1 id="类纸膜-原装笔尖"><a href="#类纸膜-原装笔尖" class="headerlink" title="类纸膜+原装笔尖"></a>类纸膜+原装笔尖</h1><blockquote>
+<p>优点：还原纸质书写体验</p>
+<p>缺点：类纸膜价格昂贵，严重影响屏幕分辨率，磨损笔尖(?)</p>
+</blockquote>
+<p>这个方案是目前绝大多数人在使用的方案，也是我最初使用iPad书写时使用的方案，当初刚拿到iPad之后立马就贴上了类纸膜开始使用了起来，虽然与纸质书写还是有点一点不同，不过能够很快适应，类纸膜表面的磨砂感能够很好还原在纸上书写的感觉并且能够提供良好的阻尼感，因此为绝大多数人所追捧</p>
+<p>但是，类纸膜价格比较贵，价格差不多是钢化膜的2倍以上，不过个人感觉没有必要购买太贵的类纸膜，因为类纸膜本质上区别并不大，高价类纸膜提供的体验并不符合其价位，个人认为类纸膜选购价格在50-100元左右即可，之前有听说过这样一个说法：低价的类纸膜不是类纸膜是磨砂膜，个人认为这句话就跟凤梨不是菠萝，车厘子不是樱桃一样，具体什么意思自己体会一下吧</p>
+<p>类纸膜对于屏幕分辨率的影响有多大？个人观感分辨率砍半，换算下来也就是iPad的分辨率被砍到720p～1080p之间的水平，这个说法毫不夸张，因为类纸膜表面的颗粒会严重影响分辨率，更加可怕的是，表面的颗粒会折射屏幕光线，导致你看屏幕会有类似相机拍照出现的彩噪，如果你要兼顾观影体验的话，这个影响无异于直接给你打回视网膜屏前的iPad（iPad1，iPad2），有的人大概是能接受或者说能凑合，反正我有点接受不了了</p>
+<p>磨损笔尖这个说法见很多人说过，不过我不知道是我写的太少了还是那些人下笔太重？个人notability笔记差不多1000页应该是有了吧，笔尖能看到磨损但是并不影响正常使用，如果那些人是因为磨损笔尖不好看而不是磨损笔尖导致不能用那我也无力吐槽，个人觉得有点迷惑，笔尖生来就是为了磨损的，不磨损还供起来养着？</p>
+<h1 id="钢化膜-2B笔尖"><a href="#钢化膜-2B笔尖" class="headerlink" title="钢化膜+2B笔尖"></a>钢化膜+2B笔尖</h1><blockquote>
+<p>优点：书写声音较小，保留了屏幕全分辨率</p>
+<p>缺点：阻尼感仍然不够，书写时屏幕过滑</p>
+</blockquote>
+<p>2B笔尖不同于原装笔尖是硬的，笔尖实际上是有一点软的，这样就能够极大减小书写时笔尖碰触屏幕发出的声音，我在使用的iPad Pro是全贴合屏幕，使用2B笔尖之后的声音几乎听不到了，不过iPad就不清楚了，非全贴合屏幕手敲一下都会有很大的声音</p>
+<p>使用2B笔尖就是为了全分辨率，不影响分辨率自然也没什么好说的，分辨率就跟你刚拿到iPad还没有贴膜时一样，由于我使用的是iPad Pro，我不能只记笔记吧，那就太浪费iPad Pro强大的性能以及屏幕还有扬声器了，钢化膜价格不高，建议使用20～40之间价位的钢化膜，个人使用的钢化膜价格是36元，使用起来非常棒，感觉这个价格就是非常高端的膜了在贵没什么必要。另外这边安利一下大米家的钢化膜，在使用iPad Pro34以及iPad Air4的小伙伴强烈建议使用这个膜，因为这个膜不同于市面上其他膜在Face ID以及摄像头处开了一个刘海（iPad都要开刘海真的是巨丑巨丑），这个膜是全贴合的，只有证明麦克风处打了一个小孔，其余的地方没有开控没有刘海，并且膜的周围还是有点弧边的，这就很棒</p>
+<blockquote>
+<p><i class="fa fa-info-circle" aria-hidden="true"></i>   <a href="https://m.tb.cn/h.4lA1xZY?sm=c28238">大米评测iPad全面屏钢化膜</a></p>
+</blockquote>
+<p>刚拿到2B笔尖的时候在屏幕上划拉了几个字，感觉还凑合，阻尼感有点像橡皮的感觉，但是实际书写时就不大行了，虽然阻尼大于原装笔尖，但是还差得远，依然比较滑，并且类纸膜的精髓在于其表面的凹凸不平还原了纸张凹凸不平的感觉，这个笔尖完全没有，所以根本没有在纸上写的感觉，体验只能说能用，原装笔尖个人认为是完全不能用</p>
+<p>还有一点就是，我购买的膜表面疏油层做的非常到位，导致书写的时候手与屏幕的接触面阻尼较小，手会有点打滑</p>
+<p><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>   使用大约4天后的补充：第一天开始使用的时候是非常非常难受的，因为假期中写字不多，开学都会出现“不会写字的”现象，再加上钢化膜的负面手感加成，写出来的字会歪歪扭扭，横不平竖不直，很难写也很难看，具体分析原因大概是因为阻尼太小导致下笔很滑，笔尖移动的方向与距离不会按照自己的意思来，很难写出直线来，据我多年写字的经验，写字要好看一定要横平竖直（这里说的好看不是传统意义上的好看，而是别人看你写的字能很轻松看出你在写什么字）而由于笔尖过滑导致并不能写出直线来，具体什么样子，看下图：</p>
+<img src="/p/a833/IMG_1931.jpg" class title="第一天使用notability书写的部分笔记1">
+
+<img src="/p/a833/IMG_ABA976E152E2-1.jpeg" class title="第一天使用notability书写的部分笔记2">
+
+<p>当时我写完标题还在下面重新写了一遍尝试补救一下，但是失败了，我这辈子都想不到自己能写出这么歪的字来，并且当时写的非常吃力，因为笔很滑，每写一个字我都要付出巨大的努力</p>
+<p>不过当我使用4天后，不知道是因为笔尖被“用开了”的缘故还是因为我熟悉了这样的阻尼感了，写字莫名变得顺滑起来，虽然还有一丢丢打滑，但是写字已经基本上能有之前的感觉了（<del>虽然手感依然不咋滴</del>），并且写字没有前几天那么吃力了，写字用的力度基本上就是之前正常写字的力度了，不知道我继续使用以后会不会完全适应呢？让我们拭目以待！</p>
+<p>另外更换钢化膜还有一个问题，那就是屏幕反光问题，之前的类纸膜由于屏幕是磨砂的，导致一些较强光源在屏幕上的反光被大大削弱了，因此在之前一年多的使用中没有被反光问题困扰，但是新学期我换上了新的钢化膜并且开始使用屏幕挂灯我发现一个大问题：电脑显示屏是不反光了，但是我的ipad显示屏会反光，我能做的唯一解决方法就是书写时身子更靠前一点</p>
+<h1 id="钢化膜-笔尖套"><a href="#钢化膜-笔尖套" class="headerlink" title="钢化膜+笔尖套"></a>钢化膜+笔尖套</h1><blockquote>
+<p>优点：价格低廉</p>
+<p>缺点：容易破损，体验类似2B笔尖</p>
+</blockquote>
+<p>笔尖套价格是公认的低，几块钱就能买到好多，不过笔尖套也分好多种，个人没有进行太多体验，因为其价格低廉就注定了体验绝对不会好太多，因此我对笔尖套的评价不具备任何参考价值，看看图一乐就行</p>
+<p>为什么要买很多笔尖套？因为容易破损，你想想，你在教室上着课，看着黑板，记着笔记，突然笔尖套就破了，你还忘带多余的笔尖套，这多蛋疼？</p>
+<p>体验个人没有细细体验，但是鉴于材质与2B笔尖类似，暂时默认体验类似，此处待完善</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>另外还有往笔尖上贴各自胶带的，emm。。。看着就有点傻，不过这个自己完全没有试过，所以也不做评价，最近打算从网上买一个iPad笔尖各类笔尖套以及贴纸的试用套装，过一阵到了以后全都试试再完善一下</p>
+<hr>
+<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i>   待完善的文章，内容尚不全面</strong></p>
+]]></content>
+      <categories>
+        <category>评测</category>
+      </categories>
+      <tags>
+        <tag>iPad</tag>
+        <tag>Apple pencil</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>低廉的价格，低廉的体验————从小米小爱音箱Play到米家</title>
+    <url>/p/aa9d.html</url>
+    <content><![CDATA[<p>今年年初，为了配合寝室内的其他米家设备，我换掉了之前办手机卡送的天猫精灵音箱，取而代之的是小米小爱音箱Play，本篇评测不仅仅是对这个音箱进行评测，更多的是一年多以来在寝室使用米家设备的一些体验，如果你对小米小爱音箱其实并不是特别感兴趣但是你对米家智能设备有兴趣，那么你可以看看我是怎么吐槽米家这些破玩意的</p>
+<a id="more"></a>
+
+<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i>   声明：</strong>我其实也算是半个米粉了，购买很多电子产品的时候都会优先考虑小米的产品，因此本篇评测可能说不上完全客观但是我绝对会有一说一，并且实际上这一段时间米家的体验非常糟糕，至于怎么糟糕，请看我慢慢道来</p>
+<h2 id="本篇内涉及到的所有设备："><a href="#本篇内涉及到的所有设备：" class="headerlink" title="本篇内涉及到的所有设备："></a>本篇内涉及到的所有设备：</h2><p>米家空调网关，米家门窗感应器，小米音箱Play，iPhone11，米家智能蓝牙温湿度计，米家无线开关，飞利浦智能台灯，米家夜灯2</p>
+<h2 id="音箱开箱"><a href="#音箱开箱" class="headerlink" title="音箱开箱"></a>音箱开箱</h2><p>这款小米小爱音箱是我以75元包邮在闲鱼上从个人卖家手中收的，全新未拆，生产日期是2020年6月，我觉得没差，跟其他渠道买的都一样</p>
+<p>包装盒基本上就是一层纸壳子实际上对里面的产品没有多少保护作用，毕竟这个玩意的价格在这摆着，官网价格实际上也不过百，包装什么的廉价一点无所谓，拆开盒子，拿出主体，小爱音箱Play延续了小米音箱一贯的设计风格，实际上就是小爱音箱的缩小版，这个外观见仁见智吧，我个人认为说不是好看也说不上丑</p>
+<p>之后，便是噩梦的开始</p>
+<h2 id="配对"><a href="#配对" class="headerlink" title="配对"></a>配对</h2><p>这个破玩意死活连不上Wi-Fi，明明其他设备就是连的同一个Wi-Fi，但是小爱音箱Play一直无法通过米家app进行Wi-Fi的连接，我翻了翻说明书然后网上搜索了一下，从app Store下载了“小爱音箱app”才吧这个音箱连上Wi-Fi接入米家，这一方面体验巨差，鬼知道为什么连不上网，顺便一提我的青米智能插座也很久很久连不上Wi-Fi了，翻看说明书，从网上查资料都没办法重新配对，所以就交了智商税：拿买智能家居的钱买了普通家居</p>
+<h2 id="小爱同学，打开温控"><a href="#小爱同学，打开温控" class="headerlink" title="小爱同学，打开温控"></a>小爱同学，打开温控</h2><p>连上Wi-Fi以后，我便迫不及待打开了这个音箱一个非常大的卖点，那就是蓝牙网关，这个可能是米家系列最便宜的蓝牙网关了，其他的蓝牙网关都是插座样式的，价格也在几十块钱不等，这个买网关还送音箱功能，岂不美哉？但是呢，蓝牙网关功能打开之后，音箱就没办法使用蓝牙模式了，也就是没办法通过蓝牙连接手机播放音乐，这个对我影响不大，毕竟这玩意音质肯定不如我iPad和耳机</p>
+<p>我的寝室内有米家智能蓝牙温湿度计，这个温湿度计之前我买了触屏版小爱音箱就没办法连，然后我觉得是那个小爱音箱的问题并且实际上我买了那个音箱有点小后悔，我就给退了，时隔一年多我终于通过蓝牙把这玩意接入米家了！我终于可以随时在手机上看寝室的温湿度状况以及温湿度变化曲线了！然而这玩意的刷新率貌似。。。非常低，我从app中只能看到每小时的温度然后每小时的温度用“平滑曲线”连起来，一个小时一同步。。。我都无力吐槽了。。。如果对于“看温度”来说其实还是够了，但是呢，我总想搞点骚操作，我想通过这个温湿度计结合空调控制器实现室内恒温功能，但是呢，刚刚也将了，一个小时一同步温度，一个小时。。。我要么热死了要么冻死了，反正我就开了一次这个功能发现空调根本不会像我想象的那样智能开关，所以我也就没用了</p>
+<p>然后呢我宿舍也没有什么其他的蓝牙的米家设备，其他的蓝牙设备还有个米家电动牙刷，没办法通过蓝牙传输刷牙数据</p>
+<h2 id="小爱同学，放首凉凉"><a href="#小爱同学，放首凉凉" class="headerlink" title="小爱同学，放首凉凉"></a>小爱同学，放首凉凉</h2><p>起因是一天下午考试前，按照惯例临走前放！战！歌！没想到小爱跟我说：“对不起，没有凉凉”（没有《凉凉》这首歌/考试没有凉凉）把我们都整乐了，考完试我又去试了试小爱音箱的曲库，甚至连《Are you ok？》都没有，有的过年过节放的那种喜庆的歌也没有原曲，取而代之的是一些唱的很垃圾的翻唱，小米音乐药丸，此时我突然想起来能把曲库换成QQ音乐，我切乎后再次尝试曲库，本来还以为能白嫖会员，结果发现很多歌都需要会员，《凉凉》也只有试听版，不过曲库至少比小米音乐丰富一点</p>
+<p>另外在放歌的时候，那个音质，低音不足，中音不行，高音也不行，说不上特别廉价到不能听，但是确实不是很好听，要买贵的小爱音箱肯定会好一点，但是前提是：你有QQ音乐会员</p>
+<h2 id="小爱同学，空调制冷24度自动风"><a href="#小爱同学，空调制冷24度自动风" class="headerlink" title="小爱同学，空调制冷24度自动风"></a>小爱同学，空调制冷24度自动风</h2><p>米家这个空调网关一开始还好，疫情期间不在寝室并且我换了热点之后，网关里貌似自己存了一些自动化，导致某些特殊时间点比如7点，23点，24点等会执行我之前设置的自动化，这些东西具体设置的什么我已经忘了，并且米家app我已经全部清除了，但是这个空调网关内部的存储貌似并不会因此而清楚，迫于无奈也只能在自动化里面新设置几个特殊是简单+1分钟的关闭空调的指令</p>
+<p>另外我用上小爱音箱Play之后，有些指令它不能正确执行，指令原本都执行完了，空调设置好了，它反手给我把空调关了，我：？？？？？并且反手关空调这种事情还不是偶然现象，出现的次数还是蛮多的，有时候还反手给我开一个暖风？我使用手机手动控制的时候从来没有出现按冷风出暖风的情况，因此应该不是红外信号的问题，在这里出现的问题绝对就是米家的问题</p>
+<h2 id="小爱同学？小爱同学？"><a href="#小爱同学？小爱同学？" class="headerlink" title="小爱同学？小爱同学？"></a>小爱同学？小爱同学？</h2><p>我不知道是性能的原因还是什么玩意，小爱音箱Play有时候会卡，就是你叫他时候他回应一下，然后就卡机了，按按键也不管用，这就emm。。。很让人抓狂吧。。。</p>
+<p>并且实际上用了这一阵，我并没有感觉到小爱多么智能，感觉跟几年前我主力机还是小米手机的时候并无区别，有些人能理解的口令依然无法很好的执行</p>
+<h2 id="米家？狗都不用！"><a href="#米家？狗都不用！" class="headerlink" title="米家？狗都不用！"></a>米家？狗都不用！</h2><p>前一阵我用米家app深色模式，他们的工程师居然就直接把背景搞黑就整出来个深色模式，我经常在半夜点开一个设置或者功能找不到返回键，后来才发现，米家工程师只改了背景颜色，然而文字很多也都是黑色的，两者重叠文字就看不到了，米家团队建议把做深色模式iOS开发那个人开除咯，有这么敷衍的吗？到现在这个现象少一点了但是还有残余，比如这个台灯亮度设置，以及米家app深色模式打开后需要有操作，比如点开一个选项，深色模式才会启用</p>
+<img src="/p/aa9d/mihome.png" class title="米家App内台灯控制页面">
+
+<p>米家那些对于智能设备进行自动化运行的选项。。。几年了都，完全没改没进步，功能逻辑较少且设置并不方便快捷，并且你以为他会乖乖听话，但是实际上并不会，比如设定通过位置来进行自动化，位置经常有问题，我给了精确位置权限，并且米家在后台，也都没用，然后还有就是前面提到的温控，完全没法实现，还有一些稍微复杂一点的逻辑都搞不来，我寝室就这么几样东西都设置不来更何况设备更多的情况</p>
+<p>小米貌似也对广告特别执着，特别喜欢给自己app通通加上广告，加上一些花里胡哨的购物的选项卡，很无语，用户有需要自然会去下载小米有品，你非要给米家植入这些玩意我感觉没必要并且还降低用户体验</p>
+<h2 id="其他米家设备"><a href="#其他米家设备" class="headerlink" title="其他米家设备"></a>其他米家设备</h2><p>米家那个门窗感应器，额，我除了用它来看宿舍有没有查卫生（在我们上课时间门被打开）外没有啥用，本来想设置一些自动化，但是舍友老不关门并且门经常被打开关闭就很难设置，当然我知道这个是我自己的问题，所以这个玩意还是凑合的，但是价格有点小贵</p>
+<p>米家无线开关：这个东西比较小，也很贵，一个差不多五六十我记得，之前是用来设置空调一些预设模式以及开关台灯，没有出现过错误操作，还算可以</p>
+<p>米家温湿度计：价格老贵，比现在新出的那个小的贵多了，我记得要80左右吧，忘记了，然后数据跟音箱连接只能一小时一同步，就很难受，但是本身颜值还可以，传感器刷新率以及准确度也都可以，并且还可以从粘贴的地方方便得拿下来</p>
+<p>米家夜灯2：我这个是非智能款，如果是智能款可以搭配当作人体传感器用，比单独买划算非常多，因我对我来说目前没必要就没换，值得一提的是，这个东西非常非常耐摔，我的米家夜灯2从双层床上铺摔下来少说几十次了，依然正常使用并且没有裂口，大概是跟圆润的设计脱不了干系，就是有时候蚊帐会误触，这个需要注意</p>
+<p>飞利浦智能台灯：这个不是小米代工厂的东西，但是接入了米家，体验上尚可，就是个台灯也没什么太多好讲的</p>
+<p>青米智能插座：这个玩意用一阵就连不上网了，并且能连上网的时候也不能对单独插口进行控制，只能全部开全部关，以及计算功率，因为我连不上网因此后面的功能我现在就都用不到了，不知道网络这个是米家app的问题还是产品本身的问题</p>
+<p>米家空调网关：这个作为家庭中枢插在空调插座上，还是蛮好用的但是问题也是很多，之前也都讲过了：无法清除之前设置的自动化，配合音箱有时候瞎调节，这其中任何一个都是致命的，不知道米家团队在搞什么</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总之我因为寝室限制，很多东西没买也没办法用，但是只是这几样的体验就并不是很好，我的寝室功能核心是小爱音箱以及对空调的控制，小爱音箱控制空调有问题，音乐曲库也很少，然后还卡死，然后还不好连Wi-Fi，空调网关那边之前残留的自动化没办法清除，这些问题除了音乐曲库由于版权问题可能不太好搞之外，其他都是完全可以解决并且都十分致命的问题，我不认为米家团队没有能力解决这类问题，因为时间跨度太久了，这些东西没搞好就是团队本身压根就不知道自己产品存在哪些问题或者压根不想做</p>
+<p>由于米家团队的问题，我感觉未来十分渺茫，本来觉得米家应该拥有国内最多的智能家居，用的人很多，体验上一定不会很差，但是到现在我的体验真的不好，虽然平常一定程度上给我带来了便利，但是有问题的时候也是很糟心的，更何况问题并不少呢</p>
+<p>这次评测写的比较乱吧，因为前一天晚上睡觉太晚了脑子也不是很清晰，所以凑合康吧，绝大多数问题我都写出来了，算是拔草吧，体验实在不行，除非你能保证自己拿到手设置好之后就不乱动了，大概就不会因为之前一些操作逻辑以及自动化把之后设置的东西打乱掉吧</p>
+]]></content>
+      <categories>
+        <category>评测</category>
+      </categories>
+      <tags>
+        <tag>小米</tag>
+        <tag>米家</tag>
+        <tag>小爱音箱Play</tag>
+        <tag>智能家居</tag>
       </tags>
   </entry>
   <entry>
@@ -575,73 +549,35 @@
       </tags>
   </entry>
   <entry>
-    <title>51单片机传感器-1</title>
-    <url>/p/4301.html</url>
-    <content><![CDATA[<p>本篇的标题不同于其他的51单片机开发基础文章，没错，这个是新坑，主要用于介绍单片机中用到的各种传感器，要学习这部分内容需要你有一定的单片机开发基础，并且拥有相应的传感器或者使用仿真器，这部分会一一以51单片机为基础讲解我从某宝上买到的45个传感器以及开关，因为套件刚到就使用到了这一传感器，所以也从这个传感器开始讲起，而这部分内容用到的正是我们在高中物理就接触过的：霍尔元件</p>
-<a id="more"></a>
-
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
-<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文基于51单片机撰写）</li>
-<li>2.能够正常下载驱动以及Keil等开发软件或者能够正常使用Proteus仿真软件的Windows10.0系统PC</li>
-<li>3.一根micro USB to USB A数据线</li>
-<li>4.三根母对母杜邦线</li>
-<li>5.3144霍尔磁力传感器</li>
-<li>6.一块磁铁</li>
-</ul>
-<h1 id="霍尔磁力传感器"><a href="#霍尔磁力传感器" class="headerlink" title="霍尔磁力传感器"></a>霍尔磁力传感器</h1><h2 id="霍尔元件简介"><a href="#霍尔元件简介" class="headerlink" title="霍尔元件简介"></a>霍尔元件简介</h2><p>简单点来说，霍尔元件就是一个检测磁场的传感器，我们生活中很多地方都能用到它，比如手机或者iPad那些关盖息屏的手机壳，门窗感应器等，好处也是非常多，那到底有什么好处呢，看下面：</p>
-<blockquote>
-<p>霍尔元件是一种基于霍尔效应的磁传感器。用它们可以检测磁场及其变化，可在各种与磁场有关的场合中使用。霍尔元件具有许多优点，它们的结构牢固，体积小，重量轻，寿命长，安装方便，功耗小，频率高（可达1MHZ），耐震动，不怕灰尘、油污、水汽及盐雾等的污染或腐蚀</p>
-<p>——引用自<a href="https://baike.baidu.com/item/%E9%9C%8D%E5%B0%94%E5%85%83%E4%BB%B6/5120044?fr=aladdin">百度百科</a></p>
-</blockquote>
-<p><a href="https://www.51dzw.com/embed/embed_128565.html">[1]</a> 霍尔元件不仅仅在外观上有区别，在功能上也有所区分：一种是开关霍尔传感器，一种是线性霍尔传感器，它们有什么区别？开关霍尔传感器输出端输出的是高低电平，输出的波形是方波，也就是数字电路中所说的数字量，而线性霍尔传感器当给其施加的磁场逐渐增强时，其输出的电压会逐渐增大，也就是模拟电路中的模拟量，在实际使用中，我们更多地使用线性霍尔传感器，因为开关霍尔传感器常常因为温度等原因使得设定值漂移，灵敏度下降，并且开关霍尔传感器能做的事情比线性霍尔传感器少，那为何不用后者呢？</p>
-<h2 id="3114线性霍尔磁力传感器"><a href="#3114线性霍尔磁力传感器" class="headerlink" title="3114线性霍尔磁力传感器"></a>3114线性霍尔磁力传感器</h2><p><i class="fa fa-info-circle" aria-hidden="true"></i>   首先要提醒下，<strong>不同芯片传感器的引脚功能是不一定相同的</strong>，一定要搞清楚引脚的功能，查阅正确的芯片手册，或者问购买的商家，不要自己瞎接线，不仅仅是这个霍尔传感器，其他的芯片传感器也是同理！<strong>自己瞎接线后果很严重！轻则烧集成电路，烧电阻，重则电容爆炸！</strong></p>
-<img src="/p/4301/hall0.png" class title="3144线性霍尔传感器">
-
-<p>霍尔元件的原理很简单，就是利用霍尔效应：当磁场作用于载流金属导体或者半导体中的电子时，产生横向电位差的物理现象，我们通过放大器将这个电位差放大输出，这就是最基本的霍尔传感器原理</p>
-<img src="/p/4301/hall.png" class title="线性霍尔传感器原理图">
-
-<p>绝大多数的霍尔传感器都具有三个引脚，分别是：GND，VCC和GPIO，前两者一个是接地，一个是按照芯片手册接入传感器正确的工作电压，后者是传感器的输出引脚，在本示例中我所使用的是3144霍尔传感器，其引脚定义图如下，从左到右分别是：接地，接3.3V电源，输出，因此我们只需要按照这个接入单片机即可，接入单片机核心的引脚只需要接输出即可</p>
-<img src="/p/4301/hallio.png" class title="3144霍尔传感器引脚定义图">
-
-<p>因为刚刚我们讲过，该传感器是线性传感器，那么实际上输出引脚输出的是一个波形，单片机如何判断呢？51单片机使用的是<a href="http://www.51hei.com/bbs/dpj-135738-1.html">[2]</a><strong>TTL电平：采用5V电源，输出高电平Uoh≥2.4V，输出低电平Uol≤0.4V，输入高电平Uih≥2.0V，输入低电平Uil≤0.8V</strong>，也就是说线性霍尔传感器输出的模拟量会被转换成数字量，因此也就不必担心线性霍尔传感器的使用问题了</p>
-<h1 id="通过磁力点亮LED灯"><a href="#通过磁力点亮LED灯" class="headerlink" title="通过磁力点亮LED灯"></a>通过磁力点亮LED灯</h1><p>如果上面的理论知识对你来说还是太抽象的话，下面这样一个简单的程序示例就能让你很快了解到线性霍尔磁力传感器的使用方法了</p>
-<p>我们刚刚讲到，对于线性霍尔传感器，单片机使用的TTL电平会对其起一个转化作用，我们就用下面这样一个简单的小程序来验证一下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//将霍尔元件的输出端插到单片机P1^0口上</span></span><br><span class="line">sbit LED = P2^<span class="number">0</span>; <span class="comment">//LED灯</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>; <span class="comment">//按键1</span></span><br><span class="line">sbit K2 = P3^<span class="number">0</span>; <span class="comment">//按键2</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">      <span class="keyword">if</span>(Hall == <span class="number">1</span>)LED = <span class="number">0</span>; <span class="comment">//输出1时灯亮</span></span><br><span class="line">      <span class="keyword">else</span> LED = <span class="number">1</span>; <span class="comment">//输出0时灯灭</span></span><br><span class="line">  &#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>你会发现你把传感器相应的那一面靠近磁铁相应的一极LED灯就会亮起，那么你就学会了霍尔传感器最基本的使用方法啦</p>
-<h1 id="通过磁力检测门的开关"><a href="#通过磁力检测门的开关" class="headerlink" title="通过磁力检测门的开关"></a>通过磁力检测门的开关</h1><p>只检测门的开关那就过于简单了，跟上面LED灯一模一样，因此我们要实现的功能是：检测门的开关，如果门关着，那么什么都不会发生，如果门打开了一段时间没关，那么蜂鸣器响起，提醒关门，如果门关上了，蜂鸣器停止提示声</p>
-<p>具体写的过程大概就是：检测门开启关闭，如果关闭，计时器清零，如果开启，开始计时，计时达到设定时间进入蜂鸣器循环，如果此时检测到门关闭那么跳出蜂鸣器循环，程序重新开始判断</p>
-<p>然后呢，一步步写的过程我也懒得写了，代码做的详细的注释，值得注意的是代码调用了<code>51FunctionLibrary</code>中的函数，当然这个函数并不是必要的，而是调试过程中使用的，用于显示计时器是否开始工作，开工作后计时了多少，毕竟单片机不像直接写程序那么容易调试，当然你用仿真器的话这个貌似也并不是很需要XD</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u16 ms = <span class="number">0</span>;</span><br><span class="line">u8 timesecond = <span class="number">10</span>; <span class="comment">//设定从未关闭车门到报警的时间（秒）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    LED1 = Hall; <span class="comment">//调试用，可删</span></span><br><span class="line">    <span class="keyword">if</span>(Hall == <span class="number">0</span>)&#123; <span class="comment">//如果车门关闭 </span></span><br><span class="line">	    TR0 = <span class="number">0</span>;	<span class="comment">//关闭定时器</span></span><br><span class="line">		  ms = <span class="number">0</span>;  <span class="comment">//重置计时</span></span><br><span class="line">	&#125;<span class="keyword">else</span>&#123; <span class="comment">//如果车门开启</span></span><br><span class="line">	  <span class="keyword">if</span>(ms == <span class="number">0</span>)Timer0Init(); <span class="comment">//如果计时为0那么开启定时器并输入参数</span></span><br><span class="line">	&#125;</span><br><span class="line">	DigDisplay(ms);	<span class="comment">//调试用数码管显示计时时长</span></span><br><span class="line">	<span class="keyword">if</span>(ms &gt;= <span class="number">100</span>*timesecond)&#123; <span class="comment">//如果时间达到设定时间</span></span><br><span class="line">	  ms = <span class="number">0</span>;	<span class="comment">//重置计时</span></span><br><span class="line">	  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	    beep = ~beep;delay(<span class="number">100</span>); <span class="comment">//蜂鸣器响起</span></span><br><span class="line">	    <span class="keyword">if</span>(K1 == <span class="number">0</span> || Hall == <span class="number">0</span>)<span class="keyword">break</span>;&#125;	<span class="comment">//如果按下按键K1或者关闭车门重置</span></span><br><span class="line">	  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>&#123; <span class="comment">//开启16位定时器中断0并设定参数</span></span><br><span class="line">  ms ++; <span class="comment">//让ms不等于1，那么该函数就不会连续运行</span></span><br><span class="line">  TMOD |= <span class="number">0x01</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>; </span><br><span class="line">  TL0 = <span class="number">0x22</span>; </span><br><span class="line">  EA = <span class="number">1</span>; </span><br><span class="line">  ET0 = <span class="number">1</span>; </span><br><span class="line">  TR0 = <span class="number">1</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上的程序运行起来没有问题，但是理论有大问题：频繁开关中断，因为上面的程序过于简单，只用到了一个中断，在我之前讲中断的那一节里面讲到，中断是有优先级的，<strong>频繁开关中断会导致时序冲突</strong>，因此代码需要对中断部分进行修改：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u16 ms = <span class="number">0</span>;</span><br><span class="line">u8 timesecond = <span class="number">10</span>; <span class="comment">//设定从未关闭车门到报警的时间（秒）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">Timer0Init();</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    LED1 = Hall; <span class="comment">//调试用，可删</span></span><br><span class="line">    <span class="keyword">if</span>(Hall == <span class="number">0</span>)&#123; <span class="comment">//如果车门关闭 </span></span><br><span class="line">      ms = <span class="number">0</span>;  <span class="comment">//重置计时</span></span><br><span class="line">	&#125;<span class="keyword">else</span>&#123; <span class="comment">//如果车门开启</span></span><br><span class="line">	  <span class="keyword">if</span>(ms == <span class="number">0</span>)timer0start(); <span class="comment">//如果计时为0那么开启定时器</span></span><br><span class="line">	&#125;</span><br><span class="line">	DigDisplay(ms);	<span class="comment">//调试用数码管显示计时时长</span></span><br><span class="line">	<span class="keyword">if</span>(ms &gt;= <span class="number">100</span>*timesecond)&#123; <span class="comment">//如果时间达到设定时间</span></span><br><span class="line">	  ms = <span class="number">0</span>;	<span class="comment">//重置计时</span></span><br><span class="line">	  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	    beep = ~beep;delay(<span class="number">100</span>); <span class="comment">//蜂鸣器响起</span></span><br><span class="line">	    <span class="keyword">if</span>(K1 == <span class="number">0</span> || Hall == <span class="number">0</span>)&#123;</span><br><span class="line">		  <span class="keyword">break</span>;ms = <span class="number">0</span>;	<span class="comment">//如果按下按键K1或者关闭车门重置</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;	</span><br><span class="line">  &#125;</span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  timer0start();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>&#123; <span class="comment">//开启16位定时器中断0并设定参数</span></span><br><span class="line">  TMOD |= <span class="number">0x01</span>; </span><br><span class="line">  EA = <span class="number">1</span>; </span><br><span class="line">  ET0 = <span class="number">1</span>; </span><br><span class="line">  TR0 = <span class="number">1</span>; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>&#123;</span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>哈哈哈上面的其实也是有点问题的，因此计时器开了就是开了，如果你在计时器中断内对计时器的寄存器进行了赋值，那么除非是计时器关了或者机器关了，不然计时器都是一直在运行的，因此上面判断到车门开启就调用time0start就完全没有意义了，因此这个需要删除，而在else内只有这一条语句，因此对应的else也可以删除，然后在程序后面判断到达到时间后无需急着让ms为0，进入进入了蜂鸣器的循环，ms在循环内毫无意义，因此只需要跳出这个循环的时候给ms赋值0就可以了，最终修改的程序如下，以我的代码风格貌似这个程序没办法再精简了：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u16 ms = <span class="number">0</span>;</span><br><span class="line">u8 timesecond = <span class="number">10</span>; <span class="comment">//设定从未关闭车门到报警的时间（秒）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">TMOD |= <span class="number">0x01</span>; <span class="comment">//开启16位计时器中断0</span></span><br><span class="line">EA = <span class="number">1</span>; </span><br><span class="line">ET0 = <span class="number">1</span>; </span><br><span class="line">TR0 = <span class="number">1</span>; </span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    LED1 = Hall; <span class="comment">//调试用，可删</span></span><br><span class="line">    <span class="keyword">if</span>(Hall == <span class="number">0</span>)&#123; <span class="comment">//如果车门关闭 </span></span><br><span class="line">      ms = <span class="number">0</span>;  <span class="comment">//重置计时</span></span><br><span class="line">	&#125; <span class="comment">//如果车门打开，继续计时，车门非开即关，因此无需多余操作</span></span><br><span class="line">	DigDisplay(ms);	<span class="comment">//调试用数码管显示计时时长</span></span><br><span class="line">	<span class="keyword">if</span>(ms &gt;= <span class="number">100</span>*timesecond)&#123; <span class="comment">//如果时间达到设定时间</span></span><br><span class="line">	  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	    beep = ~beep;delay(<span class="number">100</span>); <span class="comment">//蜂鸣器响起</span></span><br><span class="line">	    <span class="keyword">if</span>(K1 == <span class="number">0</span> || Hall == <span class="number">0</span>)&#123;</span><br><span class="line">		  ms = <span class="number">0</span>;<span class="keyword">break</span>;	<span class="comment">//如果按下按键K1或者关闭车门重置</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;	</span><br><span class="line">  &#125;</span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="通过霍尔元件进行测速"><a href="#通过霍尔元件进行测速" class="headerlink" title="通过霍尔元件进行测速"></a>通过霍尔元件进行测速</h1><p>不知道你有没有用过或者见到过自行车上的测速表，在使用的时候需要在轮毂上安装一个磁铁，然后探测端绑到自行车前架上，与轮毂上磁铁对应，这一车轮每转一圈，传感器就能探测到磁铁的磁性因此也就知道了车轮转了一圈，结合车轮的半径数据，码表上就能显示出正确的车速，这个传感器便是霍尔传感器</p>
-<p>如何知道车速呢？我们需要设定一个检测时间，检测在这个时间内车轮的转的圈数，然后进行计算才能得到在这一段时间内的平均速度，如果检测的时间够短，那么这段时间内的平均速度就可以近似的视为瞬时速度，但是考虑到如果你只转了9/10圈的话码表显示的速度依然是0，因此检测的时间越长，检测出的速度越准确，但是也就越不是“瞬时速度”，因此我们要在这两者之间进行权衡，究竟是“更直观”还是“更准确”？或者说两者都要？这就类似于之前的数码管，刷新的太快亮度会变低，刷新的太慢眼睛就能看到明显的频闪，因此在此我们取刷新时间为3秒，这个时间不会太快而导致测不准，也不至于太慢，实际上这个时间是以自行车为基准的，因为汽车的速度相比自行车要快，所以如果是汽车那么检测时间可以缩短</p>
-<p>在这个程序中有三个进程，一个是必要的显示，这里使用动态数码管，一个是计时，对检测时间进行计时，还有一个是检测到车轮转过就加1的计数器</p>
-<p>首先是动态数码管，我们直接将其放入主函数，计时使用计时中断，计数则使用外部中断，并且外部中断选择下降沿有效，因为当车轮转过时，转过的时间还远小于指令周期，如果选择低电平有效则会多次计数，车轮转过电平由高到低再到高，这其中只会有一次下降沿，因此我们选择下降沿有效</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P3^<span class="number">2</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u8 ms = <span class="number">0</span>;</span><br><span class="line">u8 wheelcount = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">long</span> speed = <span class="number">0</span>; <span class="comment">//速度（m/h）</span></span><br><span class="line"><span class="keyword">float</span> wheeldiam = <span class="number">0.635</span>; <span class="comment">//轮毂的直径（m）26寸轮毂==0.635m直径</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">Timer0Init();</span><br><span class="line">IE |= <span class="number">0x81</span>; <span class="comment">//打开外部中断0</span></span><br><span class="line">IT0 = <span class="number">1</span>;  <span class="comment">//下降沿有效</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">  DigDisplay(speed); </span><br><span class="line">  <span class="keyword">if</span>(ms &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">  speed = <span class="number">3.1416</span> * wheeldiam * wheelcount * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">  wheelcount = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">  ms = <span class="number">0</span>;&#125; <span class="comment">//重置计时</span></span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EX_INTO</span><span class="params">()</span> interrupt 0</span>&#123; <span class="comment">//探测计数外部中断</span></span><br><span class="line">  wheelcount ++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的程序非常简陋但是足以写出测速的原理和实现的方法了，当然，本程序在理论上还存在很大的缺陷，实际上虽然我们的测速时间是3秒，但是刷新时间并不一定是3秒，如果你细心的话可能会发现，你的车停下后速度不会立刻变成0，而是在几秒甚至十几秒内快速下降，最后变成0，并且起步的时候也是同理，速度会慢慢增大而不是在你开始骑的3秒后突然增大，因此我们可以对程序稍加改进，这样一来既保证了准确性又保证了刷新频率</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P3^<span class="number">2</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u8 ms1 = <span class="number">0</span>;</span><br><span class="line">u8 ms2 = <span class="number">100</span>;</span><br><span class="line">u8 ms3 = <span class="number">200</span>;</span><br><span class="line">u8 wheelcount1 = <span class="number">0</span>;</span><br><span class="line">u8 wheelcount2 = <span class="number">0</span>;</span><br><span class="line">u8 wheelcount3 = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">long</span> speed = <span class="number">0</span>; <span class="comment">//速度（m/h）</span></span><br><span class="line"><span class="keyword">float</span> wheeldiam = <span class="number">0.635</span>; <span class="comment">//轮毂的直径（m）26寸轮毂==0.635m直径</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">Timer0Init();</span><br><span class="line">IE |= <span class="number">0x81</span>; <span class="comment">//打开外部中断0</span></span><br><span class="line">IT0 = <span class="number">1</span>;  <span class="comment">//下降沿有效</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">  DigDisplay(speed); </span><br><span class="line">  <span class="keyword">if</span>(ms1 &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">    speed = <span class="number">3.1416</span> * wheeldiam * wheelcount1 * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">    wheelcount1 = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">    ms1 = <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="comment">//重置计时</span></span><br><span class="line">  <span class="keyword">if</span>(ms2 &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">    speed = <span class="number">3.1416</span> * wheeldiam * wheelcount2 * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">    wheelcount2 = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">    ms2 = <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="comment">//重置计时</span></span><br><span class="line">  <span class="keyword">if</span>(ms3 &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">    speed = <span class="number">3.1416</span> * wheeldiam * wheelcount3 * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">    wheelcount3 = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">    ms3 = <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="comment">//重置计时</span></span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EX_INTO</span><span class="params">()</span> interrupt 0</span>&#123; <span class="comment">//探测计数外部中断</span></span><br><span class="line">  wheelcount1 ++;</span><br><span class="line">    wheelcount2 ++;</span><br><span class="line">      wheelcount3 ++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms1 ++;</span><br><span class="line">  ms2 ++;</span><br><span class="line">  ms3 ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>因为这个程序我暂时还没有实际应用到所以暂时不做优化啦，反正大致上就是这么个意思，逻辑上是没有问题的，这样也就保证了刷新的速度和准确性，但是如果检测时间太长还是会失去瞬时性，但是生活中大多数的测速都是通过平均速度来代替瞬时速度的，毕竟真正意义上瞬时速度貌似是没办法测的吧，这就涉及到物理层面了，不再赘述</p>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>开了个新坑，过程中遇到了太多阻碍了，一是开发资料的不足，另外是自己知识的盲区，所以导致这一部分虽然内容很少但是浪费了很多时间，希望我单片机课设的时候能抽到这个吧哈哈哈，即便是没有抽到，我在这一部分学习的内容中帮助到了在做课设的学长，也收到了dalao的帮助，填补了一部分之前知识的漏洞，收获也算是颇丰吧</p>
-<p><strong>特别鸣谢：@sorakage_33</strong></p>
-<p><i class="fa fa-info-circle" aria-hidden="true"></i>   本文还未与函数库同步21/5/15</p>
+    <title>不将就</title>
+    <url>/p/3a76.html</url>
+    <content><![CDATA[<p>事情源于前一阵子我与一位同学的对话，他其实是来拉我进他们机器人社团的，但是我那天晚上跟他聊了一晚上，从此我也得知了很多一些平时我大概接触不到的信息，并且我也确立了自己新的学习生活态度：<strong>不将就</strong></p>
+<p>在我博客的个人简介中我提到过，我是汽车专业的学生，不过我的专业并不是汽车工程，或者是什么交通之类的，而是汽车服务工程，这个到底意味着什么我们大概其实也都并不是很清楚，但是我们知道，我们所学习的东西，只多不深，繁而杂，并且我通过之前我们的导学课程以及本专业同名课程中我也得知，这个专业大概就是：卖保险，卖车，保险公司检测之类的，本来专业对口的工作貌似就不是很好，并且我们这个还不仅仅是汽车服务工程，后面还有两个字：“师范”，这下子就更麻烦了，据班长的说法，我们要学习80%的汽车服务工程的课程，学习40%的教育学的课程，这下子也确实合理解释了为什么我们的课程这么多（这个学期大概有14门课程，而下个学期有15门课程），也就是说，本来我们的专业就学不精，这下加上个教育学，那就更杂了，并且最近通过去高职学校实训，我发现自己貌似并不想成为一名高职或者中职老师，因为那边的学生素质相对于普通高中的学生确实不足，其主要表现在对规则意识的缺失与对秩序的漠视，扯远了，这一方面我会在另一篇blog中详细提到，在此仅仅作为举例提一下下，总之我们的专业就是杂，并且包括我在内的大部分同学实际上都是被调剂过来的</p>
+<p>那么问题就来了，既然在学校中有学习，那么就有考试，考试考的好的同学是抱有怎样的心态？而考试成绩差的同学又是抱有怎么样的心态？考试挂科的同学又是抱有怎么样的心态？</p>
+<p><i class="fa fa-info-circle" aria-hidden="true"></i>    以下所有内容针对的专业为：冷门专业，就业前景并不好，且大多数学生都是被调剂的</p>
+<h2 id="大部分成绩好的同学是在妥协，在将就"><a href="#大部分成绩好的同学是在妥协，在将就" class="headerlink" title="大部分成绩好的同学是在妥协，在将就"></a>大部分成绩好的同学是在妥协，在将就</h2><p>之前我也提到了，绝大多数我们这个专业的同学都是被调剂过来的，用数据来说话大概会更明确一些：我们2019级选择了这个专业的同学是个位数，而据说2020级选择这个专业的同学是0，这下就很伤脑筋了，这样一个大家都不喜欢的专业为什么有的人还在认真学习？这些人又是抱着怎么样的态度？</p>
+<p>要知道，作为一个普通人，想要摆脱当下，改变自己是很难的，虽然很难，但是是完全没办法改变吗？不是的，但为什么绝大多数人没有选择改变？（至少我们班没有人选择转专业并且成功）那就是我们总是在为自己找理由，通过“努力学习”来为自己没有选择一个好专业找理由，这样即便是之后毕业了找不到工作，自己也可以理直气壮地说：我努力了，我找不到工作不是我的原因，是专业太烂了</p>
+<p>从小学，初中，到高中，我们一直都是为了学习而学习，因为课程只有那些，它们就在那里，你学也要学，不学也要学，到了高中文理分科才有所选择，但是实际上区别并不大，因为选择的种类很少，绝大多数人肯定会：自己什么学的好就选择什么，到了大学情况就完全不一样了，每个学科的课程天差地别，整个大学课程分成了无数个大类，这些大类又分为无数个小类，小类又分成若干个种类，这对于绝大多数考生来说就很茫然了，在两年前我曾经也是，在选择专业上犯了愁，自己到底喜欢什么专业？什么专业就业前景好？然而我犯了一个巨大的错误：在选择专业上以学校为先，学科为后，因为自己高三一年都在摸鱼，导致高考成绩非常非常烂，只能压一本线：上一个二本的学校，我就选择了现在所在的学校，对于专业到底能不能选到自己喜欢的，貌似并不关心了</p>
+<p>最终结果显而易见，我被调剂了，我的同学一部分人大概也是这样，绝大多数人包括我，接受了自己被调剂的命运，选择了来上学，还有相当一部分人，选择了复读，我们选择来上学的这部分人，依然秉持着之前学习的传统：有什么课，我们就上什么课，老师教什么，我们就学习什么，这有错吗？这没有错，但是却又错到了极点，因为你在做自己该做的事情，但是却又没有做自己想做的事情</p>
+<p>我们总是按照课程表来安排自己的学习生活，既对自己的专业十分不满，又不打算去学习自己感兴趣的内容以此来改变现状，只懂得学习，却不懂得为什么学习，不懂得要学习什么，这就是在将就，即便是学习的再好又有什么用？如果你不是真的喜欢这个学科，你所谓的学习好也止步于大学阶段，兴趣是最好的老师，如果没有兴趣的支持，大概不会有所作为，并且因为专业本来就不好，大概也不会获得自己想要的生活</p>
+<p>在与那位同学的对话中我得知，他是单招进来的，并且他在大一阶段学习成绩十分优秀：绩点在4以上（平均分90以上），对于这个的真实性，我保持无可置疑的态度，但是他很后悔：学习那么多东西有什么用呢？学的那么杂那么乱，又学不精，自己也不喜欢，因此他通过加入机器人社团做嵌入式来改变自己的现状，他成功了一半，到了现在，他已经是队长了，拿到过一些奖项，并且自己也有考验的目标，同时在他们社团的很多同学也都选择了考研或者转专业的方式来追求自己真正想要做的事情，这真的是很棒的选择</p>
+<p>因此我学习的态度大概也会发生很大的变化：期末考试一定要过，但是并不打算好好学了，到了大二了，我貌似已经没有机会去选择转专业了，现在我将所有希望寄托于考研，通过考研达到一个更高的平台，去做自己喜欢做的东西，但愿我能够坚持下来</p>
+<h2 id="学习成绩中等的学生鱼龙混杂"><a href="#学习成绩中等的学生鱼龙混杂" class="headerlink" title="学习成绩中等的学生鱼龙混杂"></a>学习成绩中等的学生鱼龙混杂</h2><p>一方面，这部分学生有像我这样以后打算搞其他东西所有不打算好好学，仅仅止步于期末考试不挂科的同学</p>
+<p>另一方面绝大多数是一些同样秉持之前学习态度的同学，不过这类同学大概因为缺少了老师的管理因而放松，平时比较懒散但是上课该听还是听，导致学习成绩不那么理想，但是没挂科</p>
+<h2 id="学习成绩很差的学生不但在将就，同时毫无上进心"><a href="#学习成绩很差的学生不但在将就，同时毫无上进心" class="headerlink" title="学习成绩很差的学生不但在将就，同时毫无上进心"></a>学习成绩很差的学生不但在将就，同时毫无上进心</h2><p>大学期末考试，大学生都懂，说难听点：有手就行，想要及格，只需要上课听一听，作业自己独立完成，期末来临的时候抓起来复习一下基本上就差不多了，但是还是有很多挂科的同学，每个人都是不同的，有的学科对于一些同学来讲大概有点难，这部分同学又没有努力学习的魄力，大概会有一些挂科，不过其实问题不是特别大，补考还是有机会过的，最可怕的是那些挂科门数特别多的同学，对此我并不打算大张旗鼓批判这部分同学，只能说，没有人管就真的放飞自我了，忘记了自己来大学是为了什么的，虽然大家来大学的目的都不同，但是基本上都有一个交集：拿到毕业证（有的人确实也不是想拿毕业证的，参考之前我看到过的一个新闻：一个学生因为偷拍女厕所被开除了，复读一年考上新的学校又因为偷拍女厕所被开除了，震撼我妈）挂科门数特别多纯是自己真的就没打算学了</p>
+<h2 id="Never-settle"><a href="#Never-settle" class="headerlink" title="Never settle . . ."></a>Never settle . . .</h2><p>总之，在上面我大篇幅地批判了学习好的同学，他们并没有错，但是他们有错在在将就着学，将就着过，从来不为自己考虑自己想做什么，即便是在努力学习了依然像无头苍蝇一股脑的乱撞，这才是最为可悲的</p>
+<p>恰逢高考刚刚过去，对于即将成为大一新生的同学们，我以我自己的经验与教训告诫：选择专业时尽量以专业为先，最好是选择自己感兴趣或者学起来轻松的专业，至于所谓的就业前景，实际上并不是那么重要，如果你真的喜欢这个学科，期望自己有所作为并且付诸实践的话，我不认为就业是很困难的事情</p>
+<p>而对于已经在大学并且专业与我类似的同学们呢？对此因为我现在也仅仅是在探索，因为肯定无法给予帮助，我所知晓的大概就是跟我一样考研或者在校内通过一些社团，比赛等寻求出路</p>
+<p>总之，好不容易到了大学，有了一次真真正正自己选择学习内容学习目标的时候，不要将就，不要妥协，不要被自己所谓的努力而感动，选择一条自己想走的路吧！即便路的那端深不可测，但总会有点点星光指引你前行！</p>
 <hr>
-<p><strong>参考资料：</strong></p>
-<p>[1] 开关霍尔传感器与线性霍尔传感器：<a href="https://www.51dzw.com/embed/embed_128565.html">https://www.51dzw.com/embed/embed_128565.html</a></p>
-<p>[2]TTL电平与CMOS电平：<a href="http://www.51hei.com/bbs/dpj-135738-1.html">http://www.51hei.com/bbs/dpj-135738-1.html</a></p>
+<p><i class="fa fa-info-circle" aria-hidden="true"></i>    以上的内容仅为个人主观认识，难免会有错误或者你不认同的内容，如果你对我的所思所写无可置信，欢迎来<del>对线</del>辩论，另外因为写的比较急大概也没有太多时间梳理逻辑，逻辑上或许偶有错误，欢迎指正</p>
 ]]></content>
       <categories>
-        <category>技术</category>
+        <category>思考</category>
       </categories>
       <tags>
-        <tag>C语言</tag>
-        <tag>单片机</tag>
-        <tag>STC89C52</tag>
-        <tag>霍尔元件</tag>
+        <tag>奇思妙想</tag>
+        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
@@ -890,6 +826,33 @@
       </tags>
   </entry>
   <entry>
+    <title>互联网将人们联系到一起，但是人们究竟是成为了朋友还是成为了仇人？</title>
+    <url>/p/492.html</url>
+    <content><![CDATA[<p><i class="fa fa-info-circle" aria-hidden="true"></i>   <strong>撰写此文章时没有经过冷静期，存在有大量主观臆断，留存作为日后反思</strong></p>
+<p>我最近在思考，自从我们有了互联网，我们究竟是成为了朋友还是仇人？或许是我不善社交的缘故，我感觉到很多很不好的感觉，整个事件的起因大概也就是最近推上闹的沸沸扬扬的关于那两个“学中文的外国人”的事情吧，因为整件事情不同于以往设计政治的事情，在对政治方面，我一直在回避很多问题，因此我的关注基本上都是：与我政治见解相似或者不相差甚远，或者虽然政治见解有所偏差但是其本身有对我来说过硬的技术知识的网友，不过最近的这件事情我看到了部分我关注的网友站到了我的另一方面，即便是我没有公开发表立场，但这仍然让我有点难过</p>
+<p>整个事件的起因是源于一个人对另外三个人发出疑似政治间谍的质疑，我看过了他本人的原文，他本人的话语个人不是太相信，因为猜想的有些激进与片面了，但是因此才引起了这一波双方的对立</p>
+<p>第一个韩国人，自称是14岁初中生，但是我很久之前貌似是看到过说自己是小学生来着？忘记了，也可能是我记错了，不过这都不重要，重要的是其被关注者数量较大，且关注者数量极少，这让我有点不适，因为这种行为完全与我的网络社交理念背离，给我一种“极度以自我为中心，不想了解其他人，高高在上”的感觉，并且此事一出，下面的“天狗”行为有点溢出（实际上在此之前也是），这位被关注量较多的根本原因无非两点：1.她是学习中文的外国人，中推圈对这类人一般都抱有友好的态度 2.她是女性，这一点很重要，因为我刚上推的时候也关注过很多学习中文的外国人，他们的关注数都比较少，并且关注量与被关注量接近1:1，部分风趣幽默或者能够引起共同话题的人这个比例会低一些，这些人几乎都是男性，回到这件事情上，试想一下如果当事人是男性，那么结果会怎样？结果是这种事情根本不会发生，因为如果是男性，并且没有互fo进行互相交流互动的话，被关注量绝对不会那么多，也不会出现这类事情被推向风口浪尖</p>
+<p>第二位日本人，对于她我了解的并不多，但是与上面那一位相仿，都是：极少的关注量，极高的被关注量，是学习中文的外国人，是女性，发生的事情与刚刚的也相仿，首先这样的行为就在我这不引起好感，并且根据聊天截图可以看到，这位在私人聊天中的言语有点让人反感，她的人设貌似也就是这样，并且她的中文貌似很好？能够在合适的场景下使用俚语与紧跟时事的网络用语，因为上面的这些所以被怀疑了，对此我觉得无法得出所谓“间谍”的判断，仅仅是人设层面我不喜欢而已</p>
+<p>我讨厌的仅仅是上面的社交理念以及人们对待不同人群的态度，不过我貌似更不喜欢后者，但是这无所谓，毕竟不是所有人都招人喜欢的，也不是所有人都能看谁都顺眼，并且我个人也不咋讨人喜欢哈哈，对于这两位仅仅发表自己的一点真实想法，仅此而已，我选择从博客发表也是因为这两位不可能看到这里，避免了误伤对其本人的伤害同样也因为释放了我自己内心的想法而轻松一点，实际上真正让我不适的是下方评论区的人们，这些人我不知道是真的为了安慰别人还是仅仅因为她们是女性满足自己某些精神方面的快感，因为事实表明女性网友出事除非是有官方实锤不然为其说话的人远高于男性，很多都让我感到不适，相对而言较有素质的人群会发表一些相对文明的语言，但是也有不少人在双方都无明确证据的时候互相骂了起来，有的骂的就比较难听了，并且最近貌似事情也不少，我的timeline充满了争吵与不信任，这导致我有点烦，我不知道自己是出于“嫉妒”的心理还是“愤怒”的心理，但是这都让我感到不适，并且我不敢直接发表自己的看法，我不希望自己也被卷入其中，因此我也就无法得知自己到底是这件事情上到底是“相对正确”还是“相对错误”，究竟是“我错了”还是“我没错”</p>
+<p>第三位的话，之前我跟他互fo过，但是现在他的言论与思想让我极其不适，不管是任何方面，都让我感到不适，不过依然还是有许多我关注的网友关注了他，对于他的各种言论，我不作评判，但是他下面的评论区也是妖魔鬼怪最多的</p>
+<p>“言论自由”是一把双刃剑，一方面让大家畅所欲言，一方面让大家成为仇人（虽然没有言论自由的地方也并不影响大家成为仇人），不过后者我觉得大概更多的是人们自身的问题，自从人类通过使用虚构的东西来让能够实现合作的人群突破150人以来，人们就活在“虚拟的世界”中，因此当网络这种虚拟的世界真正出现后，大家便理所当然的将他当作了现实，有的人说“网络虚拟，交心不宜”，但现实中更何况不是如此呢？人们共同生活共同合作，其原因并不是他们一出生就相识，因而你所看到的其他人实际上也可能在隐瞒自己的内心，在你的视野之外他们可能是另外一个人，在之前人们会为了自己的信仰而出征，而进行种族屠杀，那么为什么就不能在网络上口诛笔伐呢？网络仅仅是提供了便利的条件，就像玩家们游玩fps游戏时不必真正前往战场一样，因此也就没有了那么多的顾虑</p>
+<p>从古至今，人们发生争吵的理由有的是信仰，那是因为他们的信仰在他们自身看来是真实的，是至高无上的；也有的是财富，那是因为财富能给他们带来真真切切的物质便利；也有的是自己喜欢的明星，那是因为他们所喜欢的明星能给他们带来他们认为最好的影视作品；也有的是自己使用设备的厂商，那是因为他们认为自己使用的产品与使用者的素质相关；而如今，人们却能够为了根本就没鸟过自己的人发生争吵，这真的是荒谬至极，虽然这其中夹杂了不少政治上的因素，但是这依然不能被我视而不见</p>
+<p>趋利避害是所有生物的本能，如今，我也决定避害，我不愿看到人们因为荒谬的理由发生争吵，更不愿为了荒谬的理由与人发生争吵，岁月并不静好，但为什么还在为了这样的事情而争吵呢？</p>
+<p><del>淦，写着写着电脑崩溃了，下面写的一段都没了，还要重新写</del></p>
+<p>今天有感而发吧，行文与逻辑可能不是很通顺，因为我是想到什么就写了什么，然后呢，这篇文章大概也不会有人看，即便是有看的大概也是来我博客翻教程偶然看到的哈哈，不过人总要抱点希望的，如果人失去了希望活着也就没有意义了，如果你是看到我已经很久不使用之前的账号了因此来翻博客或者去关注我新号了，那么非常感谢你，感谢你能让我在你的社交圈留下印象！</p>
+<p>具体联系方式的话旧号个人简介我也留啦，或者说你可以通过本网站的PC端向我发送电子邮件或者电报，新号我将遵循个人刚刚学习到的一些社交上的理念，新号的被关注量大概不会超过200，原则上在150以内吧，不过估计现实中能有20个就不错啦，因为其实也没跟太多人关系比较好，之前有几个因为各种原因有的失踪了，有的退推了，有的加了别的联系方式，新号我大概也不会去关注太多之前认识的网友，我大概会主动加几个自己认为值得信任并且一些思想我想对认同或者之前给我过许多帮助的推油，不过也都是随缘，偶尔看一眼会加几个吧，没加也不代表什么，我懒得一次性全加上，并且这次决定是我一时决定，我需要一段时间冷静期来思考，如果加新号通过了的话说明我一定不会对你有太多意见。。。</p>
+<p>那么暂时就到此为止吧：2019.2——2021.5｜382关注｜1228被关注</p>
+<p>不管怎样，感谢陪伴</p>
+]]></content>
+      <categories>
+        <category>思考</category>
+      </categories>
+      <tags>
+        <tag>奇思妙想</tag>
+        <tag>社交</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>51单片机开发例程-7</title>
     <url>/p/f2d8.html</url>
     <content><![CDATA[<p>之前我们都是学习通过单片机核心来控制外部的各种电路，这次我们要学习单片机内部的一个很重要的系统：中断系统，通过中断系统，我们可以使得单片机可以在运行过程中优先执行比起现在正在执行的程序更重要的程序，并且在该内容中我们也将学习到定时器以及串口等内容</p>
@@ -1022,6 +985,76 @@
         <tag>C语言</tag>
         <tag>单片机</tag>
         <tag>中断系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>51单片机传感器-1</title>
+    <url>/p/4301.html</url>
+    <content><![CDATA[<p>本篇的标题不同于其他的51单片机开发基础文章，没错，这个是新坑，主要用于介绍单片机中用到的各种传感器，要学习这部分内容需要你有一定的单片机开发基础，并且拥有相应的传感器或者使用仿真器，这部分会一一以51单片机为基础讲解我从某宝上买到的45个传感器以及开关，因为套件刚到就使用到了这一传感器，所以也从这个传感器开始讲起，而这部分内容用到的正是我们在高中物理就接触过的：霍尔元件</p>
+<a id="more"></a>
+
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>1.使用<code>STC89C52</code>的普中51-单核-A2单片机（本文基于51单片机撰写）</li>
+<li>2.能够正常下载驱动以及Keil等开发软件或者能够正常使用Proteus仿真软件的Windows10.0系统PC</li>
+<li>3.一根micro USB to USB A数据线</li>
+<li>4.三根母对母杜邦线</li>
+<li>5.3144霍尔磁力传感器</li>
+<li>6.一块磁铁</li>
+</ul>
+<h1 id="霍尔磁力传感器"><a href="#霍尔磁力传感器" class="headerlink" title="霍尔磁力传感器"></a>霍尔磁力传感器</h1><h2 id="霍尔元件简介"><a href="#霍尔元件简介" class="headerlink" title="霍尔元件简介"></a>霍尔元件简介</h2><p>简单点来说，霍尔元件就是一个检测磁场的传感器，我们生活中很多地方都能用到它，比如手机或者iPad那些关盖息屏的手机壳，门窗感应器等，好处也是非常多，那到底有什么好处呢，看下面：</p>
+<blockquote>
+<p>霍尔元件是一种基于霍尔效应的磁传感器。用它们可以检测磁场及其变化，可在各种与磁场有关的场合中使用。霍尔元件具有许多优点，它们的结构牢固，体积小，重量轻，寿命长，安装方便，功耗小，频率高（可达1MHZ），耐震动，不怕灰尘、油污、水汽及盐雾等的污染或腐蚀</p>
+<p>——引用自<a href="https://baike.baidu.com/item/%E9%9C%8D%E5%B0%94%E5%85%83%E4%BB%B6/5120044?fr=aladdin">百度百科</a></p>
+</blockquote>
+<p><a href="https://www.51dzw.com/embed/embed_128565.html">[1]</a> 霍尔元件不仅仅在外观上有区别，在功能上也有所区分：一种是开关霍尔传感器，一种是线性霍尔传感器，它们有什么区别？开关霍尔传感器输出端输出的是高低电平，输出的波形是方波，也就是数字电路中所说的数字量，而线性霍尔传感器当给其施加的磁场逐渐增强时，其输出的电压会逐渐增大，也就是模拟电路中的模拟量，在实际使用中，我们更多地使用线性霍尔传感器，因为开关霍尔传感器常常因为温度等原因使得设定值漂移，灵敏度下降，并且开关霍尔传感器能做的事情比线性霍尔传感器少，那为何不用后者呢？</p>
+<h2 id="3114线性霍尔磁力传感器"><a href="#3114线性霍尔磁力传感器" class="headerlink" title="3114线性霍尔磁力传感器"></a>3114线性霍尔磁力传感器</h2><p><i class="fa fa-info-circle" aria-hidden="true"></i>   首先要提醒下，<strong>不同芯片传感器的引脚功能是不一定相同的</strong>，一定要搞清楚引脚的功能，查阅正确的芯片手册，或者问购买的商家，不要自己瞎接线，不仅仅是这个霍尔传感器，其他的芯片传感器也是同理！<strong>自己瞎接线后果很严重！轻则烧集成电路，烧电阻，重则电容爆炸！</strong></p>
+<img src="/p/4301/hall0.png" class title="3144线性霍尔传感器">
+
+<p>霍尔元件的原理很简单，就是利用霍尔效应：当磁场作用于载流金属导体或者半导体中的电子时，产生横向电位差的物理现象，我们通过放大器将这个电位差放大输出，这就是最基本的霍尔传感器原理</p>
+<img src="/p/4301/hall.png" class title="线性霍尔传感器原理图">
+
+<p>绝大多数的霍尔传感器都具有三个引脚，分别是：GND，VCC和GPIO，前两者一个是接地，一个是按照芯片手册接入传感器正确的工作电压，后者是传感器的输出引脚，在本示例中我所使用的是3144霍尔传感器，其引脚定义图如下，从左到右分别是：接地，接3.3V电源，输出，因此我们只需要按照这个接入单片机即可，接入单片机核心的引脚只需要接输出即可</p>
+<img src="/p/4301/hallio.png" class title="3144霍尔传感器引脚定义图">
+
+<p>因为刚刚我们讲过，该传感器是线性传感器，那么实际上输出引脚输出的是一个波形，单片机如何判断呢？51单片机使用的是<a href="http://www.51hei.com/bbs/dpj-135738-1.html">[2]</a><strong>TTL电平：采用5V电源，输出高电平Uoh≥2.4V，输出低电平Uol≤0.4V，输入高电平Uih≥2.0V，输入低电平Uil≤0.8V</strong>，也就是说线性霍尔传感器输出的模拟量会被转换成数字量，因此也就不必担心线性霍尔传感器的使用问题了</p>
+<h1 id="通过磁力点亮LED灯"><a href="#通过磁力点亮LED灯" class="headerlink" title="通过磁力点亮LED灯"></a>通过磁力点亮LED灯</h1><p>如果上面的理论知识对你来说还是太抽象的话，下面这样一个简单的程序示例就能让你很快了解到线性霍尔磁力传感器的使用方法了</p>
+<p>我们刚刚讲到，对于线性霍尔传感器，单片机使用的TTL电平会对其起一个转化作用，我们就用下面这样一个简单的小程序来验证一下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//将霍尔元件的输出端插到单片机P1^0口上</span></span><br><span class="line">sbit LED = P2^<span class="number">0</span>; <span class="comment">//LED灯</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>; <span class="comment">//按键1</span></span><br><span class="line">sbit K2 = P3^<span class="number">0</span>; <span class="comment">//按键2</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">      <span class="keyword">if</span>(Hall == <span class="number">1</span>)LED = <span class="number">0</span>; <span class="comment">//输出1时灯亮</span></span><br><span class="line">      <span class="keyword">else</span> LED = <span class="number">1</span>; <span class="comment">//输出0时灯灭</span></span><br><span class="line">  &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>你会发现你把传感器相应的那一面靠近磁铁相应的一极LED灯就会亮起，那么你就学会了霍尔传感器最基本的使用方法啦</p>
+<h1 id="通过磁力检测门的开关"><a href="#通过磁力检测门的开关" class="headerlink" title="通过磁力检测门的开关"></a>通过磁力检测门的开关</h1><p>只检测门的开关那就过于简单了，跟上面LED灯一模一样，因此我们要实现的功能是：检测门的开关，如果门关着，那么什么都不会发生，如果门打开了一段时间没关，那么蜂鸣器响起，提醒关门，如果门关上了，蜂鸣器停止提示声</p>
+<p>具体写的过程大概就是：检测门开启关闭，如果关闭，计时器清零，如果开启，开始计时，计时达到设定时间进入蜂鸣器循环，如果此时检测到门关闭那么跳出蜂鸣器循环，程序重新开始判断</p>
+<p>然后呢，一步步写的过程我也懒得写了，代码做的详细的注释，值得注意的是代码调用了<code>51FunctionLibrary</code>中的函数，当然这个函数并不是必要的，而是调试过程中使用的，用于显示计时器是否开始工作，开工作后计时了多少，毕竟单片机不像直接写程序那么容易调试，当然你用仿真器的话这个貌似也并不是很需要XD</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u16 ms = <span class="number">0</span>;</span><br><span class="line">u8 timesecond = <span class="number">10</span>; <span class="comment">//设定从未关闭车门到报警的时间（秒）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    LED1 = Hall; <span class="comment">//调试用，可删</span></span><br><span class="line">    <span class="keyword">if</span>(Hall == <span class="number">0</span>)&#123; <span class="comment">//如果车门关闭 </span></span><br><span class="line">	    TR0 = <span class="number">0</span>;	<span class="comment">//关闭定时器</span></span><br><span class="line">		  ms = <span class="number">0</span>;  <span class="comment">//重置计时</span></span><br><span class="line">	&#125;<span class="keyword">else</span>&#123; <span class="comment">//如果车门开启</span></span><br><span class="line">	  <span class="keyword">if</span>(ms == <span class="number">0</span>)Timer0Init(); <span class="comment">//如果计时为0那么开启定时器并输入参数</span></span><br><span class="line">	&#125;</span><br><span class="line">	DigDisplay(ms);	<span class="comment">//调试用数码管显示计时时长</span></span><br><span class="line">	<span class="keyword">if</span>(ms &gt;= <span class="number">100</span>*timesecond)&#123; <span class="comment">//如果时间达到设定时间</span></span><br><span class="line">	  ms = <span class="number">0</span>;	<span class="comment">//重置计时</span></span><br><span class="line">	  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	    beep = ~beep;delay(<span class="number">100</span>); <span class="comment">//蜂鸣器响起</span></span><br><span class="line">	    <span class="keyword">if</span>(K1 == <span class="number">0</span> || Hall == <span class="number">0</span>)<span class="keyword">break</span>;&#125;	<span class="comment">//如果按下按键K1或者关闭车门重置</span></span><br><span class="line">	  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>&#123; <span class="comment">//开启16位定时器中断0并设定参数</span></span><br><span class="line">  ms ++; <span class="comment">//让ms不等于1，那么该函数就不会连续运行</span></span><br><span class="line">  TMOD |= <span class="number">0x01</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>; </span><br><span class="line">  TL0 = <span class="number">0x22</span>; </span><br><span class="line">  EA = <span class="number">1</span>; </span><br><span class="line">  ET0 = <span class="number">1</span>; </span><br><span class="line">  TR0 = <span class="number">1</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上的程序运行起来没有问题，但是理论有大问题：频繁开关中断，因为上面的程序过于简单，只用到了一个中断，在我之前讲中断的那一节里面讲到，中断是有优先级的，<strong>频繁开关中断会导致时序冲突</strong>，因此代码需要对中断部分进行修改：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u16 ms = <span class="number">0</span>;</span><br><span class="line">u8 timesecond = <span class="number">10</span>; <span class="comment">//设定从未关闭车门到报警的时间（秒）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">Timer0Init();</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    LED1 = Hall; <span class="comment">//调试用，可删</span></span><br><span class="line">    <span class="keyword">if</span>(Hall == <span class="number">0</span>)&#123; <span class="comment">//如果车门关闭 </span></span><br><span class="line">      ms = <span class="number">0</span>;  <span class="comment">//重置计时</span></span><br><span class="line">	&#125;<span class="keyword">else</span>&#123; <span class="comment">//如果车门开启</span></span><br><span class="line">	  <span class="keyword">if</span>(ms == <span class="number">0</span>)timer0start(); <span class="comment">//如果计时为0那么开启定时器</span></span><br><span class="line">	&#125;</span><br><span class="line">	DigDisplay(ms);	<span class="comment">//调试用数码管显示计时时长</span></span><br><span class="line">	<span class="keyword">if</span>(ms &gt;= <span class="number">100</span>*timesecond)&#123; <span class="comment">//如果时间达到设定时间</span></span><br><span class="line">	  ms = <span class="number">0</span>;	<span class="comment">//重置计时</span></span><br><span class="line">	  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	    beep = ~beep;delay(<span class="number">100</span>); <span class="comment">//蜂鸣器响起</span></span><br><span class="line">	    <span class="keyword">if</span>(K1 == <span class="number">0</span> || Hall == <span class="number">0</span>)&#123;</span><br><span class="line">		  <span class="keyword">break</span>;ms = <span class="number">0</span>;	<span class="comment">//如果按下按键K1或者关闭车门重置</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;	</span><br><span class="line">  &#125;</span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  timer0start();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>&#123; <span class="comment">//开启16位定时器中断0并设定参数</span></span><br><span class="line">  TMOD |= <span class="number">0x01</span>; </span><br><span class="line">  EA = <span class="number">1</span>; </span><br><span class="line">  ET0 = <span class="number">1</span>; </span><br><span class="line">  TR0 = <span class="number">1</span>; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>&#123;</span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>哈哈哈上面的其实也是有点问题的，因此计时器开了就是开了，如果你在计时器中断内对计时器的寄存器进行了赋值，那么除非是计时器关了或者机器关了，不然计时器都是一直在运行的，因此上面判断到车门开启就调用time0start就完全没有意义了，因此这个需要删除，而在else内只有这一条语句，因此对应的else也可以删除，然后在程序后面判断到达到时间后无需急着让ms为0，进入进入了蜂鸣器的循环，ms在循环内毫无意义，因此只需要跳出这个循环的时候给ms赋值0就可以了，最终修改的程序如下，以我的代码风格貌似这个程序没办法再精简了：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P1^<span class="number">0</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u16 ms = <span class="number">0</span>;</span><br><span class="line">u8 timesecond = <span class="number">10</span>; <span class="comment">//设定从未关闭车门到报警的时间（秒）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">TMOD |= <span class="number">0x01</span>; <span class="comment">//开启16位计时器中断0</span></span><br><span class="line">EA = <span class="number">1</span>; </span><br><span class="line">ET0 = <span class="number">1</span>; </span><br><span class="line">TR0 = <span class="number">1</span>; </span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    LED1 = Hall; <span class="comment">//调试用，可删</span></span><br><span class="line">    <span class="keyword">if</span>(Hall == <span class="number">0</span>)&#123; <span class="comment">//如果车门关闭 </span></span><br><span class="line">      ms = <span class="number">0</span>;  <span class="comment">//重置计时</span></span><br><span class="line">	&#125; <span class="comment">//如果车门打开，继续计时，车门非开即关，因此无需多余操作</span></span><br><span class="line">	DigDisplay(ms);	<span class="comment">//调试用数码管显示计时时长</span></span><br><span class="line">	<span class="keyword">if</span>(ms &gt;= <span class="number">100</span>*timesecond)&#123; <span class="comment">//如果时间达到设定时间</span></span><br><span class="line">	  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	    beep = ~beep;delay(<span class="number">100</span>); <span class="comment">//蜂鸣器响起</span></span><br><span class="line">	    <span class="keyword">if</span>(K1 == <span class="number">0</span> || Hall == <span class="number">0</span>)&#123;</span><br><span class="line">		  ms = <span class="number">0</span>;<span class="keyword">break</span>;	<span class="comment">//如果按下按键K1或者关闭车门重置</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;	</span><br><span class="line">  &#125;</span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="通过霍尔元件进行测速"><a href="#通过霍尔元件进行测速" class="headerlink" title="通过霍尔元件进行测速"></a>通过霍尔元件进行测速</h1><p>不知道你有没有用过或者见到过自行车上的测速表，在使用的时候需要在轮毂上安装一个磁铁，然后探测端绑到自行车前架上，与轮毂上磁铁对应，这一车轮每转一圈，传感器就能探测到磁铁的磁性因此也就知道了车轮转了一圈，结合车轮的半径数据，码表上就能显示出正确的车速，这个传感器便是霍尔传感器</p>
+<p>如何知道车速呢？我们需要设定一个检测时间，检测在这个时间内车轮的转的圈数，然后进行计算才能得到在这一段时间内的平均速度，如果检测的时间够短，那么这段时间内的平均速度就可以近似的视为瞬时速度，但是考虑到如果你只转了9/10圈的话码表显示的速度依然是0，因此检测的时间越长，检测出的速度越准确，但是也就越不是“瞬时速度”，因此我们要在这两者之间进行权衡，究竟是“更直观”还是“更准确”？或者说两者都要？这就类似于之前的数码管，刷新的太快亮度会变低，刷新的太慢眼睛就能看到明显的频闪，因此在此我们取刷新时间为3秒，这个时间不会太快而导致测不准，也不至于太慢，实际上这个时间是以自行车为基准的，因为汽车的速度相比自行车要快，所以如果是汽车那么检测时间可以缩短</p>
+<p>在这个程序中有三个进程，一个是必要的显示，这里使用动态数码管，一个是计时，对检测时间进行计时，还有一个是检测到车轮转过就加1的计数器</p>
+<p>首先是动态数码管，我们直接将其放入主函数，计时使用计时中断，计数则使用外部中断，并且外部中断选择下降沿有效，因为当车轮转过时，转过的时间还远小于指令周期，如果选择低电平有效则会多次计数，车轮转过电平由高到低再到高，这其中只会有一次下降沿，因此我们选择下降沿有效</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P3^<span class="number">2</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u8 ms = <span class="number">0</span>;</span><br><span class="line">u8 wheelcount = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">long</span> speed = <span class="number">0</span>; <span class="comment">//速度（m/h）</span></span><br><span class="line"><span class="keyword">float</span> wheeldiam = <span class="number">0.635</span>; <span class="comment">//轮毂的直径（m）26寸轮毂==0.635m直径</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">Timer0Init();</span><br><span class="line">IE |= <span class="number">0x81</span>; <span class="comment">//打开外部中断0</span></span><br><span class="line">IT0 = <span class="number">1</span>;  <span class="comment">//下降沿有效</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">  DigDisplay(speed); </span><br><span class="line">  <span class="keyword">if</span>(ms &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">  speed = <span class="number">3.1416</span> * wheeldiam * wheelcount * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">  wheelcount = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">  ms = <span class="number">0</span>;&#125; <span class="comment">//重置计时</span></span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EX_INTO</span><span class="params">()</span> interrupt 0</span>&#123; <span class="comment">//探测计数外部中断</span></span><br><span class="line">  wheelcount ++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的程序非常简陋但是足以写出测速的原理和实现的方法了，当然，本程序在理论上还存在很大的缺陷，实际上虽然我们的测速时间是3秒，但是刷新时间并不一定是3秒，如果你细心的话可能会发现，你的车停下后速度不会立刻变成0，而是在几秒甚至十几秒内快速下降，最后变成0，并且起步的时候也是同理，速度会慢慢增大而不是在你开始骑的3秒后突然增大，因此我们可以对程序稍加改进，这样一来既保证了准确性又保证了刷新频率</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;51FunctionLibrary.h&quot;</span></span></span><br><span class="line">sbit LED1 = P2^<span class="number">0</span>; <span class="comment">//调试用的LED</span></span><br><span class="line">sbit Hall = P3^<span class="number">2</span>; <span class="comment">//霍尔元件I/O</span></span><br><span class="line">sbit K1 = P3^<span class="number">1</span>;	 <span class="comment">//调试用复位开关</span></span><br><span class="line">u8 ms1 = <span class="number">0</span>;</span><br><span class="line">u8 ms2 = <span class="number">100</span>;</span><br><span class="line">u8 ms3 = <span class="number">200</span>;</span><br><span class="line">u8 wheelcount1 = <span class="number">0</span>;</span><br><span class="line">u8 wheelcount2 = <span class="number">0</span>;</span><br><span class="line">u8 wheelcount3 = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">long</span> speed = <span class="number">0</span>; <span class="comment">//速度（m/h）</span></span><br><span class="line"><span class="keyword">float</span> wheeldiam = <span class="number">0.635</span>; <span class="comment">//轮毂的直径（m）26寸轮毂==0.635m直径</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0Init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">(u16 delaytime)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0start</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">Timer0Init();</span><br><span class="line">IE |= <span class="number">0x81</span>; <span class="comment">//打开外部中断0</span></span><br><span class="line">IT0 = <span class="number">1</span>;  <span class="comment">//下降沿有效</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">  DigDisplay(speed); </span><br><span class="line">  <span class="keyword">if</span>(ms1 &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">    speed = <span class="number">3.1416</span> * wheeldiam * wheelcount1 * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">    wheelcount1 = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">    ms1 = <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="comment">//重置计时</span></span><br><span class="line">  <span class="keyword">if</span>(ms2 &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">    speed = <span class="number">3.1416</span> * wheeldiam * wheelcount2 * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">    wheelcount2 = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">    ms2 = <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="comment">//重置计时</span></span><br><span class="line">  <span class="keyword">if</span>(ms3 &gt;= <span class="number">300</span>)&#123;  <span class="comment">//如果达到指定时间那么进入</span></span><br><span class="line">    speed = <span class="number">3.1416</span> * wheeldiam * wheelcount3 * <span class="number">3600</span> / <span class="number">3</span>; <span class="comment">//速度赋值</span></span><br><span class="line">    wheelcount3 = <span class="number">0</span>; <span class="comment">//重置计数</span></span><br><span class="line">    ms3 = <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="comment">//重置计时</span></span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EX_INTO</span><span class="params">()</span> interrupt 0</span>&#123; <span class="comment">//探测计数外部中断</span></span><br><span class="line">  wheelcount1 ++;</span><br><span class="line">    wheelcount2 ++;</span><br><span class="line">      wheelcount3 ++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Timer0</span><span class="params">()</span> interrupt 1</span>&#123; <span class="comment">//定时器中断</span></span><br><span class="line">  TL0 = <span class="number">0x22</span>;</span><br><span class="line">  TH0 = <span class="number">0xdc</span>;</span><br><span class="line">  ms1 ++;</span><br><span class="line">  ms2 ++;</span><br><span class="line">  ms3 ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为这个程序我暂时还没有实际应用到所以暂时不做优化啦，反正大致上就是这么个意思，逻辑上是没有问题的，这样也就保证了刷新的速度和准确性，但是如果检测时间太长还是会失去瞬时性，但是生活中大多数的测速都是通过平均速度来代替瞬时速度的，毕竟真正意义上瞬时速度貌似是没办法测的吧，这就涉及到物理层面了，不再赘述</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>开了个新坑，过程中遇到了太多阻碍了，一是开发资料的不足，另外是自己知识的盲区，所以导致这一部分虽然内容很少但是浪费了很多时间，希望我单片机课设的时候能抽到这个吧哈哈哈，即便是没有抽到，我在这一部分学习的内容中帮助到了在做课设的学长，也收到了dalao的帮助，填补了一部分之前知识的漏洞，收获也算是颇丰吧</p>
+<p><strong>特别鸣谢：@sorakage_33</strong></p>
+<p><i class="fa fa-info-circle" aria-hidden="true"></i>   本文还未与函数库同步21/5/15</p>
+<hr>
+<p><strong>参考资料：</strong></p>
+<p>[1] 开关霍尔传感器与线性霍尔传感器：<a href="https://www.51dzw.com/embed/embed_128565.html">https://www.51dzw.com/embed/embed_128565.html</a></p>
+<p>[2]TTL电平与CMOS电平：<a href="http://www.51hei.com/bbs/dpj-135738-1.html">http://www.51hei.com/bbs/dpj-135738-1.html</a></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>单片机</tag>
+        <tag>STC89C52</tag>
+        <tag>霍尔元件</tag>
       </tags>
   </entry>
 </search>
