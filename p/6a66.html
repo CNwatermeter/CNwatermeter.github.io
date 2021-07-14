@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content=",,," />
+  <meta name="keywords" content="单片机,STC89C52,汇编语言," />
 
 
 
@@ -81,18 +81,24 @@
 
 
 
-<meta name="description" content="2021年初自己突然又了想法想要装一台台式机，当时想着是有些软件还是有Win10比较好用，自己的Macbook本来是有虚拟机来着，但是我手贱点了升级然后之后就出了一系列驱动问题，因为我个人知识储备不足所以无法解决这些问题，并且我尝试对虚拟机进行重装也无法解决这些问题，无奈就只能搞个Win系统的机器了，笔记本呢又有点高价低配，所以选择了台式机，顺便自己还能玩玩游戏啥的XD   配置选择一开始选择配置">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小白兼垃圾佬的装机体验">
-<meta property="og:url" content="http://cnwatermeter.github.io/%E6%92%B0%E5%86%99ing/%E5%B0%8F%E7%99%BD%E5%85%BC%E5%9E%83%E5%9C%BE%E4%BD%AC%E7%9A%84%E8%A3%85%E6%9C%BA%E4%BD%93%E9%AA%8C.html">
+<meta name="description" content="前言：怎么说呢，我终于也“沦落”到了今天，据班长的说法我们大三上学期要学习单片机的课程，我之前也在学院楼的机房见到了我们要学习的单片机的教材，本来以为自己之前的那点基础应该是可以应付的了之后的课程了，但是呢，我想的太简单了  “我翻开教材一看，这本教材没有年代，歪歪斜斜的每页上都写着‘单片机’三个字。我横竖睡不着，仔细看了半夜，才从字缝里看出字来，满本都写着两个字是‘汇编’！”——鲁迅  这特么居">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于汇编语言的51单片机开发-1">
+<meta property="og:url" content="http://cnwatermeter.github.io/p/6a66.html">
 <meta property="og:site_name" content="淼表のブログ">
-<meta property="og:description" content="2021年初自己突然又了想法想要装一台台式机，当时想着是有些软件还是有Win10比较好用，自己的Macbook本来是有虚拟机来着，但是我手贱点了升级然后之后就出了一系列驱动问题，因为我个人知识储备不足所以无法解决这些问题，并且我尝试对虚拟机进行重装也无法解决这些问题，无奈就只能搞个Win系统的机器了，笔记本呢又有点高价低配，所以选择了台式机，顺便自己还能玩玩游戏啥的XD   配置选择一开始选择配置">
+<meta property="og:description" content="前言：怎么说呢，我终于也“沦落”到了今天，据班长的说法我们大三上学期要学习单片机的课程，我之前也在学院楼的机房见到了我们要学习的单片机的教材，本来以为自己之前的那点基础应该是可以应付的了之后的课程了，但是呢，我想的太简单了  “我翻开教材一看，这本教材没有年代，歪歪斜斜的每页上都写着‘单片机’三个字。我横竖睡不着，仔细看了半夜，才从字缝里看出字来，满本都写着两个字是‘汇编’！”——鲁迅  这特么居">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-03-13T11:21:01.000Z">
-<meta property="article:modified_time" content="2021-04-12T04:15:03.267Z">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/undefined/IMG_8159.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/undefined/51%E5%8D%95%E7%89%87%E6%9C%BA%E6%A0%B8%E5%BF%83.png">
+<meta property="og:image" content="http://cnwatermeter.github.io/p/undefined/Core.png">
+<meta property="article:published_time" content="2021-07-14T10:16:19.000Z">
+<meta property="article:modified_time" content="2021-07-14T12:44:45.797Z">
 <meta property="article:author" content="淼表">
-<meta property="article:tag" content="-装机">
+<meta property="article:tag" content="单片机">
+<meta property="article:tag" content="STC89C52">
+<meta property="article:tag" content="汇编语言">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cnwatermeter.github.io/p/undefined/IMG_8159.png">
 
 
 
@@ -122,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://CNwatermeter.github.io/撰写ing/小白兼垃圾佬的装机体验.html"/>
+  <link rel="canonical" href="http://CNwatermeter.github.io/p/6a66.html"/>
 
 
 
 
 
-  <title>小白兼垃圾佬的装机体验 | 淼表のブログ</title>
+  <title>基于汇编语言的51单片机开发-1 | 淼表のブログ</title>
   
 
 
@@ -285,85 +291,265 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://CNwatermeter.github.io/p/6a66.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="淼表のブログ">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h2 class="post-title" itemprop="name headline">小白兼垃圾佬的装机体验</h2>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <p>2021年初自己突然又了想法想要装一台台式机，当时想着是有些软件还是有Win10比较好用，自己的Macbook本来是有虚拟机来着，但是我手贱点了升级然后之后就出了一系列驱动问题，因为我个人知识储备不足所以无法解决这些问题，并且我尝试对虚拟机进行重装也无法解决这些问题，无奈就只能搞个Win系统的机器了，笔记本呢又有点高价低配，所以选择了台式机，顺便自己还能玩玩游戏啥的XD</p>
-<!--- more --->
-
-<h1 id="配置选择"><a href="#配置选择" class="headerlink" title="配置选择"></a>配置选择</h1><p>一开始选择配置是很头痛的一件事情，因为涉及到的东西太多了，但是根据我的总结大概是要先选择CPU和显卡然后再根据这两个核心部件选择其他的配件</p>
-<h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p>CPU的话久仰E3大名但是因为我觉得E3是垃圾佬搞那些什么几百几百配置吹出来的，实际上估计不大行，所以我甚至连规格和价格都没看就直接Pass掉了，家里老电脑用的是二代i3，那我怎么着也要上个二代i5，转了一圈看了看天梯图（<strong>个人认为对于像我这样的纯小白，从天梯图的定位选择配置是一个不错的选择</strong>）大概三代i5能凑合，价格比较便宜基本上200出头，然后性能的话毕竟比i3大一级所以肯定比老电脑好，能用就行，在i5-3470和i5-3570之间我选择了后者，因为价格差不多，但是性能高一丢丢</p>
-<p>至于为什么不用AMD，因为我个人对AMD没有太多了解，嘤特尔低中高端对应i3-i5-i7并且数字越高基本上就代表着性能越好，AMD在我当时的定位中基本上还到不了Ryzen的水平，所以就没有考虑AMD</p>
-<blockquote>
-<p>Intel Core <a href="mailto:&#105;&#53;&#x2d;&#51;&#53;&#55;&#x30;&#64;&#x33;&#x2e;&#x36;&#x47;&#x48;&#x7a;">&#105;&#53;&#x2d;&#51;&#53;&#55;&#x30;&#64;&#x33;&#x2e;&#x36;&#x47;&#x48;&#x7a;</a> 4C4T          240RMB</p>
-</blockquote>
-<h2 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h2><p>GPU的话当时结合了CPU考虑显卡，CPU绝对是比较低的，我当时也是纠结是搞个稍微好一丢丢的显卡以后升级CPU还是怎么着，神卡GTX1060的话价格有点高，同性能大概有RX580 2304SP，价格当时貌似是要600多吧，因为我的预算太低了只有1k出头所以我为了省钱选择了比神卡GTX1060低一级的GTX1050（中间夹个GTX050Ti，其实说低两级也不为过XD）并且又是因为自己预算问题没有买4G版本的买了2G版本的，现在想想真是糊涂啊，当时如果咬咬牙上RX580我就发达了，因为就在我采购完毕一个月后矿潮出现了，RX580普遍1K+的价格</p>
-<p>买10系其实是为了<strong>架构不要太落后</strong>，当时备选其实也还有GTX960，为了新一点的架构所以选择了10系，而买50一个是没钱，另一个是功耗相对较低，因为考虑到宿舍限电问题，<strong>电脑功率一定不要太高</strong>，当时考虑的是满载功率一定不要过300W，之前选择的i5-3570的TDP是77W，再加上GTX1050的75W，核心部件也就150W，再加上其他的乱七八糟的顶多也就200W，而RX580功耗就上天了，貌似能跑到200，GTX960的话满载也要120吧</p>
-<blockquote>
-<p>Nvidia Geforce RTX 1050 2GB By Zotac          400RMB</p>
-</blockquote>
-<h2 id="主板"><a href="#主板" class="headerlink" title="主板"></a>主板</h2><p>选好核心部件就开始选择下一个大部件：主板，<strong>主板的话根据CPU来选，CPU是多少针脚的就搜多少针脚的主板，比如i5-3570是1155针，就搜“1155针主板”</strong>，也没什么好选的，当时闲鱼随便一搜看到B75主板就上了，现在如果配置要好一点那主板最好也好好选选，因为涉及到一些乱七八糟我不懂的，貌似有供电还有功能上的差异啥的</p>
-<blockquote>
-<p>ASUS B75M-A          120RMB</p>
-</blockquote>
-<h2 id="RAM"><a href="#RAM" class="headerlink" title="RAM"></a>RAM</h2><p>内存的话我选择的平台只能用DDR3咯，DDR3其实差别不大，频率的话基本上都是1333Mhz和1600Mhz的，差别不大，当然还是高频好一丢丢，家里老电脑是金士顿的条，本来也想整个金士顿的条配起来，不过看到一个海力士的1600Mhz的4G条才50包邮就入了，之后又入了一个同品牌同频率的8G条搭配起来搞非对称双通道（<strong>内存是可以不对称的！</strong>）</p>
-<p>内存尽量选择同品牌同型号同频率，<strong>混用内存可能会出现不兼容的问题</strong>，当然这个我没遇到过，并且<strong>内存频率是按最低的那条频率算的</strong>，水桶效应嘛，不过如果也是百元或者说千元预算的话其实无所谓，哪个便宜买哪个，内存更便宜的还有ECC内存（服务器内存）不过需要板U支持，我当时选择Core处理器也就没想那么多，如果上E3大概是可以搞的</p>
-<p>在选购内存的时候有点小插曲，当时看到价格不贵就买个了昂达 8G DDR3 1600Mhz的条，但是条到了以后插上电脑，电脑不读，不过鲁大师能读，百度一查，好家伙，这玩意是AMD专用条，从推上问网友结果他们给我的说法是：<strong>专用条是对AMD来说专用，AMD可能有的用不了，但是大品牌的AMD专用条Intel平台也是可用的</strong>，不过考虑到这个昂达是个十八线内存品牌，用不了也正常。。。跟卖家协商退掉了，所以内存这边需要留意一下兼容性问题</p>
-<blockquote>
-<p>海力士 4G DDR3 1600Mhz          50RMB</p>
-<p>海力士 8G DDR3 1600Mhz          138RMB</p>
-</blockquote>
-<h2 id="散热"><a href="#散热" class="headerlink" title="散热"></a>散热</h2><p>散热有条件就搞几个风扇搞风道，没钱就只用CPU散热，这边CPU散热我选择了超频3红海mini，29块钱全新，双铜管带风扇，卖家说TDP100W以下随便压，实际体验确实没超过50度，如果是垃圾配置预算1k5以内Intel平台我觉得可以选择这个散热</p>
-<blockquote>
-<p>超频3 红海mini双铜管          29RMB</p>
-</blockquote>
-<h2 id="硬盘"><a href="#硬盘" class="headerlink" title="硬盘"></a>硬盘</h2><p>硬盘因为家里有老硬盘我也没再买，如果不追求体积个人更推荐3.5寸盘，相对来说貌似是比2.5寸稳定一些，然后机械硬盘<strong>不要买叠瓦盘</strong>其他的根据自己预算来，固态不懂并且有钱就无脑三星，没钱就找点便宜的垃圾硬盘就行，当然前提是你预算非常紧，跟我装机一样只有1k左右预算咯</p>
-<h2 id="电源"><a href="#电源" class="headerlink" title="电源"></a>电源</h2><p><strong>电源一定不要省！！！</strong></p>
-<p><strong>电源一定不要省！！！</strong></p>
-<p><strong>电源一定不要省！！！</strong></p>
-<p>在当时装这个破机子的时候因为经费不足，并且也不是特别懂，所以就缩了电源，为了避免爆炸也只是选择了大品牌的二手（<del>十八手</del>）电源：航嘉WD400 400W额定电源，当时是自提的，那个人坐标电脑城，所以电源怎么来的估计心里都有B数了</p>
-<blockquote>
-<p>航嘉 WD400 400W额定电源          75RMB</p>
-</blockquote>
-<p><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>   电源在使用了三个月后大概是因为短路坏掉了，电源插口有短路声，主板不亮，肯定是电源出问题了！并且劣质电源也会对机器其他部件产生不好的影响，太垃圾的可能会炸掉！</p>
-<p>那天走线走了半下午，装起来就坏掉了，血亏！</p>
-<p>为了<strong>走线方便我选择了全模组电源</strong>，闲鱼一搜其实也不是很贵，只是因为我最早装的时候贪便宜所以电源预算只给了不超过100，实际上闲鱼一搜100-200价位质量不错的全模组有不少，找一个还在保的个人买家买一般没问题</p>
-<p>关于白牌，铜牌，金牌，这个是代表<strong>电源转换率</strong>，说人话就是金牌比铜牌更省电，散热相对来说也就好一丢丢，个人觉得没必要上金牌，除非预算很充足</p>
-<blockquote>
-<p>安钛克 AP550W 550W铜牌电源</p>
-</blockquote>
-<h1 id="组装！"><a href="#组装！" class="headerlink" title="组装！"></a>组装！</h1><p>第一次装机说实话自己没有做太多功课，之前寻思着看装机猿的视频，不过啊，进度真的太慢了！一个多小时我就学会了怎么拆包装盒，怎么插CPU和内存，<del>还有讲相声XD</del>，所以我就自己搞呗，反正轻一点就行，<strong>不要大力出奇迹！</strong></p>
-<p>第一步自然是插CPU，这个网上教程一大把，就是把盖子搞起来然后CPU放进去就行，然后是插内存，内存有凹槽，打开两侧卡扣对准凹槽插进去就行</p>
-<p>把硅脂均匀点到CPU上，不用涂匀，X形涂一下，然后在X的每个空缺位置点个点就行，大体上就是这样：“※”，这个符号蛮小的，你可以放大看看，这样涂是最优解之一，反正我都是这样涂的</p>
-<p>然后你大概就可以把主板拧到机箱上了，在此之前你还需要把电源拧到机箱上</p>
-<p>插上显卡，拧紧螺丝，找个地方放硬盘，之后就是地狱了！</p>
-<p>你要开始处理各种线：电源线（主板供电，CPU供电，风扇供电，显卡供电，硬盘供电），硬盘线（主板上有Sata口，显卡一定会挡住Sata口，不知道怎么设计的，反正老平台肯定会挡，一般来说即便是挡住你也可以用几个，但是如果你硬盘很多你就需要折角Sata线），机箱线（线上字母对应主板就行，注意正负极，其实有的正负反了也不是不行，不过还是正对正负对负好一点）</p>
-<p>以上你需要处理很久，你可以用束线带魔术贴来整理线材</p>
-<p>检查无误以后：插电，开机</p>
-
+          <h2 class="post-title" itemprop="name headline">基于汇编语言的51单片机开发-1</h2>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-14T18:16:19+08:00">
+                2021-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/p/6a66.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/p/6a66.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>怎么说呢，我终于也“沦落”到了今天，据班长的说法我们大三上学期要学习单片机的课程，我之前也在学院楼的机房见到了我们要学习的单片机的教材，本来以为自己之前的那点基础应该是可以应付的了之后的课程了，但是呢，我想的太简单了</p>
+<blockquote>
+<p>“我翻开教材一看，这本教材没有年代，歪歪斜斜的每页上都写着‘单片机’三个字。我横竖睡不着，仔细看了半夜，才从字缝里看出字来，满本都写着两个字是‘汇编’！”——鲁迅</p>
+</blockquote>
+<p>这特么居然是汇编写的，也就是说生活在21世纪20年代的我们，现在要去学习一门上个世纪50年代的计算机语言，这玩意出生的比我爹妈还早好吗？让我们学这玩意就好像现在很多地方学习的office还是2003或者2010版本一样，<del>哦我的上帝啊，瞧瞧这糟糕的语言，如果谁想强迫我学习这个，我一定会狠狠的踢他的屁股，我发誓</del>，之前我们学习C语言教学用的远古IDE，学习CAD用的远古版本，我都可以解决：C语言使用Xcode和VScode进行开发，CAD使用2021版本进行使用，而现在汇编这玩意没办法用其他东西来“代替”，因为考试就考这玩意我用高级语言老师大概也不让？谁知道呢？</p>
+<p>总之呢，我对学习汇编语言还是非常抗拒的，毕竟这是一个低级语言，不同于今日的高级语言，他用起来更复杂，并且可读性非常差，但是它由于是面向机器的设计语言，学习这个更有助于了解底层的原理，不过呢，毕竟我还是一个“功利主义者”，能达到我的目的就可以了，因此高级语言对我来说也就更合适，不过毕竟下一学期要学习，并且我学习的嵌入式开发技术貌似也要学习汇编语言，头疼。。。不过毕竟我学习过机遇C语言开发的单片机，所以相对来说一些原理我还是明白的，所以学习起来绝对也就没有那么难受了，这一系列文章我大概会在暑假进行全部更新完毕，开学之后自己负担也轻一点，之前C语言的学习我上课是一点都没听，在开课前我就看过了，那PPT压根不讲人话，整个就是罗列知识点，很多东西在当时学习还未试过早并且在期末考试压根不会用到，再加上绝大多数人应该不会去实践的吧，我一直坚信：<strong>实践是检验真理的唯一标准</strong>，因此在我学习C语言的时候，自己没少写一写练习的程序，其中我还去LeetCode上去找题找虐了，总之写的程序上百个绝对是有了，虽然当时我期末考试成绩不咋地，不过我计算机二级C语言通过的还是比较轻松的（不过还是因为太自信压根不把计算机考试当回事也就没有去了解到底考什么，因为计算机考试公共部分知识点挂了一次哈哈哈）</p>
+<p>在这里，我将会把我在学习中：学到的，遇到的问题，可能出现的问题都罗列出来，虽然我只是一个初学者，但是我认为自己写出来的东西一定程度上比大多数老师教的要好，因为我写出来的前提是自己要理解，并且因为我是一个初学者，因此我也会遇到大家都有的问题和疑问，而不像老师，老师知道的太多很多可能对我们来讲不是很理解的东西对他而言很可能是理所当然的，不过因为之前我已经学习了一丝丝的知识，因为有些东西可能对我来说“理所当然”了？如果你是初学者有疑问，请从本站的索引进行搜索，或者直接通过我的联系方式联系我。写这个的目的一个是记录自己的学习，通过这样的方式自己会对一些知识会有更深的记忆和理解，另一方面，如果我们真的又碰见一个不讲人话（读PPT）的老师，我大概也会把这个推给别人，让别人也从我这里学习到一些东西，作为author，如果对你有帮助，我将感激不尽。</p>
+<h1 id="单片机的硬件结构"><a href="#单片机的硬件结构" class="headerlink" title="单片机的硬件结构"></a>单片机的硬件结构</h1><h2 id="MCS51单片机内部结构"><a href="#MCS51单片机内部结构" class="headerlink" title="MCS51单片机内部结构"></a>MCS51单片机内部结构</h2><p>在学习单片机的程序设计之前，我们要了解单片机内部到底是一个什么结构：</p>
+<img src="/p/undefined/IMG_8159.png" class title="单片机核心外观">
+
+<p>我们所见到的单片机核心的外观是这样一个样子，类似的东西相信大家都见过，很多芯片也是以这样的形式进行封装的，但是他们的内部结构和功能都大不相同，对于MCS51系列单片机，其内部结构是这样的：</p>
+<blockquote>
+<p>有人可能见到MCS51这个词会很陌生，简单讲一下，这个实际上就是牙膏厂（Intel）设计制造的一系列单片机的总称，这类单片机授权给了很多公司也出了很多型号，但是大家现在往往都称呼其为51单片机，其中比较典型的代表就是8051型单片机，我们在此学习的是他的升级版89C52单片机，这个词汇实际上不重要，毕竟现在大家都叫51单片机了嘛</p>
+</blockquote>
+<img src="/p/undefined/51%E5%8D%95%E7%89%87%E6%9C%BA%E6%A0%B8%E5%BF%83.png" class title="单片机核心">
+
+<p><strong><i class="fa fa-info-circle" aria-hidden="true"></i>注意：下面部分内容较为繁杂，看不懂也无所谓，大致上知道有什么东西，有什么基本功能就行，一些复杂的操作知道的太早并不好，因为知道太早压根就理解不了，死记硬背也费劲，还不如不知道为好，之后需要的地方根据实例对应地进行学习比这容易得多</strong></p>
+<p>在这里面我们可以将其分为8个部件：</p>
+<p><strong>CPU</strong>：这个大家都懂，中央处理器嘛，单片机中的一系列运算都是在这里进行的，51单片机使用的是8位处理器，也就是可以进行8位（1字节）的数据的处理，可以对这些字节数据进行加减乘除，逻辑操作（与，或，非等等），也可以进行位操作（按位与，按位或，按位非等等）。总之你就知道CPU中央处理器就是来算数的就行！</p>
+<p><strong>RAM</strong>：这个也就是平时我们讲到的内存，比如现在电脑基本上都是8G或者16G内存，手机现在基本上都是8G甚至12G 16G内存，51系列只有128个字节的内存，而我们使用的89C52单片机有256个字节的内存，内存大了自然是好的，不过也因此对内存中数据的处理略有不同。总之你需要知道计算机通常都有这样一个内存来临时存放数据，内存掉电数据就没啦</p>
+<p><strong>ROM</strong>：这个通俗来理解就是电脑上面的硬盘，手机上面的存储，与RAM最大的区别在于掉电不掉数据，即便是没有电，数据还是在的，但是一旦关机，内存中的数据也就全部没有了，早起版本的一些型号单片机中虽然有ROM但是使用者没有办法进行改动，但是在后来的89系列单片机中也就有了类似上面例子的可以擦写的ROM了，在89C52中拥有8K字节的容量。总之你只需要知道单片机也有类似手机存储和电脑硬盘一样的东西</p>
+<p><strong>P0～P3口</strong>：这些东西就是单片机与外部通讯的通道，分为了4组，为4个并行8位I/O口，并行可以理解为并联，互不干扰，8位指的分为了8个I/O口，而这些I/O口对应了单片机的各个引脚，一共4x8=32个，单片机就是通过这32个I/O口进行收发数据的，而其中，P0P2口通常条件下是作为数据地址口使用的，一条作为地址总线一条作为数据总线，一条发送地址信息，这样才能知道要读写哪个地方的数据，一条发送数据，将对应地址的数据进行读取或者写入。总之你只需知道单片机引出了很多引脚来进行与外部的数据的通信</p>
+<p><strong>串行口</strong>：拥有1个全双工的异步串行口，说人话就是可以同时发送和接收数据，这个通常用来进行单片机的烧录，也就是你写的程序通过这个发给单片机，通过图可以看到这个连到了P3口上，不仅如此还有C/T，中断，因此P3口承载了非常多的功能，观察单片机引脚定义图你会发现其功能。总之你只需要知道，单片机有与外部进行通信的结构，P3口不能随便乱动，每一个都有功能的！</p>
+<p><strong>C/T</strong>：又不讲人话了，这玩意就是 定时器/计数器，单片机定时器和计数器的数量与型号有关，但是功能顾名思义：就是用来定时和计数的，究竟怎么用来定时计数的，学过电工电子技术的和数电模电的可能会懂一点，但是如果不懂也没关系，之后会详细展开讲，因为这个东西还是蛮重要的</p>
+<p><strong>中断系统</strong>：在程序运行过程中，可能会有一些突发事件，中断系统就是为此而设立的，就比如自动扶梯，一般来说都有一个紧急停止按钮，你可以将其看作向中断系统发出信号，自动扶梯原本在正常运行，此时有突发事件，你按下按钮，电梯立马停止，这就是中断系统，中断系统有非常高的优先级，但是单片机也有好几个中断，其优先级也是不同的，这样应对突发事件的能力对单片机实时性提供了保障</p>
+<p><strong>SFR</strong>：特殊功能寄存器，用于对片内各个功能模块进行管理，控制，监视，实际上是一写控制寄存器和状态寄存器，你可以将其想象成电闸，你把电闸打开，相应的电器就可以运行，你也可以看一眼电闸哪个开了哪个没开，你就能知道有哪些电器没开，另外这个部分跟RAM相似，掉电数据会消失，因此要注意，这部分在学习中断系统和定时器/计数器时需要用到，因此之后会展开讲</p>
+<p>讲完上面这些玩意，你可能会一脸懵逼，很正常，其实很多我觉得初学者听不懂的东西我都删掉了，这些玩意，你早知道了压根没用，并且你也记不住，总之大致上知道单片机有这些东西就好了，这些所有的东西都连接到中间的数据总线与CPU连接</p>
+<h2 id="MCS51单片机引脚"><a href="#MCS51单片机引脚" class="headerlink" title="MCS51单片机引脚"></a>MCS51单片机引脚</h2><p>每个型号的单片机的引脚都不一样，并且封装方法也不一样，因此具体的引脚定义图需要看厂家给予的引脚图，我们可以看到我们使用的单片机有40个I/O口，因为不仅仅有P0～P3的32个I/O口，还有一些其他功能的I/O口比如RST重制，XTAL时钟引脚，VCC电源，GND接地等等，总之还是要具体芯片具体分析，下面放出STC89C52核心引脚定义图：</p>
+<img src="/p/undefined/Core.png" class title="STC89C52引脚定义图">
+
+<p>这些乱七八糟的引脚有啥用呢？讲真，我懒得讲了，不懂的请戳 <a href="baidu.com">百度</a> 好吧，用到什么学什么，总比一次全学最后一个都记不住的强，不过对于各组I/O口的一些区别可以了解下：</p>
+<p>P0：双向（可以输入，可以输出）8位三态（低电平，高电平，高阻态）I/O口，地址总线（低8位）以及数据总线分时复用口，可驱动8个LS型TTL负载</p>
+<p>P1：8位准双向I/O口，可驱动4个个LS型TTL负载</p>
+<p>P2：8位准双向I/O口，与地址总线（高8位）复用，可驱动4个LS型TTL负载</p>
+<p>P3：8位准双向I/O口，双功能复用，可驱动4个LS型TTL负载</p>
+<p>看完你是不是还是一脸懵，那就对了，我也懵，你只需要知道：一般来讲P0和P2作为数据地址总线，P3作为一些功能I/O口，这些一般来讲不要用，如果你想外接一个LED或者霍尔元件之类的东西，那么请<strong>尽量接到P1口</strong></p>
+<p>当然在我们的89C52中，实际上你看一下我们的学习使用的主板中的电路设计，P0就设计给了LED，P2也没有作为数据总线，不过既然他们都能有差不多的用处，但是P0和P2在一些情况下有特定的用法，为什么不一开始就直接接到P1呢，因此如果外界部件也尽量接到P1口，P1口完全是没有特定作用的，另外实际上如果P3口中的特定的功能没有开启，比如计时器中断等等，你也是可以用的，但是 我觉得 还是尽量不要去瞎用P3口</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    淼表
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://cnwatermeter.github.io/p/6a66.html" title="基于汇编语言的51单片机开发-1">http://cnwatermeter.github.io/p/6a66.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank"><i class="fa fa-cc" aria-hidden="true"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag"><i class="fa fa-bookmark"></i> 单片机</a>
+          
+            <a href="/tags/STC89C52/" rel="tag"><i class="fa fa-bookmark"></i> STC89C52</a>
+          
+            <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-bookmark"></i> 汇编语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/3a76.html" rel="next" title="不将就">
+                <i class="fa fa-chevron-left"></i> 不将就
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -548,7 +734,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E9%80%89%E6%8B%A9"><span class="nav-number">1.</span> <span class="nav-text">配置选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU"><span class="nav-number">1.1.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU"><span class="nav-number">1.2.</span> <span class="nav-text">GPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%9D%BF"><span class="nav-number">1.3.</span> <span class="nav-text">主板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RAM"><span class="nav-number">1.4.</span> <span class="nav-text">RAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%A3%E7%83%AD"><span class="nav-number">1.5.</span> <span class="nav-text">散热</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E7%9B%98"><span class="nav-number">1.6.</span> <span class="nav-text">硬盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B5%E6%BA%90"><span class="nav-number">1.7.</span> <span class="nav-text">电源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%84%E8%A3%85%EF%BC%81"><span class="nav-number">2.</span> <span class="nav-text">组装！</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E7%89%87%E6%9C%BA%E7%9A%84%E7%A1%AC%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">单片机的硬件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MCS51%E5%8D%95%E7%89%87%E6%9C%BA%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">MCS51单片机内部结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MCS51%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%95%E8%84%9A"><span class="nav-number">2.2.</span> <span class="nav-text">MCS51单片机引脚</span></a></li></ol></li></ol></div>
             
 
           </div>
